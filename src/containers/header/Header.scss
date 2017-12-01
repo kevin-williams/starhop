@@ -1,0 +1,9 @@
+//Import the base styles/colors
+@import '~styles/main';
+
+.starhop-header {
+    h1 {
+        background: $dt-stormgrey;
+        color: #d5d5d5;
+    }
+}

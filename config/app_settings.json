@@ -1,0 +1,14 @@
+{
+  "service_endpoints": {
+    "ZIP_CODE": "http://api.zippopotam.us/us/"
+  },
+  "logOptions": {
+    "level": "info",
+    "filename": "",
+    "maxsize": 1024000,
+    "tailable": true,
+    "maxFiles": 10,
+    "json": false,
+    "timestamp": true
+  }
+}

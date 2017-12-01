@@ -1,0 +1,9 @@
+//Import the base styles/colors
+@import '~styles/main';
+
+.starhop-starhop {
+    input {
+        color: $dt-black;
+        background: $dt-grey-background;
+    }
+}
