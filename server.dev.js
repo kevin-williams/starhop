@@ -13,42 +13,9 @@ const config = require('./webpack.config.dev.js');
 const util = require('./server/util/serverUtility');
 
 const port = config.devServer.port;
-const httpsPort = config.devServer.sslPort;
-
-const sslCert = {
-  key: fs.readFileSync('sslcert/private.key'),
-  cert: fs.readFileSync('sslcert/certificate.pem'),
-};
-
-// Add a default logging function for all routes
-app.use(function(request, response, next) {
-  if (winston.level == 'debug') {
-    winston.debug(`Calling request ${request.originalUrl}`);
-
-    let original = response.json.bind(response);
-    response.json = body => {
-      winston.debug(`Called request ${request.originalUrl}\n\tresponse=${JSON.stringify(body)}`);
-      original(body);
-    };
-  }
-
-  next();
-});
-
-// Redirect non-secure traffic to the secure server
-app.all('*', function(request, response, next) {
-  if (request.secure) {
-    return next();
-  }
-
-  response.redirect('https://' + request.hostname + ':' + httpsPort + request.url);
-});
 
 app.use(express.static('public'));
 app.use('/dist', express.static(path.join(__dirname, 'dist'))); // JS bundles
-
-// Route server side calls to the route handler
-app.use('/api', appRouter);
 
 // listen on http for dev
 app.listen(port, () =>
@@ -79,7 +46,3 @@ app.use(webpackHotMiddleware(compiler));
 app.use('*', function(request, response) {
   response.redirect('/');
 });
-
-https.createServer(sslCert, app).listen(httpsPort);
-winston.error(`Server version ${process.env.npm_package_version} now listening on localhost: ${httpsPort}
-    *** wait for webpack built message ***`);
