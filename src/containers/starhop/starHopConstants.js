@@ -1,3 +1,3 @@
-export const GET_ZIP = 'GET_ZIP';
-export const GET_ZIP_SUCCESS = 'GET_ZIP_SUCCESS';
-export const GET_ZIP_FAILURE = 'GET_ZIP_FAILURE';
+export const GET_STARS = 'GET_STARS';
+export const GET_STARS_SUCCESS = 'GET_STARS_SUCCESS';
+export const GET_STARS_FAILURE = 'GET_STARS_FAILURE';

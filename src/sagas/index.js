@@ -7,5 +7,5 @@ import * as starhop from '../containers/starhop/starHopSaga';
  If you don't put the function in here, the redux action will not work!
  */
 export default function* rootSaga() {
-  yield [starhop.watchUpdateZip()];
+  yield [starhop.watchGetStars()];
 }

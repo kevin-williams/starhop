@@ -6,13 +6,21 @@ import style from './StarMap.scss';
 export default class StarMap extends Component {
 
   componentDidMount() {
+    this.drawMap();
+  }
+
+  componentDidUpdate() {
+    console.log('got here');
+    this.drawMap();
+  }
+
+  drawMap() {
     const canvas = this.refs.canvas
     const ctx = canvas.getContext('2d');
 
     this.props.stars.map(star => {
       this.drawStar(ctx, this.props.view, star);
     })
-
   }
 
   drawStar(ctx, view, starEntry) {
