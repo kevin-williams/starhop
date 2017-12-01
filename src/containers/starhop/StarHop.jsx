@@ -7,12 +7,20 @@ import { getStars } from './starHopActions';
 
 import styles from './StarHop.scss';
 
-const SAMPLE_QUERY = {
+const ORION_QUERY = {
   raFrom: 4.5,
   raTo: 6.5,
   decFrom: -15,
   decTo: 15,
-  magLimit: 4.5,
+  magLimit: 9,
+}
+
+const PLEIADES_QUERY = {
+  raFrom: 3.6,
+  raTo: 4,
+  decFrom: 22,
+  decTo: 25,
+  magLimit: 9,
 }
 
 // Take redux state and set it into the component properties for easy access
@@ -24,7 +32,7 @@ export default class StarHop extends Component {
       <div className="starhop-location">
         <ErrorLine statusList={[this.props.starhop.zipCodeStatus]} />
         <StarMap stars={this.props.starhop.stars} view={this.props.starhop.view}/>
-        <button onClick={() => this.props.getStars(SAMPLE_QUERY)}>Load</button>
+        <button onClick={() => this.props.getStars(ORION_QUERY)}>Load</button>
         <button onClick={() => this.props.history.goBack()}>Back</button>
       </div>
     );
