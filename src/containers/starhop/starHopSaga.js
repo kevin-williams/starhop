@@ -27,7 +27,6 @@ const getStarsLookup = starQuery => {
 export function* getStars(action) {
   console.log('calling getStars with action=', action);
   try {
-
     const stars = yield call(getStarsLookup, action.starQuery);
     console.log('data for stars=', stars);
 
@@ -37,16 +36,17 @@ export function* getStars(action) {
         stars: stars,
         starStatus: {
           serviceFailure: false,
-          message: `${stars.length} stars found`
-        }
+          message: `${stars.length} stars found`,
+        },
       });
-
     } else {
-      yield put({ type: c.GET_STARS_FAILURE, stars: [],
+      yield put({
+        type: c.GET_STARS_FAILURE,
+        stars: [],
         starStatus: {
-        serviceFailure: false,
-        message: 'No stars found'
-      }
+          serviceFailure: false,
+          message: 'No stars found',
+        },
       });
     }
   } catch (error) {

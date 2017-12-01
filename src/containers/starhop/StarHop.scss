@@ -8,4 +8,8 @@
         background: $dt-grey-background;
     }
 
+    &__scopetype {
+        display: flex;
+        flex-direction: column;
+    }
 }

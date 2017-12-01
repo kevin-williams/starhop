@@ -9,27 +9,19 @@
     "build": "npm run clean && npm run build:webpack",
     "start": "npm run clean && nodemon server.dev.js",
     "start:prod": "npm run build && node server.js",
-    "prettier": "prettier --write '**/*.js*'",
+    "prettier": "prettier --write 'src/**/*.js*'",
     "fortify": "zip -r /tmp/pdlFortify.zip config dist public package.json server server.js webpack.config.js"
   },
   "babel": {
-    "presets": [
-      "babel-preset-env",
-      "react",
-      "stage-2"
-    ],
-    "plugins": [
-      "transform-decorators-legacy"
-    ]
+    "presets": ["babel-preset-env", "react", "stage-2"],
+    "plugins": ["transform-decorators-legacy"]
   },
   "prettier": {
     "singleQuote": true,
     "printWidth": 120,
     "trailingComma": "es5"
   },
-  "keywords": [
-    "TODO Change Keyword"
-  ],
+  "keywords": ["TODO Change Keyword"],
   "author": "DTC - Kevin Williams",
   "license": "ISC",
   "dependencies": {
