@@ -1,9 +1,11 @@
 //Import the base styles/colors
 @import '~styles/main';
 
-.starhop-starhop {
+.starhop-hopview {
+    display: flex;
     input {
         color: $dt-black;
         background: $dt-grey-background;
     }
+
 }
