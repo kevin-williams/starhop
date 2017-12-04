@@ -18,8 +18,8 @@ const ORION_QUERY = {
 
 const PLEIADES_QUERY = {
   raFrom: 3.3,
-  raTo: 4.5,
-  decFrom: 20,
+  raTo: 4.3,
+  decFrom: 21,
   decTo: 27,
   magLimit: 15,
 };
@@ -38,13 +38,61 @@ export default class StarHop extends Component {
     this.props.updateEyepieceView(newView);
   };
 
+  moveUp = e => {
+    let newEyepieceView = this.props.starhop.eyepieceView;
+    let newView = this.props.starhop.view;
+    newEyepieceView.dec = newEyepieceView.dec + 0.1;
+    newView.dec = newEyepieceView.dec;
+    console.log('showing new view=', newEyepieceView);
+    this.props.updateEyepieceView(newEyepieceView);
+    this.props.updateView(newView);
+  };
+
+  moveDown = e => {
+    let newEyepieceView = this.props.starhop.eyepieceView;
+    let newView = this.props.starhop.view;
+    newEyepieceView.dec = newEyepieceView.dec - 0.1;
+    newView.dec = newEyepieceView.dec;
+    console.log('showing new view=', newEyepieceView);
+    this.props.updateEyepieceView(newEyepieceView);
+    this.props.updateView(newView);
+  };
+
+  moveRight = e => {
+    let newEyepieceView = this.props.starhop.eyepieceView;
+    let newView = this.props.starhop.view;
+    newEyepieceView.ra = newEyepieceView.ra - 0.007;
+    newView.ra = newEyepieceView.ra;
+    console.log('showing new view=', newEyepieceView);
+    this.props.updateEyepieceView(newEyepieceView);
+    this.props.updateView(newView);
+  };
+
+  moveLeft = e => {
+    let newEyepieceView = this.props.starhop.eyepieceView;
+    let newView = this.props.starhop.view;
+    newEyepieceView.ra = newEyepieceView.ra + 0.007;
+    newView.ra = newEyepieceView.ra;
+    console.log('showing new view=', newEyepieceView);
+    this.props.updateEyepieceView(newEyepieceView);
+    this.props.updateView(newView);
+  };
+
   render() {
     return (
       <div>
         <div className="starhop-hopview">
           <ErrorLine statusList={[this.props.starhop.zipCodeStatus]} />
           <StarMap stars={this.props.starhop.stars} view={this.props.starhop.view} />
-          <StarMap stars={this.props.starhop.stars} view={this.props.starhop.eyepieceView} />
+          <div>
+            <StarMap stars={this.props.starhop.stars} view={this.props.starhop.eyepieceView} />
+            <div>
+              <button onClick={this.moveUp}>^</button>
+              <button onClick={this.moveDown}>v</button>
+              <button onClick={this.moveRight}>&gt;</button>
+              <button onClick={this.moveLeft}>&lt;</button>
+            </div>
+          </div>
           <div className="starhop-hopview__scopetype">
             <ScopeTypeButton
               label="Correct Image"

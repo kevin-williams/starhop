@@ -2,44 +2,43 @@ import * as c from './starHopConstants';
 import { DEFAULT_SERVICE_STATUS, getUrlParam } from 'utils';
 
 const ORION_VIEW = {
-  raFrom: 4.5,
-  raTo: 6.5,
-  decFrom: -15,
-  decTo: 15,
+  ra: 5,
+  dec: 0,
+  fov: 7,
   magLimit: 5,
   width: 600,
   height: 600,
 };
 
+// TODO FIX THIS
 const ORION_EYEPIECE_VIEW = {
-  raFrom: 4.5,
-  raTo: 6.5,
-  decFrom: -15,
-  decTo: 15,
+  raFrom: 5.8,
+  raTo: 6,
+  decFrom: 6.5,
+  decTo: 8.3,
   magLimit: 11,
   width: 300,
   height: 300,
+  scopeType: 'Correct Image',
 };
 
 const PLEIADES_VIEW = {
-  raFrom: 3.3,
-  raTo: 4.5,
-  decFrom: 20,
-  decTo: 27,
+  ra: 3.78,
+  dec: 24,
+  fov: 7,
   magLimit: 9,
   width: 600,
   height: 600,
 };
 
 const PLEIADES_EYEPIECE_VIEW = {
-  raFrom: 3.73,
-  raTo: 3.85,
-  decFrom: 23.3,
-  decTo: 24.8,
+  ra: 3.78,
+  dec: 24,
+  fov: 1.4,
   magLimit: 15,
   width: 300,
   height: 300,
-  scopeType: 'Refractor',
+  scopeType: 'Correct Image',
 };
 
 export const defaultState = {

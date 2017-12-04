@@ -19,10 +19,19 @@ export default class StarMap extends Component {
 
     console.log('drawing map for ' + this.props.stars.length + ' stars with view=', this.props.view);
 
-    this.drawScopeCircle(ctx, this.props.view);
+    let myView = this.props.view;
+
+    // In RA, 0.07 == 1 degree
+    myView.raFrom = myView.ra - myView.fov * 0.07 / 2;
+    myView.raTo = myView.ra + myView.fov * 0.07 / 2;
+
+    myView.decFrom = myView.dec - myView.fov / 2;
+    myView.decTo = myView.dec + myView.fov / 2;
+
+    this.drawScopeCircle(ctx, myView);
 
     this.props.stars.map(star => {
-      this.drawStar(ctx, this.props.view, star);
+      this.drawStar(ctx, myView, star);
     });
   }
 
