@@ -26,7 +26,7 @@ const PLEIADES_VIEW = {
   raTo: 4.5,
   decFrom: 20,
   decTo: 27,
-  magLimit: 7,
+  magLimit: 9,
   width: 600,
   height: 600,
 };
@@ -36,7 +36,7 @@ const PLEIADES_EYEPIECE_VIEW = {
   raTo: 3.85,
   decFrom: 23.3,
   decTo: 24.8,
-  magLimit: 11,
+  magLimit: 15,
   width: 300,
   height: 300,
   scopeType: 'Refractor',

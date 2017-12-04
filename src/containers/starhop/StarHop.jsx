@@ -13,7 +13,7 @@ const ORION_QUERY = {
   raTo: 6.5,
   decFrom: -15,
   decTo: 15,
-  magLimit: 10,
+  magLimit: 15,
 };
 
 const PLEIADES_QUERY = {
@@ -21,7 +21,7 @@ const PLEIADES_QUERY = {
   raTo: 4.5,
   decFrom: 20,
   decTo: 27,
-  magLimit: 10,
+  magLimit: 15,
 };
 
 // Take redux state and set it into the component properties for easy access

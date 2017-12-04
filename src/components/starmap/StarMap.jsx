@@ -17,9 +17,21 @@ export default class StarMap extends Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, this.props.view.width, this.props.view.height);
 
+    console.log('drawing map for ' + this.props.stars.length + ' stars with view=', this.props.view);
+
+    this.drawScopeCircle(ctx, this.props.view);
+
     this.props.stars.map(star => {
       this.drawStar(ctx, this.props.view, star);
     });
+  }
+
+  drawScopeCircle(ctx, view) {
+    ctx.beginPath();
+    ctx.arc(view.width / 2, view.height / 2, view.height / 2, 0, 2 * Math.PI);
+    ctx.closePath();
+    // ctx.fillStyle = 'black';
+    ctx.clip();
   }
 
   drawStar(ctx, view, starEntry) {
@@ -54,20 +66,25 @@ export default class StarMap extends Component {
 
     let mag = starEntry.Mag;
 
-    if (view.magLimit < mag) {
+    if (Number(view.magLimit) < Number(mag)) {
+      console.log('skipping entry for magLimit=' + view.magLimit, starEntry);
       // skip drawing this one
       return;
     }
 
     let size = Math.floor(20 - 2 * mag);
-    let xadd = Math.floor(size / 2);
+    if (size > 2) {
+      let xadd = Math.floor(size / 2);
 
-    var grd = ctx.createRadialGradient(x + xadd, y + xadd, 0, x + xadd, y + xadd, xadd);
-    grd.addColorStop(0, 'white');
-    grd.addColorStop(1, 'black');
+      var grd = ctx.createRadialGradient(x + xadd, y + xadd, 0, x + xadd, y + xadd, xadd);
+      grd.addColorStop(0, 'rgba(255,255,255,1)');
+      grd.addColorStop(1, 'rgba(0,0,0,0');
 
-    ctx.fillStyle = grd;
-
+      ctx.fillStyle = grd;
+    } else {
+      size = 1;
+      ctx.fillStyle = 'White';
+    }
     // console.log('drawing star at x=' + x + ' y=' + y + ' with size=' + size + ' for mag=' + mag);
 
     ctx.fillRect(x, y, size, size);
