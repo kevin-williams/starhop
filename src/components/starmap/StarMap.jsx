@@ -67,7 +67,7 @@ export default class StarMap extends Component {
     let mag = starEntry.Mag;
 
     if (Number(view.magLimit) < Number(mag)) {
-      console.log('skipping entry for magLimit=' + view.magLimit, starEntry);
+      // console.log('skipping entry for magLimit=' + view.magLimit, starEntry);
       // skip drawing this one
       return;
     }
