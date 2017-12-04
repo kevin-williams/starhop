@@ -12,14 +12,8 @@ export default class Header extends Component {
   render() {
     return (
       <span className="starhop-header">
-        <h1>
-          TODO - Real Header Here! <CityState location={this.props.location} />
-        </h1>
+        <h1>StarHop Trainer</h1>
       </span>
     );
   }
 }
-
-Header.propTypes = {
-  location: PropTypes.object,
-};
