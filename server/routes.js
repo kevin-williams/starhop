@@ -16,6 +16,7 @@ router.use(bodyParser.json());
 
 // This takes the location parameter as the zipcode by digits only
 router.get('/stars', dbController.getStars);
+router.get('/dsos', dbController.getDSOs);
 
 // Return the log file as set up in the appSetting file
 router.get('/log', function(request, response) {

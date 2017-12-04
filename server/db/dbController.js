@@ -6,14 +6,14 @@ const winston = require('winston');
 const appSettings = require('../../config/app_settings.json');
 const util = require('../util/serverUtility');
 
-const STAR_DB = '/home/kwilliams/repositories/research/starhopping/server/db/hygfull.csv';
-const DSO_DB = './dso.csv';
+const STAR_DB = '/home/kwilliams/repositories/research/starhop/server/db/hygfull.csv';
+const DSO_DB = '/home/kwilliams/repositories/research/starhop/server/db/messier.csv';
 
 const RA_START_RECORD = {
-  'RA-0': 1
-}
+  'RA-0': 1,
+};
 
-const RA_END_RECORD = {}
+const RA_END_RECORD = {};
 
 /**
  * Controller for handling all location calls through the server side.
@@ -21,7 +21,6 @@ const RA_END_RECORD = {}
  */
 module.exports = {
   getStars: async function(request, response) {
-
     try {
       const { raFrom, decFrom, raTo, decTo, magLimit } = request.query;
 
@@ -46,6 +45,30 @@ module.exports = {
       response.json(util.parseServiceErrorStatus('Error looking up stars', 'No stars returned', error, util.ERROR));
     }
   },
+
+  getDSOs: async function(request, response) {
+    try {
+      let dsos = await loadDSOs();
+      // winston.debug('dsos=', dsos);
+      if (dsos && dsos.length > 0) {
+        response.json({
+          status: util.parseServiceSuccessStatus('success'),
+          dsos: dsos,
+        });
+      } else {
+        response.json({
+          status: util.parseServiceSuccessStatus('no results found'),
+        });
+      }
+    } catch (error) {
+      /**
+       * Catch the error and log it.
+       * Then send back a status object including information about the error.
+       */
+      winston.error('/api/dsos error=', error);
+      response.json(util.parseServiceErrorStatus('Error looking up dsos', 'No dsos returned', error, util.ERROR));
+    }
+  },
 };
 
 /**
@@ -61,38 +84,36 @@ module.exports = {
  */
 async function loadStars(raFrom, decFrom, raTo, decTo, magLimit) {
   return new Promise(function(resolve, reject) {
-
     const parser = parse({
       columns: true,
       ltrim: true,
-      rtrim: true
+      rtrim: true,
     });
     const rs = fs.createReadStream(STAR_DB);
 
     const stars = [];
 
-    parser.on('readable', function () {
-
-      while (starEntry = parser.read()) {
+    parser.on('readable', function() {
+      while ((starEntry = parser.read())) {
         // winston.debug('starEntry=', starEntry);
-        if (Number(starEntry.RA) >= Number(raFrom)
-          && Number(starEntry.RA) <= Number(raTo)
-          && Number(starEntry.Dec) > Number(decFrom)
-          && Number(starEntry.Dec) < Number(decTo)
-          && Number(starEntry.Mag) < Number(magLimit)) {
-
+        if (
+          Number(starEntry.RA) >= Number(raFrom) &&
+          Number(starEntry.RA) <= Number(raTo) &&
+          Number(starEntry.Dec) > Number(decFrom) &&
+          Number(starEntry.Dec) < Number(decTo) &&
+          Number(starEntry.Mag) < Number(magLimit)
+        ) {
           stars.push(starEntry);
         }
       }
+    });
 
-    })
-
-    parser.on('error', function (err) {
-      winston.error("read error", err);
+    parser.on('error', function(err) {
+      winston.error('read error', err);
       reject(err);
     });
 
-    parser.on('finish', function () {
+    parser.on('finish', function() {
       // stars.map(star => {
       //   winston.debug('star=', star);
       // })
@@ -100,7 +121,44 @@ async function loadStars(raFrom, decFrom, raTo, decTo, magLimit) {
       winston.info(`\tfound ${stars.length} stars`);
 
       resolve(stars);
-    })
+    });
+
+    rs.pipe(parser);
+  });
+}
+
+async function loadDSOs() {
+  return new Promise(function(resolve, reject) {
+    const parser = parse({
+      columns: true,
+      ltrim: true,
+      rtrim: true,
+    });
+    const rs = fs.createReadStream(DSO_DB);
+
+    const dsos = [];
+
+    parser.on('readable', function() {
+      while ((dso = parser.read())) {
+        winston.debug('dso=', dso);
+        dsos.push(dso);
+      }
+    });
+
+    parser.on('error', function(err) {
+      winston.error('read error', err);
+      reject(err);
+    });
+
+    parser.on('finish', function() {
+      // stars.map(star => {
+      //   winston.debug('star=', star);
+      // })
+
+      winston.info(`\tfound ${dsos.length} dsos`);
+
+      resolve(dsos);
+    });
 
     rs.pipe(parser);
   });

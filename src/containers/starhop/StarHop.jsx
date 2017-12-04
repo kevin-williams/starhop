@@ -86,11 +86,17 @@ export default class StarHop extends Component {
           <StarMap stars={this.props.starhop.stars} view={this.props.starhop.view} />
           <div>
             <StarMap stars={this.props.starhop.stars} view={this.props.starhop.eyepieceView} />
-            <div>
-              <button onClick={this.moveUp}>^</button>
-              <button onClick={this.moveDown}>v</button>
-              <button onClick={this.moveRight}>&gt;</button>
-              <button onClick={this.moveLeft}>&lt;</button>
+            <div className="starhop-hopview__arrows">
+              <div className="starhop-hopview__arrows__row">
+                <button onClick={this.moveUp}>^</button>
+              </div>
+              <div className="starhop-hopview__arrows__row">
+                <button onClick={this.moveLeft}>&lt;</button>
+                <button onClick={this.moveRight}>&gt;</button>
+              </div>
+              <div className="starhop-hopview__arrows__row">
+                <button onClick={this.moveDown}>v</button>
+              </div>
             </div>
           </div>
           <div className="starhop-hopview__scopetype">
