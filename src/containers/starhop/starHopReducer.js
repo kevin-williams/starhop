@@ -10,12 +10,10 @@ const ORION_VIEW = {
   height: 600,
 };
 
-// TODO FIX THIS
 const ORION_EYEPIECE_VIEW = {
-  raFrom: 5.8,
-  raTo: 6,
-  decFrom: 6.5,
-  decTo: 8.3,
+  ra: 5,
+  dec: 0,
+  fov: 1.4,
   magLimit: 11,
   width: 300,
   height: 300,
@@ -41,10 +39,30 @@ const PLEIADES_EYEPIECE_VIEW = {
   scopeType: 'Correct Image',
 };
 
+const M57_VIEW = {
+  ra: 18.62,
+  dec: 38.7,
+  fov: 7,
+  magLimit: 8,
+  width: 600,
+  height: 600,
+};
+
+const M57_EYEPIECE_VIEW = {
+  ra: 18.62,
+  dec: 38.7,
+  fov: 1.4,
+  magLimit: 12,
+  width: 300,
+  height: 300,
+  scopeType: 'Correct Image',
+};
+
 export const defaultState = {
   stars: [],
-  view: PLEIADES_VIEW,
-  eyepieceView: PLEIADES_EYEPIECE_VIEW,
+  dsos: [],
+  view: M57_VIEW,
+  eyepieceView: M57_EYEPIECE_VIEW,
   starStatus: DEFAULT_SERVICE_STATUS,
 };
 
@@ -56,6 +74,13 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         stars: action.stars,
         starStatus: action.starStatus,
+      };
+
+    case c.GET_DEEP_SPACE_SUCCESS:
+    case c.GET_DEEP_SPACE_FAILURE:
+      return {
+        ...state,
+        dsos: action.dsos,
       };
 
     case c.UPDATE_VIEW:

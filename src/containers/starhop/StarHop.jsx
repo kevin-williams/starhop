@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ErrorLine from '../../components/error/ErrorLine';
 import ScopeTypeButton from '../../components/starmap/ScopeTypeButton';
 import StarMap from '../../components/starmap/StarMap';
-import { getStars, updateEyepieceView } from './starHopActions';
+import { getStars, getDeepSpaceObjects, updateView, updateEyepieceView } from './starHopActions';
 
 import styles from './StarHop.scss';
 
@@ -24,10 +24,24 @@ const PLEIADES_QUERY = {
   magLimit: 15,
 };
 
+const M57_QUERY = {
+  raFrom: 18,
+  raTo: 20,
+  decFrom: 30,
+  decTo: 45,
+  magLimit: 15,
+};
+
 // Take redux state and set it into the component properties for easy access
 const mapStateToProps = state => state;
-@connect(mapStateToProps, { getStars, updateEyepieceView })
+@connect(mapStateToProps, { getStars, getDeepSpaceObjects, updateView, updateEyepieceView })
 export default class StarHop extends Component {
+  componentDidMount() {
+    console.log('starting load DSO action');
+    this.props.getStars(M57_QUERY);
+    this.props.getDeepSpaceObjects('M');
+  }
+
   handleScopeType = e => {
     let scopeType = e.target.value;
     console.log('Change scopeType=' + scopeType);
@@ -83,9 +97,13 @@ export default class StarHop extends Component {
       <div>
         <div className="starhop-hopview">
           <ErrorLine statusList={[this.props.starhop.zipCodeStatus]} />
-          <StarMap stars={this.props.starhop.stars} view={this.props.starhop.view} />
+          <StarMap stars={this.props.starhop.stars} view={this.props.starhop.view} dsos={this.props.starhop.dsos} />
           <div>
-            <StarMap stars={this.props.starhop.stars} view={this.props.starhop.eyepieceView} />
+            <StarMap
+              stars={this.props.starhop.stars}
+              view={this.props.starhop.eyepieceView}
+              dsos={this.props.starhop.dsos}
+            />
             <div className="starhop-hopview__arrows">
               <div className="starhop-hopview__arrows__row">
                 <button onClick={this.moveUp}>^</button>
@@ -111,7 +129,7 @@ export default class StarHop extends Component {
           </div>
         </div>
         <div>
-          <button onClick={() => this.props.getStars(PLEIADES_QUERY)}>Load</button>
+          <button onClick={() => this.props.getStars(M57_QUERY)}>Load</button>
           <button onClick={() => this.props.history.goBack()}>Back</button>
         </div>
       </div>

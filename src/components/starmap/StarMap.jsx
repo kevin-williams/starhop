@@ -33,6 +33,35 @@ export default class StarMap extends Component {
     this.props.stars.map(star => {
       this.drawStar(ctx, myView, star);
     });
+
+    this.props.dsos.map(dso => {
+      this.drawDSO(ctx, myView, dso);
+    });
+
+    this.drawReticle(ctx, myView);
+  }
+
+  drawReticle(ctx, view) {
+    let centerX = view.width / 2;
+    let centerY = view.height / 2;
+    console.log(`centerX ${centerX} centerY ${centerY}`);
+
+    // Draw horizontal
+    ctx.beginPath();
+    ctx.moveTo(centerX - 10, centerY);
+    ctx.lineTo(centerX - 5, centerY);
+
+    ctx.moveTo(centerX + 5, centerY);
+    ctx.lineTo(centerX + 10, centerY);
+
+    ctx.moveTo(centerX, centerY - 10);
+    ctx.lineTo(centerX, centerY - 5);
+
+    ctx.moveTo(centerX, centerY + 5);
+    ctx.lineTo(centerX, centerY + 10);
+
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
   }
 
   drawScopeCircle(ctx, view) {
@@ -41,6 +70,13 @@ export default class StarMap extends Component {
     ctx.closePath();
     // ctx.fillStyle = 'black';
     ctx.clip();
+
+    // draw edge of circle
+    ctx.beginPath();
+    ctx.arc(view.width / 2, view.height / 2, view.height / 2 - 1, 0, 2 * Math.PI);
+    ctx.closePath();
+    ctx.strokeStyle = 'grey';
+    ctx.stroke();
   }
 
   drawStar(ctx, view, starEntry) {
@@ -99,6 +135,61 @@ export default class StarMap extends Component {
     ctx.fillRect(x, y, size, size);
   }
 
+  drawDSO(ctx, view, dso) {
+    // console.log('view=', view);
+    // console.log('dso=', dso);
+    let flipVertically = false;
+    let flipHorizontally = false;
+
+    switch (view.scopeType) {
+      case 'Refractor':
+      case 'SCT':
+        flipHorizontally = true;
+        break;
+      case 'Dobsonian':
+        flipHorizontally = true;
+        flipVertically = true;
+    }
+
+    let ra = dso.ra;
+    let dec = dso.dec;
+    let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
+    let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
+
+    if (flipVertically) {
+      y = view.height - y;
+    }
+
+    if (flipHorizontally) {
+      x = view.width - x;
+    }
+
+    let mag = dso.mag;
+
+    if (Number(view.magLimit) < Number(mag)) {
+      // console.log('skipping entry for magLimit=' + view.magLimit, dso);
+      // skip drawing this one
+      return;
+    }
+
+    let size = Math.floor(20 - 2 * mag);
+    if (size > 2) {
+      let xadd = Math.floor(size / 2);
+
+      var grd = ctx.createRadialGradient(x + xadd, y + xadd, 0, x + xadd, y + xadd, xadd);
+      grd.addColorStop(0, 'rgba(0,255,0,1)');
+      grd.addColorStop(1, 'rgba(0,0,0,0');
+
+      ctx.fillStyle = grd;
+    } else {
+      size = 4;
+      ctx.fillStyle = 'blue';
+    }
+    // console.log('drawing star at x=' + x + ' y=' + y + ' with size=' + size + ' for mag=' + mag);
+
+    ctx.fillRect(x, y, size, size);
+  }
+
   render() {
     return (
       <div className="starhop-starmap">
@@ -110,5 +201,6 @@ export default class StarMap extends Component {
 
 StarMap.propTypes = {
   stars: PropTypes.array.isRequired,
+  dsos: PropTypes.array.isRequired,
   view: PropTypes.object.isRequired,
 };

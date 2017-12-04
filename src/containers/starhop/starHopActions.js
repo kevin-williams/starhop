@@ -6,6 +6,11 @@ export const getStars = starQuery => ({
   starQuery,
 });
 
+export const getDeepSpaceObjects = catalog => ({
+  type: c.GET_DEEP_SPACE,
+  catalog,
+});
+
 export const updateView = view => ({
   type: c.UPDATE_VIEW,
   view,

@@ -37,3 +37,25 @@ export function loadStars(starQuery) {
     }
   });
 }
+
+export function loadDSOs() {
+  return new Promise(function(resolve, reject) {
+    console.log('Loading dso db from url');
+
+    try {
+      axios
+        .get('/db/messier.json')
+        .then(response => {
+          console.log('got dso response', response);
+          resolve(response.data.dsos);
+        })
+        .catch(error => {
+          console.log('Error reading dso db', error);
+          reject(error);
+        });
+    } catch (error) {
+      console.log('caught dso error', error);
+      reject(error);
+    }
+  });
+}
