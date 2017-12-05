@@ -1,0 +1,99 @@
+.app-error-line {
+  top: -20px;
+  position: relative;
+  display: flex;
+  text-align: left;
+  border-top: 2px solid #d9d9d9;
+  border-bottom: 2px solid #d9d9d9;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+  -webkit-animation: app-error-line 1s ease forwards;
+  -moz-animation: app-error-line 1s ease forwards;
+  -ms-animation: app-error-line 1s ease forwards;
+  -o-animation: app-error-line 1s ease forwards;
+  animation: app-error-line 1s ease forwards; }
+  .app-error-line-error {
+    color: #b21411;
+    border-right: 3px solid #b21411; }
+  .app-error-line-warn {
+    color: #eb9e17;
+    border-right: 3px solid #eb9e17; }
+  .app-error-line__image {
+    padding-right: 20px; }
+
+@-webkit-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@-moz-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@-ms-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@-o-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+.starhop-starmap canvas {
+  background: black;
+  color: white;
+  margin: 5px; }
+.starhop-hopview {
+  display: flex; }
+  .starhop-hopview input {
+    color: #333333;
+    background: #CCCCCC; }
+  .starhop-hopview__scopetype {
+    display: flex;
+    flex-direction: column; }
+  .starhop-hopview__arrows {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%; }
+    .starhop-hopview__arrows__row {
+      display: flex;
+      justify-content: center; }
+.starhop-city-state {
+  color: #ED1C24; }
+.starhop-header h1 {
+  background: #77797C;
+  color: #d5d5d5; }
+.starhop-homepage {
+  display: flex;
+  flex-direction: column; }
+  .starhop-homepage a {
+    color: #333333;
+    background: #DFE8FF;
+    border: ridge;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 10px; }
+
+/*# sourceMappingURL=main.css.map*/
