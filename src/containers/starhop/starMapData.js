@@ -9,7 +9,7 @@ export function loadStars(starQuery) {
 
     try {
       axios
-        .get('/db/hygfull.json')
+        .get('db/hygfull.json')
         .then(response => {
           console.log('got response', response);
           const stars = response.data.stars.filter(starEntry => {
@@ -44,7 +44,7 @@ export function loadDSOs() {
 
     try {
       axios
-        .get('/db/messier.json')
+        .get('db/messier.json')
         .then(response => {
           console.log('got dso response', response);
           resolve(response.data.dsos);
