@@ -17,7 +17,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 render(
   <Provider store={store}>
     <Router>
-      <div>
+      <div className="starhop-app">
         <Route component={Header} />
         <Route exact path="/" component={StarHop} />
         <Route path="/starhop" component={StarHop} />

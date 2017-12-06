@@ -2,8 +2,18 @@
 @import '~styles/main';
 
 .starhop-header {
-    h1 {
-        background: $dt-stormgrey;
+    background-image: url(/images/banner.png);
+
+    &__title {
         color: #d5d5d5;
+        padding-left: 20px;
+        margin: 5px;
+        display: flex;
+        align-items: center;
+        background: transparent;
+        font-size: 1.3em;
+
+        height: 50px;
+        width:910px;
     }
 }
