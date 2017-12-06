@@ -1,7 +1,6 @@
 {
-  "m57": {
-    "catalog": "M",
-    "id": "57",
+  "M57": {
+    "id": "M57",
     "description": "Hop to M57 (Ring Nebula) starting at the star Vega",
     "starMapQuery" : {
       "raFrom": 18,
@@ -19,9 +18,8 @@
       "dec": 35.22
     }
   },
-  "m81": {
-    "catalog": "M",
-    "id": "81",
+  "M81": {
+    "id": "M81",
     "description": "Hop to M81 Galaxy starting at the star Dubhe (tip of the ladle in the big dipper)",
     "starMapQuery" : {
       "raFrom": 8,
