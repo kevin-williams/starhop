@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+const hopData = require('../../../public/db/hopData.json');
+
 import ErrorLine from '../../components/error/ErrorLine';
 import ScopeTypeButton from '../../components/starmap/ScopeTypeButton';
 import StarMap from '../../components/starmap/StarMap';
 import { getStars, getDeepSpaceObjects, updateView, updateEyepieceView } from './starHopActions';
 
 import styles from './StarHop.scss';
+
+const finderView = {
+  fov: 7,
+  magLimit: 8,
+  width: 600,
+  height: 600,
+};
+
+const eyepieceView = {
+  fov: 1.4,
+  magLimit: 12,
+  width: 300,
+  height: 300,
+  scopeType: 'Dobsonian',
+};
 
 const ORION_QUERY = {
   raFrom: 4.5,
@@ -24,23 +41,36 @@ const PLEIADES_QUERY = {
   magLimit: 15,
 };
 
-const M57_QUERY = {
-  raFrom: 18,
-  raTo: 20,
-  decFrom: 30,
-  decTo: 45,
-  magLimit: 15,
-};
-
 // Take redux state and set it into the component properties for easy access
 const mapStateToProps = state => state;
 @connect(mapStateToProps, { getStars, getDeepSpaceObjects, updateView, updateEyepieceView })
 export default class StarHop extends Component {
   componentDidMount() {
     console.log('starting load DSO action');
-    this.props.getStars(M57_QUERY);
     this.props.getDeepSpaceObjects('M');
+    this.loadHopData('m81');
   }
+
+  loadHopData = hop => {
+    const hopInfo = hopData[hop];
+
+    this.props.getStars(hopInfo.starMapQuery);
+    const myFinderView = {
+      ...finderView,
+      ra: hopInfo.startingLocation.ra,
+      dec: hopInfo.startingLocation.dec,
+    };
+    console.log('myFinderView', myFinderView);
+    this.props.updateView(myFinderView);
+
+    const myEyepieceView = {
+      ...eyepieceView,
+      ra: hopInfo.startingLocation.ra,
+      dec: hopInfo.startingLocation.dec,
+    };
+    console.log('myEyepieceView', myEyepieceView);
+    this.props.updateEyepieceView(myEyepieceView);
+  };
 
   handleScopeType = e => {
     let scopeType = e.target.value;

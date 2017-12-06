@@ -55,7 +55,7 @@ const M57_EYEPIECE_VIEW = {
   magLimit: 12,
   width: 300,
   height: 300,
-  scopeType: 'Correct Image',
+  scopeType: 'Dobsonian',
 };
 
 export const defaultState = {
