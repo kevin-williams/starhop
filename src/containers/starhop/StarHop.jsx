@@ -177,9 +177,6 @@ export default class StarHop extends Component {
             <ScopeTypeButton label="Dobsonian" view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
           </div>
         </div>
-        <div>
-          <button onClick={() => this.props.history.goBack()}>Back</button>
-        </div>
       </div>
     );
   }

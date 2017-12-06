@@ -28,6 +28,8 @@ export default class StarMap extends Component {
     myView.decFrom = myView.dec - myView.fov / 2;
     myView.decTo = myView.dec + myView.fov / 2;
 
+    this.drawFOV(ctx, myView);
+
     this.drawScopeCircle(ctx, myView);
 
     this.props.stars.map(star => {
@@ -39,6 +41,14 @@ export default class StarMap extends Component {
     });
 
     this.drawReticle(ctx, myView);
+  }
+
+  drawFOV(ctx, view) {
+    if (view.fov) {
+      ctx.fillStyle = 'white';
+      ctx.font = '15px Georgia';
+      ctx.fillText(`${view.fov}°`, 10, 20);
+    }
   }
 
   drawReticle(ctx, view) {
