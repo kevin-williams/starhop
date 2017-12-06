@@ -2,7 +2,7 @@
 @import '~styles/main';
 
 .starhop-header {
-    background-image: url(/images/banner.png);
+    background-image: url(/images/banner.png), url(/starhop/images/banner.png);
 
     &__title {
         color: #d5d5d5;
