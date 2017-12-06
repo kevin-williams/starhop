@@ -64,6 +64,10 @@ export const defaultState = {
   view: M57_VIEW,
   eyepieceView: M57_EYEPIECE_VIEW,
   starStatus: DEFAULT_SERVICE_STATUS,
+  selectedHop: {
+    id: '',
+    description: 'Please select an object to practicing hopping to',
+  },
 };
 
 export default function userReducer(state = defaultState, action) {
@@ -93,6 +97,12 @@ export default function userReducer(state = defaultState, action) {
       return {
         ...state,
         eyepieceView: action.view,
+      };
+
+    case c.UPDATE_SELECTED_HOP:
+      return {
+        ...state,
+        selectedHop: action.hop,
       };
 
     default:

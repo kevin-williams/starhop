@@ -20,3 +20,8 @@ export const updateEyepieceView = view => ({
   type: c.UPDATE_EYEPIECE_VIEW,
   view,
 });
+
+export const updateSelectedHop = hop => ({
+  type: c.UPDATE_SELECTED_HOP,
+  hop,
+});

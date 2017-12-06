@@ -5,8 +5,9 @@ const hopData = require('../../../public/db/hopData.json');
 
 import ErrorLine from '../../components/error/ErrorLine';
 import ScopeTypeButton from '../../components/starmap/ScopeTypeButton';
+import StarHopSelector from '../../components/starmap/StarHopSelector';
 import StarMap from '../../components/starmap/StarMap';
-import { getStars, getDeepSpaceObjects, updateView, updateEyepieceView } from './starHopActions';
+import { getStars, getDeepSpaceObjects, updateView, updateEyepieceView, updateSelectedHop } from './starHopActions';
 
 import styles from './StarHop.scss';
 
@@ -41,18 +42,26 @@ const PLEIADES_QUERY = {
   magLimit: 15,
 };
 
+const hopItems = [];
+
 // Take redux state and set it into the component properties for easy access
 const mapStateToProps = state => state;
-@connect(mapStateToProps, { getStars, getDeepSpaceObjects, updateView, updateEyepieceView })
+@connect(mapStateToProps, { getStars, getDeepSpaceObjects, updateView, updateEyepieceView, updateSelectedHop })
 export default class StarHop extends Component {
   componentDidMount() {
     console.log('starting load DSO action');
     this.props.getDeepSpaceObjects('M');
-    this.loadHopData('m81');
+
+    Object.entries(hopData).map(entry => {
+      console.log('hopData entry', entry);
+      hopItems.push({ value: entry[0], label: entry[0] });
+    });
   }
 
   loadHopData = hop => {
-    const hopInfo = hopData[hop];
+    const hopInfo = hopData[hop.value];
+
+    this.props.updateSelectedHop(hopInfo);
 
     this.props.getStars(hopInfo.starMapQuery);
     const myFinderView = {
@@ -146,6 +155,14 @@ export default class StarHop extends Component {
                 <button onClick={this.moveDown}>v</button>
               </div>
             </div>
+            <div>
+              <StarHopSelector
+                selectedItem={this.props.starhop.selectedHop.id}
+                items={hopItems}
+                handler={this.loadHopData}
+                description={this.props.starhop.selectedHop.description}
+              />
+            </div>
           </div>
           <div className="starhop-hopview__scopetype">
             <ScopeTypeButton
@@ -159,7 +176,6 @@ export default class StarHop extends Component {
           </div>
         </div>
         <div>
-          <button onClick={() => this.props.getStars(M57_QUERY)}>Load</button>
           <button onClick={() => this.props.history.goBack()}>Back</button>
         </div>
       </div>

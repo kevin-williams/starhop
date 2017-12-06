@@ -32,7 +32,7 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.scss$/i,
+        test: /\.s?css$/i,
         use: extractCSS.extract({ fallback: 'style-loader', use: ['css-loader', 'sass-loader'] }),
       },
     ],
