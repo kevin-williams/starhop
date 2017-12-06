@@ -14,6 +14,7 @@ export default class StarHopSelector extends Component {
           value={this.props.selectedItem}
           onChange={this.props.handler}
           options={this.props.items}
+          placeholder="Select Hop..."
         />
         <p>{this.props.description}</p>
       </div>

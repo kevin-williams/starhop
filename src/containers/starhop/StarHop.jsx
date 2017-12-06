@@ -132,6 +132,8 @@ export default class StarHop extends Component {
   };
 
   render() {
+    console.log('selectedHop=', this.props.starhop.selectedHop);
+
     return (
       <div>
         <div className="starhop-hopview">
