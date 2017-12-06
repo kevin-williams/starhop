@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 const hopData = require('../../../public/db/hopData.json');
 
 import ErrorLine from '../../components/error/ErrorLine';
-import ScopeTypeButton from '../../components/starmap/ScopeTypeButton';
+import ScopeTypeSelector from '../../components/starmap/ScopeTypeSelector';
 import StarHopSelector from '../../components/starmap/StarHopSelector';
 import StarMap from '../../components/starmap/StarMap';
 import { getStars, getDeepSpaceObjects, updateView, updateEyepieceView, updateSelectedHop } from './starHopActions';
@@ -82,8 +82,8 @@ export default class StarHop extends Component {
   };
 
   handleScopeType = e => {
-    let scopeType = e.target.value;
-    console.log('Change scopeType=' + scopeType);
+    console.log('Change scopeType=', e);
+    let scopeType = e.value;
 
     let newView = this.props.starhop.eyepieceView;
     newView.scopeType = scopeType;
@@ -140,6 +140,7 @@ export default class StarHop extends Component {
           <ErrorLine statusList={[this.props.starhop.zipCodeStatus]} />
           <StarMap stars={this.props.starhop.stars} view={this.props.starhop.view} dsos={this.props.starhop.dsos} />
           <div>
+            <ScopeTypeSelector view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
             <StarMap
               stars={this.props.starhop.stars}
               view={this.props.starhop.eyepieceView}
@@ -165,16 +166,6 @@ export default class StarHop extends Component {
                 description={this.props.starhop.selectedHop.description}
               />
             </div>
-          </div>
-          <div className="starhop-hopview__scopetype">
-            <ScopeTypeButton
-              label="Correct Image"
-              view={this.props.starhop.eyepieceView}
-              handler={this.handleScopeType}
-            />
-            <ScopeTypeButton label="Refractor" view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
-            <ScopeTypeButton label="SCT" view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
-            <ScopeTypeButton label="Dobsonian" view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
           </div>
         </div>
       </div>
