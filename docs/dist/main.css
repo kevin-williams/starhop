@@ -488,17 +488,6 @@
   margin: 5px; }
 .starhop-hopview {
   display: flex; }
-  .starhop-hopview__scopetype {
-    display: flex;
-    flex-direction: column; }
-  .starhop-hopview__arrows {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%; }
-    .starhop-hopview__arrows__row {
-      display: flex;
-      justify-content: center; }
 .starhop-header {
   background-image: url(/images/banner.png), url(/starhop/images/banner.png); }
   .starhop-header__title {
