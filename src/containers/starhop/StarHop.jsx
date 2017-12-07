@@ -114,6 +114,7 @@ export default class StarHop extends Component {
               updateLocation={this.props.updateLocation}
               dsos={this.props.starhop.dsos}
             />
+            {targetFound}
             <div>
               <StarHopSelector
                 selectedItem={this.props.starhop.selectedHop.id}
@@ -121,7 +122,6 @@ export default class StarHop extends Component {
                 handler={this.loadHopData}
                 description={this.props.starhop.selectedHop.description}
               />
-              {targetFound}
             </div>
           </div>
         </div>
