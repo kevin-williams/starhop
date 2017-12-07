@@ -109,8 +109,8 @@ export default class StarMap extends Component {
         flipVertically = true;
     }
 
-    let ra = starEntry.ra;
-    let dec = starEntry.dec;
+    let ra = starEntry.RA;
+    let dec = starEntry.Dec;
     let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
     let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
 
@@ -122,7 +122,7 @@ export default class StarMap extends Component {
       x = view.width - x;
     }
 
-    let mag = starEntry.mag;
+    let mag = starEntry.Mag;
 
     if (Number(view.magLimit) < Number(mag)) {
       // console.log('skipping entry for magLimit=' + view.magLimit, starEntry);
@@ -170,6 +170,7 @@ export default class StarMap extends Component {
   drawDSO(ctx, view, dso) {
     // console.log('view=', view);
     // console.log('dso=', dso);
+    ctx.save();
     try {
       let flip = this.getFlip(view);
 
@@ -209,32 +210,41 @@ export default class StarMap extends Component {
         x = view.width - x;
       }
 
-      let xAdd = dsoWidth / 2;
-      let yAdd = dsoHeight / 2;
+      let minSize = dsoHeight < dsoWidth ? dsoHeight * 0.7 : dsoWidth * 0.7;
+      let maxSize = dsoHeight > dsoWidth ? dsoHeight * 0.7 : dsoWidth * 0.7;
 
-      var grd = ctx.createRadialGradient(
-        x + xAdd,
-        y + yAdd,
-        0,
-        x + xAdd,
-        y + yAdd,
-        dsoHeight < dsoWidth ? dsoHeight * 0.7 : dsoWidth * 0.7
-      );
-      grd.addColorStop(0, 'rgba(255,255,255,1)');
-      grd.addColorStop(1, 'rgba(0,0,0,0');
+      let widthHeightRatio = dsoWidth / dsoHeight;
+      let angle = 360 - dso.angle * Math.PI / 180;
+      if (flip.flipHorizontally && !flip.flipVertically) {
+        angle = 180 - dso.angle * Math.PI / 180;
+      }
 
-      ctx.fillStyle = grd;
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.scale(widthHeightRatio, 1);
 
       // ctx.fillStyle = 'blue';
       console.log(
         'drawing dso at x=' + x + ' y=' + y + ' with sizeX=' + dsoWidth + ', sizeY=' + dsoHeight + ' for mag=' + dso.mag
       );
 
-      ctx.gr;
+      var grd = ctx.createRadialGradient(0, 0, 0, 0, 0, minSize);
+      grd.addColorStop(0, 'rgba(255,255,255,1)');
+      grd.addColorStop(1, 'rgba(0,0,0,0');
 
-      ctx.fillRect(x, y, dsoWidth, dsoHeight);
+      ctx.fillStyle = grd;
+      if (maxSize < 5) {
+        ctx.fillStyle = 'blue';
+      }
+
+      ctx.beginPath();
+      ctx.arc(0, 0, maxSize / 2, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fill();
     } catch (error) {
       console.log('dso draw error', error);
+    } finally {
+      ctx.restore();
     }
   }
 
