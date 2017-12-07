@@ -16,6 +16,7 @@ export default class ScopeTypeSelector extends Component {
   render() {
     return (
       <Select
+        className="starhop-scope-selector"
         name="scope-selector"
         value={this.props.view.scopeType}
         onChange={this.props.handler}
