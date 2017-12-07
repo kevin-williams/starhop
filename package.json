@@ -1,13 +1,13 @@
 {
   "name": "TODO_Change_name",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "TODO Change description",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist/*",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "demo-deploy": "rimraf docs/* && npm run build && npm run copydist && npm run copypublic",
+    "demo-deploy": "npm version && rimraf docs/* && npm run build && npm run copydist && npm run copypublic",
     "copydist": "cpx \"dist/**/*\" docs/dist",
     "copypublic": "cpx \"public/**/*\" docs",
     "start": "npm run clean && nodemon server.dev.js",
