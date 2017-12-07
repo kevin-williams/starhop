@@ -15,11 +15,11 @@ export function loadStars(starQuery) {
           const stars = response.data.stars.filter(starEntry => {
             // console.log('starEntry=', starEntry);
             if (
-              Number(starEntry.RA) >= Number(raFrom) &&
-              Number(starEntry.RA) <= Number(raTo) &&
-              Number(starEntry.Dec) > Number(decFrom) &&
-              Number(starEntry.Dec) < Number(decTo) &&
-              Number(starEntry.Mag) < Number(magLimit)
+              Number(starEntry.ra) >= Number(raFrom) &&
+              Number(starEntry.ra) <= Number(raTo) &&
+              Number(starEntry.dec) > Number(decFrom) &&
+              Number(starEntry.dec) < Number(decTo) &&
+              Number(starEntry.mag) < Number(magLimit)
             ) {
               return starEntry;
             }

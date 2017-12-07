@@ -103,7 +103,8 @@ async function loadStars(raFrom, decFrom, raTo, decTo, magLimit) {
           Number(starEntry.dec) < Number(decTo) &&
           Number(starEntry.mag) < Number(magLimit)
         ) {
-          stars.push(starEntry);
+          // simplify output to minimize db size
+          stars.push({ ra: starEntry.ra, dec: starEntry.dec, mag: starEntry.mag });
         }
       }
     });

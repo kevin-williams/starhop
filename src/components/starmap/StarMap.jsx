@@ -20,8 +20,6 @@ export default class StarMap extends Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, this.props.view.width, this.props.view.height);
 
-    // console.log('drawing map for ' + this.props.stars.length + ' stars with view=', this.props.view);
-
     let myView = this.props.view;
     let location = this.props.location;
 
@@ -31,6 +29,8 @@ export default class StarMap extends Component {
 
     myView.decFrom = location.dec - myView.fov / 2;
     myView.decTo = location.dec + myView.fov / 2;
+
+    // console.log('drawing map for ' + this.props.stars.length + ' stars with view=', myView);
 
     this.drawFOV(ctx, myView);
 
@@ -93,6 +93,7 @@ export default class StarMap extends Component {
   }
 
   drawStar(ctx, view, starEntry) {
+    let { ra, dec, mag } = starEntry;
     // console.log('view=', view);
     // console.log('starEntry=', starEntry);
 
@@ -109,8 +110,6 @@ export default class StarMap extends Component {
         flipVertically = true;
     }
 
-    let ra = starEntry.RA;
-    let dec = starEntry.Dec;
     let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
     let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
 
@@ -121,8 +120,6 @@ export default class StarMap extends Component {
     if (flipHorizontally) {
       x = view.width - x;
     }
-
-    let mag = starEntry.Mag;
 
     if (Number(view.magLimit) < Number(mag)) {
       // console.log('skipping entry for magLimit=' + view.magLimit, starEntry);
@@ -173,9 +170,10 @@ export default class StarMap extends Component {
     ctx.save();
     try {
       let flip = this.getFlip(view);
-
-      let ra = dso.ra;
-      let dec = dso.dec;
+      let { ra, dec, r1, r2, angle } = dso;
+      if (!r2) {
+        r2 = r1;
+      }
 
       if (view.raFrom > ra || view.raTo < ra || view.decFrom > dec || view.DecTo < dec) {
         // console.log('\tskip drawing dso');
@@ -189,7 +187,7 @@ export default class StarMap extends Component {
         return;
       }
 
-      console.log('dso=', dso);
+      // console.log('dso=', dso);
       // Scale vs the view size in both RA (X) and degrees (Y)
       let scaleX = view.width / (view.raTo - view.raFrom);
       let scaleY = view.height / (view.decTo - view.decFrom);
@@ -199,8 +197,8 @@ export default class StarMap extends Component {
       let y = scaleY * (view.decTo - dec);
 
       // Figure height and width of the DSO, but use scaleY (degrees) for both directions
-      let dsoWidth = Math.ceil(dso.r1 * ARCMINUTE_TO_DEG * scaleY * DSO_SCALE_CONSTANT); // NOT scaleX
-      let dsoHeight = Math.ceil(dso.r2 * ARCMINUTE_TO_DEG * scaleY * DSO_SCALE_CONSTANT);
+      let dsoWidth = Math.ceil(r1 * ARCMINUTE_TO_DEG * scaleY * DSO_SCALE_CONSTANT); // NOT scaleX
+      let dsoHeight = Math.ceil(r2 * ARCMINUTE_TO_DEG * scaleY * DSO_SCALE_CONSTANT);
 
       if (flip.flipVertically) {
         y = view.height - y;
@@ -214,19 +212,18 @@ export default class StarMap extends Component {
       let maxSize = dsoHeight > dsoWidth ? dsoHeight * 0.7 : dsoWidth * 0.7;
 
       let widthHeightRatio = dsoWidth / dsoHeight;
-      let angle = 360 - dso.angle * Math.PI / 180;
+      let drawAngle = 360 - angle * Math.PI / 180;
       if (flip.flipHorizontally && !flip.flipVertically) {
-        angle = 180 - dso.angle * Math.PI / 180;
+        drawAngle = 180 - angle * Math.PI / 180;
       }
 
       ctx.translate(x, y);
-      ctx.rotate(angle);
+      ctx.rotate(drawAngle);
       ctx.scale(widthHeightRatio, 1);
 
-      // ctx.fillStyle = 'blue';
-      console.log(
-        'drawing dso at x=' + x + ' y=' + y + ' with sizeX=' + dsoWidth + ', sizeY=' + dsoHeight + ' for mag=' + dso.mag
-      );
+      // console.log(
+      //   'drawing dso at x=' + x + ' y=' + y + ' with sizeX=' + dsoWidth + ', sizeY=' + dsoHeight + ' for mag=' + dso.mag
+      // );
 
       var grd = ctx.createRadialGradient(0, 0, 0, 0, 0, minSize);
       grd.addColorStop(0, 'rgba(255,255,255,1)');
