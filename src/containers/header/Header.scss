@@ -2,6 +2,9 @@
 @import '~styles/main';
 
 .starhop-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     background-image: url(/images/banner.png), url(/starhop/images/banner.png);
 
     &__title {
@@ -15,4 +18,20 @@
 
         height: 50px;
     }
+}
+
+
+a:link, a:visited {
+    font-size: .9em;
+    background-color: #2196F3;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+    line-height: 35px;
+
 }

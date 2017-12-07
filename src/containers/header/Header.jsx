@@ -12,7 +12,10 @@ export default class Header extends Component {
   render() {
     return (
       <div className="starhop-header">
-        <div className="starhop-header__title">StarHop Trainer {version}</div>
+        <span className="starhop-header__title">StarHop Trainer {version}</span>{' '}
+        <a href="https://paypal.me/KevinWilliamsDev" className="starhop-link" target="_blank">
+          Donate if you enjoy this app!
+        </a>
       </div>
     );
   }
