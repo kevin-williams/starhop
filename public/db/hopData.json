@@ -1,6 +1,7 @@
 {
   "M13": {
     "id": "M13",
+    "label": "M13 (easy)",
     "description": "Hop to M13 (Hercules Cluster) starting at the star Eta Hercules (very easy).",
     "starMapQuery" : {
       "raFrom": 15.75,
@@ -20,6 +21,7 @@
   },
   "M27": {
     "id": "M27",
+    "label": "M27 (hard)",
     "description": "Hop to M27 (Dumbell Nebula) starting at the star Altair (long hop on purpose)",
     "starMapQuery" : {
       "raFrom": 18.5,
@@ -37,9 +39,30 @@
       "dec": 22.76
     }
   },
+  "M56": {
+    "id": "M56",
+    "label": "M56 (medium)",
+    "description": "Hop to M57 (Globular cluster) starting at the star Vega (Hint: Similar to M57 hop, but farther!)",
+    "starMapQuery" : {
+      "raFrom": 18,
+      "raTo": 20,
+      "decFrom": 26,
+      "decTo": 43,
+      "magLimit": 15
+    },
+    "startingLocation" : {
+      "ra": 18.62,
+      "dec": 38.7
+    },
+    "targetLocation" : {
+      "ra": 19.29,
+      "dec": 30.21
+    }
+  },
 
   "M57": {
     "id": "M57",
+    "label": "M57 (medium)",
     "description": "Hop to M57 (Ring Nebula) starting at the star Vega (Hint: M57 is small!)",
     "starMapQuery" : {
       "raFrom": 18,
@@ -59,25 +82,7 @@
   },
   "M81": {
     "id": "M81",
-    "description": "Hop to M81 Galaxy starting at the star Dubhe (tip of the ladle in the big dipper)",
-    "starMapQuery" : {
-      "raFrom": 8,
-      "raTo": 12,
-      "decFrom": 50,
-      "decTo": 70,
-      "magLimit": 15
-    },
-    "startingLocation" : {
-      "ra": 11.08,
-      "dec": 61.65
-    },
-    "targetLocation" : {
-      "ra": 9.92,
-      "dec": 69.06
-    }
-  },
-  "M81": {
-    "id": "M81",
+    "label": "M81 (hard)",
     "description": "Hop to M81 Galaxy starting at the star Dubhe (tip of the ladle in the big dipper)",
     "starMapQuery" : {
       "raFrom": 8,
@@ -95,5 +100,4 @@
       "dec": 69.06
     }
   }
-
 }

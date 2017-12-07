@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ScopeMagnificationSelector from '../../components/starmap/ScopeMagnificationSelector';
 
 const hopData = require('../../../public/db/hopData.json');
 
@@ -18,37 +19,6 @@ import {
 
 import styles from './StarHop.scss';
 
-const finderView = {
-  fov: 7,
-  magLimit: 8,
-  width: 600,
-  height: 600,
-};
-
-const eyepieceView = {
-  fov: 1.4,
-  magLimit: 12,
-  width: 300,
-  height: 300,
-  scopeType: 'Dobsonian',
-};
-
-const ORION_QUERY = {
-  raFrom: 4.5,
-  raTo: 6.5,
-  decFrom: -15,
-  decTo: 15,
-  magLimit: 15,
-};
-
-const PLEIADES_QUERY = {
-  raFrom: 3.3,
-  raTo: 4.3,
-  decFrom: 21,
-  decTo: 27,
-  magLimit: 15,
-};
-
 const hopItems = [];
 
 // Take redux state and set it into the component properties for easy access
@@ -66,7 +36,7 @@ export default class StarHop extends Component {
     this.props.getDeepSpaceObjects('M');
 
     Object.entries(hopData).map(entry => {
-      hopItems.push({ value: entry[0], label: entry[0] });
+      hopItems.push({ value: entry[0], label: entry[1].label });
     });
   }
 
@@ -85,6 +55,16 @@ export default class StarHop extends Component {
 
     let newView = this.props.starhop.eyepieceView;
     newView.scopeType = scopeType;
+
+    this.props.updateEyepieceView(newView);
+  };
+
+  handleMagnification = e => {
+    // console.log('Change scopeType=', e);
+    let fov = e.value;
+
+    let newView = this.props.starhop.eyepieceView;
+    newView.fov = fov;
 
     this.props.updateEyepieceView(newView);
   };
@@ -114,6 +94,7 @@ export default class StarHop extends Component {
               updateLocation={this.props.updateLocation}
               dsos={this.props.starhop.dsos}
             />
+            <ScopeMagnificationSelector view={this.props.starhop.eyepieceView} handler={this.handleMagnification} />
             {targetFound}
             <div>
               <StarHopSelector

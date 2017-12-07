@@ -34,6 +34,7 @@ export default class StarMap extends Component {
 
     this.drawFOV(ctx, myView);
 
+    ctx.save();
     this.drawScopeCircle(ctx, myView);
 
     this.props.stars.map(star => {
@@ -45,6 +46,7 @@ export default class StarMap extends Component {
     });
 
     this.drawReticle(ctx, myView);
+    ctx.restore();
   }
 
   drawFOV(ctx, view) {
@@ -52,6 +54,7 @@ export default class StarMap extends Component {
       ctx.fillStyle = 'white';
       ctx.font = '15px Georgia';
       ctx.fillText(`${view.fov}°`, 10, 20);
+      ctx.restore();
     }
   }
 
