@@ -87,15 +87,14 @@ export default function userReducer(state = defaultState, action) {
 }
 
 function viewContainsTarget(view, target) {
-  console.log(`containsTarget 
-    view=${JSON.stringify(view)}
-    target=${JSON.stringify(target)}
-  `);
-  let found =
+  // console.log(`containsTarget
+  //   view=${JSON.stringify(view)}
+  //   target=${JSON.stringify(target)}
+  // `);
+  return (
     target.ra > view.raFrom + RA_OFFSET &&
     target.ra < view.raTo - RA_OFFSET &&
     target.dec > view.decFrom + DEC_OFFSET &&
-    target.dec < view.decTo - DEC_OFFSET;
-  console.log('\t\tfound=', found);
-  return found;
+    target.dec < view.decTo - DEC_OFFSET
+  );
 }

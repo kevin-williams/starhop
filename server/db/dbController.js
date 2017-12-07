@@ -97,11 +97,11 @@ async function loadStars(raFrom, decFrom, raTo, decTo, magLimit) {
       while ((starEntry = parser.read())) {
         // winston.debug('starEntry=', starEntry);
         if (
-          Number(starEntry.RA) >= Number(raFrom) &&
-          Number(starEntry.RA) <= Number(raTo) &&
-          Number(starEntry.Dec) > Number(decFrom) &&
-          Number(starEntry.Dec) < Number(decTo) &&
-          Number(starEntry.Mag) < Number(magLimit)
+          Number(starEntry.ra) >= Number(raFrom) &&
+          Number(starEntry.ra) <= Number(raTo) &&
+          Number(starEntry.dec) > Number(decFrom) &&
+          Number(starEntry.dec) < Number(decTo) &&
+          Number(starEntry.mag) < Number(magLimit)
         ) {
           stars.push(starEntry);
         }

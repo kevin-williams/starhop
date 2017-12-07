@@ -28,9 +28,13 @@
       "decTo": 70,
       "magLimit": 15
     },
-    "startingLocation" : {
+    "startingLocationOrig" : {
       "ra": 11.08,
       "dec": 61.65
+    },
+    "startingLocation" : {
+      "ra": 9.92,
+      "dec": 69.06
     },
     "targetLocation" : {
       "ra": 9.92,

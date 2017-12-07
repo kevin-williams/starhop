@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import style from './StarMap.scss';
 
+const ARCMINUTE_TO_DEG = 0.0167;
+const DSO_SCALE_CONSTANT = 0.7; // You won't see the full extent of the object in most scopes, so make it a bit smaller
+
 export default class StarMap extends Component {
   componentDidMount() {
     this.drawMap();
@@ -106,8 +109,8 @@ export default class StarMap extends Component {
         flipVertically = true;
     }
 
-    let ra = starEntry.RA;
-    let dec = starEntry.Dec;
+    let ra = starEntry.ra;
+    let dec = starEntry.dec;
     let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
     let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
 
@@ -119,7 +122,7 @@ export default class StarMap extends Component {
       x = view.width - x;
     }
 
-    let mag = starEntry.Mag;
+    let mag = starEntry.mag;
 
     if (Number(view.magLimit) < Number(mag)) {
       // console.log('skipping entry for magLimit=' + view.magLimit, starEntry);
@@ -178,8 +181,25 @@ export default class StarMap extends Component {
         return;
       }
 
-      let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
-      let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
+      // Subtract off 1 as most DSOs are dimmer and spread out
+      if (Number(view.magLimit - 1) < Number(dso.mag)) {
+        // console.log('skipping entry for magLimit=' + view.magLimit, dso);
+        // skip drawing this one
+        return;
+      }
+
+      console.log('dso=', dso);
+      // Scale vs the view size in both RA (X) and degrees (Y)
+      let scaleX = view.width / (view.raTo - view.raFrom);
+      let scaleY = view.height / (view.decTo - view.decFrom);
+
+      // Calculate the x,y using the difference from the location and the bottom right corner
+      let x = scaleX * (view.raTo - ra);
+      let y = scaleY * (view.decTo - dec);
+
+      // Figure height and width of the DSO, but use scaleY (degrees) for both directions
+      let dsoWidth = Math.ceil(dso.r1 * ARCMINUTE_TO_DEG * scaleY * DSO_SCALE_CONSTANT); // NOT scaleX
+      let dsoHeight = Math.ceil(dso.r2 * ARCMINUTE_TO_DEG * scaleY * DSO_SCALE_CONSTANT);
 
       if (flip.flipVertically) {
         y = view.height - y;
@@ -189,30 +209,30 @@ export default class StarMap extends Component {
         x = view.width - x;
       }
 
-      let mag = dso.mag;
+      let xAdd = dsoWidth / 2;
+      let yAdd = dsoHeight / 2;
 
-      if (Number(view.magLimit) < Number(mag)) {
-        // console.log('skipping entry for magLimit=' + view.magLimit, dso);
-        // skip drawing this one
-        return;
-      }
+      var grd = ctx.createRadialGradient(
+        x + xAdd,
+        y + yAdd,
+        0,
+        x + xAdd,
+        y + yAdd,
+        dsoHeight < dsoWidth ? dsoHeight * 0.7 : dsoWidth * 0.7
+      );
+      grd.addColorStop(0, 'rgba(255,255,255,1)');
+      grd.addColorStop(1, 'rgba(0,0,0,0');
 
-      let size = Math.floor(20 - 2 * mag);
-      if (size > 2) {
-        let xadd = Math.floor(size / 2);
+      ctx.fillStyle = grd;
 
-        var grd = ctx.createRadialGradient(x + xadd, y + xadd, 0, x + xadd, y + xadd, xadd);
-        grd.addColorStop(0, 'rgba(0,255,0,1)');
-        grd.addColorStop(1, 'rgba(0,0,0,0');
+      // ctx.fillStyle = 'blue';
+      console.log(
+        'drawing dso at x=' + x + ' y=' + y + ' with sizeX=' + dsoWidth + ', sizeY=' + dsoHeight + ' for mag=' + dso.mag
+      );
 
-        ctx.fillStyle = grd;
-      } else {
-        size = 4;
-        ctx.fillStyle = 'blue';
-      }
-      // console.log('drawing star at x=' + x + ' y=' + y + ' with size=' + size + ' for mag=' + mag);
+      ctx.gr;
 
-      ctx.fillRect(x, y, size, size);
+      ctx.fillRect(x, y, dsoWidth, dsoHeight);
     } catch (error) {
       console.log('dso draw error', error);
     }
