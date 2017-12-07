@@ -90,7 +90,9 @@ export default class StarHop extends Component {
   };
 
   render() {
-    let targetFound = this.props.starhop.targetFound ? <div>Target in Eyepiece view!</div> : null;
+    let targetFound = this.props.starhop.targetFound ? (
+      <div className="starhop-hopview__target-found">Target in Eyepiece View!</div>
+    ) : null;
 
     return (
       <div>

@@ -4,4 +4,8 @@
 .starhop-hopview {
     display: flex;
 
+    &__target-found {
+        text-align: center;
+        color: green;
+    }
 }
