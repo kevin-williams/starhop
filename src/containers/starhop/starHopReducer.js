@@ -16,6 +16,9 @@ const DEFAULT_EYEPIECE_VIEW = {
   scopeType: 'Dobsonian',
 };
 
+const RA_OFFSET = 0.03;
+const DEC_OFFSET = 0.2;
+
 export const defaultState = {
   stars: [],
   dsos: [],
@@ -30,6 +33,7 @@ export const defaultState = {
     id: '',
     description: 'Please select an object to practicing hopping to',
   },
+  targetFound: false,
 };
 
 export default function userReducer(state = defaultState, action) {
@@ -50,9 +54,11 @@ export default function userReducer(state = defaultState, action) {
       };
 
     case c.UPDATE_LOCATION:
+      let targetFound = viewContainsTarget(state.eyepieceView, state.selectedHop.targetLocation);
       return {
         ...state,
         location: action.location,
+        targetFound,
       };
 
     case c.UPDATE_VIEW:
@@ -72,9 +78,24 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         selectedHop: action.hop,
         location: action.hop.startingLocation,
+        targetFound: false,
       };
 
     default:
       return state;
   }
+}
+
+function viewContainsTarget(view, target) {
+  console.log(`containsTarget 
+    view=${JSON.stringify(view)}
+    target=${JSON.stringify(target)}
+  `);
+  let found =
+    target.ra > view.raFrom + RA_OFFSET &&
+    target.ra < view.raTo - RA_OFFSET &&
+    target.dec > view.decFrom + DEC_OFFSET &&
+    target.dec < view.decTo - DEC_OFFSET;
+  console.log('\t\tfound=', found);
+  return found;
 }

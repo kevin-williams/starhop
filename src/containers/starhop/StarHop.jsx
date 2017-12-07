@@ -33,6 +33,22 @@ const eyepieceView = {
   scopeType: 'Dobsonian',
 };
 
+const ORION_QUERY = {
+  raFrom: 4.5,
+  raTo: 6.5,
+  decFrom: -15,
+  decTo: 15,
+  magLimit: 15,
+};
+
+const PLEIADES_QUERY = {
+  raFrom: 3.3,
+  raTo: 4.3,
+  decFrom: 21,
+  decTo: 27,
+  magLimit: 15,
+};
+
 const hopItems = [];
 
 // Take redux state and set it into the component properties for easy access
@@ -50,7 +66,6 @@ export default class StarHop extends Component {
     this.props.getDeepSpaceObjects('M');
 
     Object.entries(hopData).map(entry => {
-      // console.log('hopData entry', entry);
       hopItems.push({ value: entry[0], label: entry[0] });
     });
   }
@@ -75,6 +90,8 @@ export default class StarHop extends Component {
   };
 
   render() {
+    let targetFound = this.props.starhop.targetFound ? <div>Target in Eyepiece view!</div> : null;
+
     return (
       <div>
         <div className="starhop-hopview">
@@ -102,6 +119,7 @@ export default class StarHop extends Component {
                 handler={this.loadHopData}
                 description={this.props.starhop.selectedHop.description}
               />
+              {targetFound}
             </div>
           </div>
         </div>
