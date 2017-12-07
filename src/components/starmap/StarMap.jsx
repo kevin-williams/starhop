@@ -147,22 +147,30 @@ export default class StarMap extends Component {
     ctx.fillRect(x, y, size, size);
   }
 
+  getFlip(view) {
+    let result = {
+      flipHorizontally: false,
+      flipVertically: false,
+    };
+
+    switch (view.scopeType) {
+      case 'Refractor':
+      case 'SCT':
+        result.flipHorizontally = true;
+        break;
+      case 'Dobsonian':
+        result.flipHorizontally = true;
+        result.flipVertically = true;
+    }
+
+    return result;
+  }
+
   drawDSO(ctx, view, dso) {
     // console.log('view=', view);
     // console.log('dso=', dso);
     try {
-      let flipVertically = false;
-      let flipHorizontally = false;
-
-      switch (view.scopeType) {
-        case 'Refractor':
-        case 'SCT':
-          flipHorizontally = true;
-          break;
-        case 'Dobsonian':
-          flipHorizontally = true;
-          flipVertically = true;
-      }
+      let flip = this.getFlip(view);
 
       let ra = dso.ra;
       let dec = dso.dec;
@@ -175,11 +183,11 @@ export default class StarMap extends Component {
       let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
       let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
 
-      if (flipVertically) {
+      if (flip.flipVertically) {
         y = view.height - y;
       }
 
-      if (flipHorizontally) {
+      if (flip.flipHorizontally) {
         x = view.width - x;
       }
 
@@ -218,15 +226,41 @@ export default class StarMap extends Component {
       dragging: true,
       startX: e.clientX,
       startY: e.clientY,
-      startRA: this.props.view.ra,
-      startDec: this.props.view.dec,
+      startRA: this.props.location.ra,
+      startDec: this.props.location.dec,
     });
   };
 
   onMouseMove = e => {
-    if (this.props.updateView && this.state.dragging) {
+    if (this.props.updateLocation && this.state && this.state.dragging) {
       // Process drag move
-      console.log('handling drag');
+      // console.log('handling drag');
+      let view = this.props.view;
+      let scaleX = view.width / (view.raTo - view.raFrom);
+      let scaleY = view.height / (view.decTo - view.decFrom);
+
+      let diffX = e.clientX - this.state.startX;
+      let diffY = e.clientY - this.state.startY;
+
+      let flip = this.getFlip(view);
+      if (flip.flipHorizontally) {
+        diffX = -diffX;
+      }
+
+      if (flip.flipVertically) {
+        diffY = -diffY;
+      }
+
+      // console.log(`diffX=${diffX}, diffY=${diffY}`);
+
+      let newLocation = {
+        ra: this.state.startRA + diffX / scaleX,
+        dec: this.state.startDec + diffY / scaleY,
+      };
+
+      // console.log('setting newLocation', newLocation);
+
+      this.props.updateLocation(newLocation);
     }
   };
 

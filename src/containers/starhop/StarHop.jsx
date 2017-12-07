@@ -105,34 +105,6 @@ export default class StarHop extends Component {
     this.props.updateEyepieceView(newView);
   };
 
-  moveUp = e => {
-    let newLocation = this.props.starhop.location;
-    newLocation.dec = newLocation.dec + 0.1;
-    console.log('showing new location=', newLocation);
-    this.props.updateLocation(newLocation);
-  };
-
-  moveDown = e => {
-    let newLocation = this.props.starhop.location;
-    newLocation.dec = newLocation.dec - 0.1;
-    console.log('showing new location=', newLocation);
-    this.props.updateLocation(newLocation);
-  };
-
-  moveRight = e => {
-    let newLocation = this.props.starhop.location;
-    newLocation.ra = newLocation.ra - 0.007;
-    console.log('showing new location=', newLocation);
-    this.props.updateLocation(newLocation);
-  };
-
-  moveLeft = e => {
-    let newLocation = this.props.starhop.location;
-    newLocation.ra = newLocation.ra + 0.007;
-    console.log('showing new location=', newLocation);
-    this.props.updateLocation(newLocation);
-  };
-
   render() {
     console.log('selectedHop=', this.props.starhop.selectedHop);
 
@@ -156,18 +128,6 @@ export default class StarHop extends Component {
               updateLocation={this.props.updateLocation}
               dsos={this.props.starhop.dsos}
             />
-            <div className="starhop-hopview__arrows">
-              <div className="starhop-hopview__arrows__row">
-                <button onClick={this.moveUp}>^</button>
-              </div>
-              <div className="starhop-hopview__arrows__row">
-                <button onClick={this.moveLeft}>&lt;</button>
-                <button onClick={this.moveRight}>&gt;</button>
-              </div>
-              <div className="starhop-hopview__arrows__row">
-                <button onClick={this.moveDown}>v</button>
-              </div>
-            </div>
             <div>
               <StarHopSelector
                 selectedItem={this.props.starhop.selectedHop.id}

@@ -4,20 +4,4 @@
 .starhop-hopview {
     display: flex;
 
-    &__scopetype {
-        display: flex;
-        flex-direction: column;
-    }
-
-    &__arrows {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-
-        &__row {
-            display: flex;
-            justify-content: center;
-        }
-    }
 }
