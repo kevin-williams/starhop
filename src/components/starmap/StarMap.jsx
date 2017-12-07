@@ -20,13 +20,14 @@ export default class StarMap extends Component {
     console.log('drawing map for ' + this.props.stars.length + ' stars with view=', this.props.view);
 
     let myView = this.props.view;
+    let location = this.props.location;
 
     // In RA, 0.07 == 1 degree
-    myView.raFrom = myView.ra - myView.fov * 0.07 / 2;
-    myView.raTo = myView.ra + myView.fov * 0.07 / 2;
+    myView.raFrom = location.ra - myView.fov * 0.07 / 2;
+    myView.raTo = location.ra + myView.fov * 0.07 / 2;
 
-    myView.decFrom = myView.dec - myView.fov / 2;
-    myView.decTo = myView.dec + myView.fov / 2;
+    myView.decFrom = location.dec - myView.fov / 2;
+    myView.decTo = location.dec + myView.fov / 2;
 
     this.drawFOV(ctx, myView);
 
@@ -41,6 +42,7 @@ export default class StarMap extends Component {
     });
 
     this.drawReticle(ctx, myView);
+    console.log('finished drawing map');
   }
 
   drawFOV(ctx, view) {
@@ -148,61 +150,101 @@ export default class StarMap extends Component {
   drawDSO(ctx, view, dso) {
     // console.log('view=', view);
     // console.log('dso=', dso);
-    let flipVertically = false;
-    let flipHorizontally = false;
+    try {
+      let flipVertically = false;
+      let flipHorizontally = false;
 
-    switch (view.scopeType) {
-      case 'Refractor':
-      case 'SCT':
-        flipHorizontally = true;
-        break;
-      case 'Dobsonian':
-        flipHorizontally = true;
-        flipVertically = true;
+      switch (view.scopeType) {
+        case 'Refractor':
+        case 'SCT':
+          flipHorizontally = true;
+          break;
+        case 'Dobsonian':
+          flipHorizontally = true;
+          flipVertically = true;
+      }
+
+      let ra = dso.ra;
+      let dec = dso.dec;
+
+      if (view.raFrom > ra || view.raTo < ra || view.decFrom > dec || view.DecTo < dec) {
+        // console.log('\tskip drawing dso');
+        return;
+      }
+
+      let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
+      let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
+
+      if (flipVertically) {
+        y = view.height - y;
+      }
+
+      if (flipHorizontally) {
+        x = view.width - x;
+      }
+
+      let mag = dso.mag;
+
+      if (Number(view.magLimit) < Number(mag)) {
+        // console.log('skipping entry for magLimit=' + view.magLimit, dso);
+        // skip drawing this one
+        return;
+      }
+
+      let size = Math.floor(20 - 2 * mag);
+      if (size > 2) {
+        let xadd = Math.floor(size / 2);
+
+        var grd = ctx.createRadialGradient(x + xadd, y + xadd, 0, x + xadd, y + xadd, xadd);
+        grd.addColorStop(0, 'rgba(0,255,0,1)');
+        grd.addColorStop(1, 'rgba(0,0,0,0');
+
+        ctx.fillStyle = grd;
+      } else {
+        size = 4;
+        ctx.fillStyle = 'blue';
+      }
+      // console.log('drawing star at x=' + x + ' y=' + y + ' with size=' + size + ' for mag=' + mag);
+
+      ctx.fillRect(x, y, size, size);
+    } catch (error) {
+      console.log('dso draw error', error);
     }
-
-    let ra = dso.ra;
-    let dec = dso.dec;
-    let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
-    let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
-
-    if (flipVertically) {
-      y = view.height - y;
-    }
-
-    if (flipHorizontally) {
-      x = view.width - x;
-    }
-
-    let mag = dso.mag;
-
-    if (Number(view.magLimit) < Number(mag)) {
-      // console.log('skipping entry for magLimit=' + view.magLimit, dso);
-      // skip drawing this one
-      return;
-    }
-
-    let size = Math.floor(20 - 2 * mag);
-    if (size > 2) {
-      let xadd = Math.floor(size / 2);
-
-      var grd = ctx.createRadialGradient(x + xadd, y + xadd, 0, x + xadd, y + xadd, xadd);
-      grd.addColorStop(0, 'rgba(0,255,0,1)');
-      grd.addColorStop(1, 'rgba(0,0,0,0');
-
-      ctx.fillStyle = grd;
-    } else {
-      size = 4;
-      ctx.fillStyle = 'blue';
-    }
-    // console.log('drawing star at x=' + x + ' y=' + y + ' with size=' + size + ' for mag=' + mag);
-
-    ctx.fillRect(x, y, size, size);
   }
+
+  onMouseDown = e => {
+    console.log('MouseDown=', e);
+    this.setState({
+      dragging: true,
+      startX: e.clientX,
+      startY: e.clientY,
+      startRA: this.props.view.ra,
+      startDec: this.props.view.dec,
+    });
+  };
+
+  onMouseMove = e => {
+    if (this.props.updateView && this.state.dragging) {
+      // Process drag move
+      console.log('handling drag');
+    }
+  };
+
+  onMouseUp = e => {
+    console.log('MouseUp=', e);
+    this.setState({
+      dragging: false,
+    });
+  };
 
   render() {
     return (
-      <div className="starhop-starmap">
+      <div
+        className="starhop-starmap"
+        onMouseDown={this.onMouseDown}
+        onMouseMove={this.onMouseMove}
+        onMouseUp={this.onMouseUp}
+      >
         <canvas ref="canvas" width={this.props.view.width} height={this.props.view.height} />
       </div>
     );
@@ -212,5 +254,7 @@ export default class StarMap extends Component {
 StarMap.propTypes = {
   stars: PropTypes.array.isRequired,
   dsos: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
   view: PropTypes.object.isRequired,
+  updateLocation: PropTypes.func,
 };

@@ -7,7 +7,14 @@ import ErrorLine from '../../components/error/ErrorLine';
 import ScopeTypeSelector from '../../components/starmap/ScopeTypeSelector';
 import StarHopSelector from '../../components/starmap/StarHopSelector';
 import StarMap from '../../components/starmap/StarMap';
-import { getStars, getDeepSpaceObjects, updateView, updateEyepieceView, updateSelectedHop } from './starHopActions';
+import {
+  getStars,
+  getDeepSpaceObjects,
+  updateLocation,
+  updateView,
+  updateEyepieceView,
+  updateSelectedHop,
+} from './starHopActions';
 
 import styles from './StarHop.scss';
 
@@ -46,7 +53,14 @@ const hopItems = [];
 
 // Take redux state and set it into the component properties for easy access
 const mapStateToProps = state => state;
-@connect(mapStateToProps, { getStars, getDeepSpaceObjects, updateView, updateEyepieceView, updateSelectedHop })
+@connect(mapStateToProps, {
+  getStars,
+  getDeepSpaceObjects,
+  updateLocation,
+  updateView,
+  updateEyepieceView,
+  updateSelectedHop,
+})
 export default class StarHop extends Component {
   componentDidMount() {
     console.log('starting load DSO action');
@@ -92,43 +106,31 @@ export default class StarHop extends Component {
   };
 
   moveUp = e => {
-    let newEyepieceView = this.props.starhop.eyepieceView;
-    let newView = this.props.starhop.view;
-    newEyepieceView.dec = newEyepieceView.dec + 0.1;
-    newView.dec = newEyepieceView.dec;
-    console.log('showing new view=', newEyepieceView);
-    this.props.updateEyepieceView(newEyepieceView);
-    this.props.updateView(newView);
+    let newLocation = this.props.starhop.location;
+    newLocation.dec = newLocation.dec + 0.1;
+    console.log('showing new location=', newLocation);
+    this.props.updateLocation(newLocation);
   };
 
   moveDown = e => {
-    let newEyepieceView = this.props.starhop.eyepieceView;
-    let newView = this.props.starhop.view;
-    newEyepieceView.dec = newEyepieceView.dec - 0.1;
-    newView.dec = newEyepieceView.dec;
-    console.log('showing new view=', newEyepieceView);
-    this.props.updateEyepieceView(newEyepieceView);
-    this.props.updateView(newView);
+    let newLocation = this.props.starhop.location;
+    newLocation.dec = newLocation.dec - 0.1;
+    console.log('showing new location=', newLocation);
+    this.props.updateLocation(newLocation);
   };
 
   moveRight = e => {
-    let newEyepieceView = this.props.starhop.eyepieceView;
-    let newView = this.props.starhop.view;
-    newEyepieceView.ra = newEyepieceView.ra - 0.007;
-    newView.ra = newEyepieceView.ra;
-    console.log('showing new view=', newEyepieceView);
-    this.props.updateEyepieceView(newEyepieceView);
-    this.props.updateView(newView);
+    let newLocation = this.props.starhop.location;
+    newLocation.ra = newLocation.ra - 0.007;
+    console.log('showing new location=', newLocation);
+    this.props.updateLocation(newLocation);
   };
 
   moveLeft = e => {
-    let newEyepieceView = this.props.starhop.eyepieceView;
-    let newView = this.props.starhop.view;
-    newEyepieceView.ra = newEyepieceView.ra + 0.007;
-    newView.ra = newEyepieceView.ra;
-    console.log('showing new view=', newEyepieceView);
-    this.props.updateEyepieceView(newEyepieceView);
-    this.props.updateView(newView);
+    let newLocation = this.props.starhop.location;
+    newLocation.ra = newLocation.ra + 0.007;
+    console.log('showing new location=', newLocation);
+    this.props.updateLocation(newLocation);
   };
 
   render() {
@@ -138,12 +140,20 @@ export default class StarHop extends Component {
       <div>
         <div className="starhop-hopview">
           <ErrorLine statusList={[this.props.starhop.zipCodeStatus]} />
-          <StarMap stars={this.props.starhop.stars} view={this.props.starhop.view} dsos={this.props.starhop.dsos} />
+          <StarMap
+            stars={this.props.starhop.stars}
+            dsos={this.props.starhop.dsos}
+            location={this.props.starhop.location}
+            view={this.props.starhop.view}
+            updateLocation={this.props.updateLocation}
+          />
           <div>
             <ScopeTypeSelector view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
             <StarMap
               stars={this.props.starhop.stars}
               view={this.props.starhop.eyepieceView}
+              location={this.props.starhop.location}
+              updateLocation={this.props.updateLocation}
               dsos={this.props.starhop.dsos}
             />
             <div className="starhop-hopview__arrows">
