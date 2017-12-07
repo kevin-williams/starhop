@@ -12,15 +12,14 @@ export function* watchGetStars() {
 }
 
 const getStarsLookup = starQuery => {
-  console.log('Searching db for stars matching', starQuery);
   return loadStars(starQuery);
 };
 
 export function* getStars(action) {
-  console.log('calling getStars with action=', action);
+  // console.log('calling getStars with action=', action);
   try {
     const stars = yield call(getStarsLookup, action.starQuery);
-    console.log('data for stars=', stars);
+    // console.log('data for stars=', stars);
 
     if (stars && stars.length > 0) {
       yield put({
@@ -51,20 +50,17 @@ export function* getStars(action) {
 }
 
 export function* watchGetDeepSpaceObjects() {
-  console.log('watch DSOs fired');
   yield call(takeEvery, c.GET_DEEP_SPACE, getDSOs);
 }
 
 const getDSOsLookup = catalog => {
-  console.log('Searching db for dsos');
   return loadDSOs(catalog);
 };
 
 export function* getDSOs(action) {
-  console.log('calling getDSOs with action=', action);
   try {
     const dsos = yield call(getDSOsLookup, action.catalog);
-    console.log('data for dsos=', dsos);
+    // console.log('data for dsos=', dsos);
 
     if (dsos && dsos.length > 0) {
       yield put({

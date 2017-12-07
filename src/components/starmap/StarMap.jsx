@@ -17,7 +17,7 @@ export default class StarMap extends Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, this.props.view.width, this.props.view.height);
 
-    console.log('drawing map for ' + this.props.stars.length + ' stars with view=', this.props.view);
+    // console.log('drawing map for ' + this.props.stars.length + ' stars with view=', this.props.view);
 
     let myView = this.props.view;
     let location = this.props.location;
@@ -42,7 +42,6 @@ export default class StarMap extends Component {
     });
 
     this.drawReticle(ctx, myView);
-    console.log('finished drawing map');
   }
 
   drawFOV(ctx, view) {
@@ -56,7 +55,6 @@ export default class StarMap extends Component {
   drawReticle(ctx, view) {
     let centerX = view.width / 2;
     let centerY = view.height / 2;
-    console.log(`centerX ${centerX} centerY ${centerY}`);
 
     // Draw horizontal
     ctx.beginPath();
@@ -221,7 +219,7 @@ export default class StarMap extends Component {
   }
 
   onMouseDown = e => {
-    console.log('MouseDown=', e);
+    // console.log('MouseDown=', e);
     this.setState({
       dragging: true,
       startX: e.clientX,
@@ -265,7 +263,7 @@ export default class StarMap extends Component {
   };
 
   onMouseUp = e => {
-    console.log('MouseUp=', e);
+    // console.log('MouseUp=', e);
     this.setState({
       dragging: false,
     });

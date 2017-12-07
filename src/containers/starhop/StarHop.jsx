@@ -33,22 +33,6 @@ const eyepieceView = {
   scopeType: 'Dobsonian',
 };
 
-const ORION_QUERY = {
-  raFrom: 4.5,
-  raTo: 6.5,
-  decFrom: -15,
-  decTo: 15,
-  magLimit: 15,
-};
-
-const PLEIADES_QUERY = {
-  raFrom: 3.3,
-  raTo: 4.3,
-  decFrom: 21,
-  decTo: 27,
-  magLimit: 15,
-};
-
 const hopItems = [];
 
 // Take redux state and set it into the component properties for easy access
@@ -63,11 +47,10 @@ const mapStateToProps = state => state;
 })
 export default class StarHop extends Component {
   componentDidMount() {
-    console.log('starting load DSO action');
     this.props.getDeepSpaceObjects('M');
 
     Object.entries(hopData).map(entry => {
-      console.log('hopData entry', entry);
+      // console.log('hopData entry', entry);
       hopItems.push({ value: entry[0], label: entry[0] });
     });
   }
@@ -78,25 +61,11 @@ export default class StarHop extends Component {
     this.props.updateSelectedHop(hopInfo);
 
     this.props.getStars(hopInfo.starMapQuery);
-    const myFinderView = {
-      ...finderView,
-      ra: hopInfo.startingLocation.ra,
-      dec: hopInfo.startingLocation.dec,
-    };
-    console.log('myFinderView', myFinderView);
-    this.props.updateView(myFinderView);
-
-    const myEyepieceView = {
-      ...eyepieceView,
-      ra: hopInfo.startingLocation.ra,
-      dec: hopInfo.startingLocation.dec,
-    };
-    console.log('myEyepieceView', myEyepieceView);
-    this.props.updateEyepieceView(myEyepieceView);
+    this.props.updateLocation(hopInfo.startingLocation);
   };
 
   handleScopeType = e => {
-    console.log('Change scopeType=', e);
+    // console.log('Change scopeType=', e);
     let scopeType = e.value;
 
     let newView = this.props.starhop.eyepieceView;
@@ -106,8 +75,6 @@ export default class StarHop extends Component {
   };
 
   render() {
-    console.log('selectedHop=', this.props.starhop.selectedHop);
-
     return (
       <div>
         <div className="starhop-hopview">
