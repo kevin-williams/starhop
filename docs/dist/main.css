@@ -496,6 +496,9 @@
     text-align: center;
     color: green; }
 .starhop-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-image: url(/images/banner.png), url(/starhop/images/banner.png); }
   .starhop-header__title {
     color: #d5d5d5;
@@ -506,6 +509,19 @@
     background: transparent;
     font-size: 1.3em;
     height: 50px; }
+
+a:link, a:visited {
+  font-size: .9em;
+  background-color: #2196F3;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  line-height: 35px; }
 .starhop-homepage {
   display: flex;
   flex-direction: column; }
