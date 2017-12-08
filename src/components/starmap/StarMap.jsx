@@ -24,7 +24,7 @@ export default class StarMap extends Component {
     let myView = this.props.view;
     let location = this.props.location;
 
-    // In RA, 0.07 == 1 degree
+    // In RA, 0.07 =~ 1 degree
     myView.raFrom = location.ra - myView.fov * RA_TO_DEG / 2;
     myView.raTo = location.ra + myView.fov * RA_TO_DEG / 2;
 
@@ -39,11 +39,15 @@ export default class StarMap extends Component {
     this.drawScopeCircle(ctx, myView);
 
     this.props.stars.map(star => {
-      this.drawStar(ctx, myView, star);
+      if (isInView(star.ra, star.dec, star.mag, myView)) {
+        this.drawStar(ctx, myView, star);
+      }
     });
 
     this.props.dsos.map(dso => {
-      this.drawDSO(ctx, myView, dso);
+      if (isInView(dso.ra, dso.dec, dso.mag, myView)) {
+        this.drawDSO(ctx, myView, dso);
+      }
     });
 
     this.drawReticle(ctx, myView);
@@ -52,6 +56,7 @@ export default class StarMap extends Component {
 
   drawFOV(ctx, view) {
     if (view.fov) {
+      ctx.save();
       ctx.fillStyle = 'white';
       ctx.font = '15px Georgia';
       ctx.fillText(`${view.fov}°`, 10, 20);
@@ -115,7 +120,12 @@ export default class StarMap extends Component {
     }
 
     let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
-    let y = view.height / (view.decTo - view.decFrom) * (view.decTo - dec);
+    let y = view.height / view.fov * (view.decTo - dec);
+
+    // console.log(`
+    //   ${x} = ${view.width} / ${view.raTo - view.raFrom} * ${view.raTo - ra}
+    //   ${y} = ${view.height} / ${view.fov} * ${view.decTo - dec}
+    // `);
 
     if (flipVertically) {
       y = view.height - y;
@@ -123,12 +133,6 @@ export default class StarMap extends Component {
 
     if (flipHorizontally) {
       x = view.width - x;
-    }
-
-    if (Number(view.magLimit) < Number(mag)) {
-      // console.log('skipping entry for magLimit=' + view.magLimit, starEntry);
-      // skip drawing this one
-      return;
     }
 
     let size = Math.floor(20 - 2 * mag);
@@ -141,10 +145,10 @@ export default class StarMap extends Component {
 
       ctx.fillStyle = grd;
     } else {
-      size = 1;
+      size = 2;
       ctx.fillStyle = 'White';
     }
-    // console.log('drawing star at x=' + x + ' y=' + y + ' with size=' + size + ' for mag=' + mag);
+    // console.log(`drawing star (${ra}, ${dec}) at x=${x} y=${y} size=${size} mag=${mag} for fov=${view.fov}`);
 
     ctx.fillRect(x, y, size, size);
   }
@@ -177,18 +181,6 @@ export default class StarMap extends Component {
       let { ra, dec, r1, r2, angle } = dso;
       if (!r2) {
         r2 = r1;
-      }
-
-      if (view.raFrom > ra || view.raTo < ra || view.decFrom > dec || view.DecTo < dec) {
-        // console.log('\tskip drawing dso');
-        return;
-      }
-
-      // Subtract off 1 as most DSOs are dimmer and spread out
-      if (Number(view.magLimit - 1) < Number(dso.mag)) {
-        // console.log('skipping entry for magLimit=' + view.magLimit, dso);
-        // skip drawing this one
-        return;
       }
 
       // console.log('dso=', dso);
@@ -235,7 +227,11 @@ export default class StarMap extends Component {
 
       ctx.fillStyle = grd;
       if (maxSize < 5) {
-        ctx.fillStyle = 'blue';
+        if (view.fov < 2) {
+          ctx.fillStyle = 'blue';
+        } else {
+          ctx.fillStyle = 'white';
+        }
       }
 
       ctx.beginPath();
@@ -312,6 +308,22 @@ export default class StarMap extends Component {
       </div>
     );
   }
+}
+
+function isInView(ra, dec, mag, view) {
+  // console.log(`isInView(
+  //   ${Number(view.raFrom) < Number(ra)} ${view.raFrom} < ${ra} < ${view.raTo} ${Number(view.raTo) > Number(ra)}
+  //   ${Number(view.decFrom) < Number(dec)} ${view.decFrom} < ${dec} < ${view.decTo} ${Number(view.decTo) > Number(dec)}
+  //   ${Number(view.magLimit) > Number(mag)} ${view.magLimit} > ${mag}
+  // `);
+
+  return (
+    Number(view.raFrom) < Number(ra) &&
+    Number(view.raTo) > Number(ra) &&
+    Number(view.decFrom) < Number(dec) &&
+    Number(view.decTo) > Number(dec) &&
+    Number(view.magLimit) > Number(mag)
+  );
 }
 
 StarMap.propTypes = {

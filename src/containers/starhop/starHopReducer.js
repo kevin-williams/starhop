@@ -11,8 +11,8 @@ const DEFAULT_FINDER_VIEW = {
 const DEFAULT_EYEPIECE_VIEW = {
   fov: 1.5,
   magLimit: 12,
-  width: 350,
-  height: 350,
+  width: 300,
+  height: 300,
   scopeType: 'Dobsonian',
 };
 

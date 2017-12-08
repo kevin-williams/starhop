@@ -25,7 +25,10 @@ const MAGNIFICATIONS = [
   { value: 0.5, label: 'High (0.5° FOV)' },
 ];
 
-const FINDER_MAGNIFICATIONS = [{ value: 7, label: 'Finder (7° FOV)' }, { value: 20, label: 'Naked Eye (20°Fov)' }];
+const FINDER_MAGNIFICATIONS = [
+  { value: { fov: 7, magLimit: 8 }, label: 'Finder (7° FOV)' },
+  { value: { fov: 20, magLimit: 5.5 }, label: 'Naked Eye (20°Fov)' },
+];
 
 const hopItems = [];
 
@@ -61,7 +64,7 @@ export default class StarHop extends Component {
     // console.log('Change scopeType=', e);
     let scopeType = e.value;
 
-    let newView = this.props.starhop.eyepieceView;
+    let newView = { ...this.props.starhop.eyepieceView };
     newView.scopeType = scopeType;
 
     this.props.updateEyepieceView(newView);
@@ -71,7 +74,7 @@ export default class StarHop extends Component {
     // console.log('Change scopeType=', e);
     let fov = e.value;
 
-    let newView = this.props.starhop.eyepieceView;
+    let newView = { ...this.props.starhop.eyepieceView };
     newView.fov = fov;
 
     this.props.updateEyepieceView(newView);
@@ -79,10 +82,11 @@ export default class StarHop extends Component {
 
   handleFinderMagnification = e => {
     // console.log('Change scopeType=', e);
-    let fov = e.value;
+    let targetView = e.value;
 
-    let newView = this.props.starhop.view;
-    newView.fov = fov;
+    let newView = { ...this.props.starhop.view };
+    newView.fov = targetView.fov;
+    newView.magLimit = targetView.magLimit;
 
     this.props.updateView(newView);
   };
@@ -105,7 +109,7 @@ export default class StarHop extends Component {
               updateLocation={this.props.updateLocation}
             />
             <ScopeMagnificationSelector
-              view={this.props.starhop.view}
+              view={this.props.starhop.view.fov}
               handler={this.handleFinderMagnification}
               magnifications={FINDER_MAGNIFICATIONS}
             />
