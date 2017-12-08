@@ -16,7 +16,7 @@ export default class StarHopSelector extends Component {
           options={this.props.items}
           placeholder="Select Hop..."
         />
-        <p>{this.props.description}</p>
+        <p className="starhop-hop-selector__description">{this.props.description}</p>
       </div>
     );
   }
