@@ -496,8 +496,10 @@ body {
   background: #222222; }
 
 .starhop-hop-selector {
-  width: 250px;
-  padding: 20px; }
+  width: 300px;
+  padding: 5px; }
+  .starhop-hop-selector__description {
+    color: lightgray; }
 body {
   background: #222222; }
 
