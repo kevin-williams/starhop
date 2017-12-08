@@ -503,13 +503,6 @@ body {
 body {
   background: #222222; }
 
-.starhop-starmap canvas {
-  background: black;
-  color: white;
-  margin: 5px; }
-body {
-  background: #222222; }
-
 .starhop-hopview {
   display: flex; }
   .starhop-hopview__target-found {
