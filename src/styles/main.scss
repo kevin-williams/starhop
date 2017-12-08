@@ -1,2 +1,6 @@
 // Base file for the app.  Should only include global variables for the whole app to use.
 @import '_color-palette.scss';
+
+body {
+    background: #222222;
+}

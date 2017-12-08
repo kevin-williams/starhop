@@ -5,6 +5,7 @@ import style from './StarMap.scss';
 
 const ARCMINUTE_TO_DEG = 0.0167;
 const DSO_SCALE_CONSTANT = 0.7; // You won't see the full extent of the object in most scopes, so make it a bit smaller
+const RA_TO_DEG = 24 / 360;
 
 export default class StarMap extends Component {
   componentDidMount() {
@@ -24,8 +25,8 @@ export default class StarMap extends Component {
     let location = this.props.location;
 
     // In RA, 0.07 == 1 degree
-    myView.raFrom = location.ra - myView.fov * 0.07 / 2;
-    myView.raTo = location.ra + myView.fov * 0.07 / 2;
+    myView.raFrom = location.ra - myView.fov * RA_TO_DEG / 2;
+    myView.raTo = location.ra + myView.fov * RA_TO_DEG / 2;
 
     myView.decFrom = location.dec - myView.fov / 2;
     myView.decTo = location.dec + myView.fov / 2;

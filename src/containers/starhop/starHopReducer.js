@@ -11,13 +11,13 @@ const DEFAULT_FINDER_VIEW = {
 const DEFAULT_EYEPIECE_VIEW = {
   fov: 1.5,
   magLimit: 12,
-  width: 300,
-  height: 300,
+  width: 350,
+  height: 350,
   scopeType: 'Dobsonian',
 };
 
-const RA_OFFSET = 0.03;
-const DEC_OFFSET = 0.2;
+const TARGET_FOUND_RA_OFFSET = 0.03;
+const TARGET_FOUND_DEC_OFFSET = 0.2;
 
 export const defaultState = {
   stars: [],
@@ -92,9 +92,9 @@ function viewContainsTarget(view, target) {
   //   target=${JSON.stringify(target)}
   // `);
   return (
-    target.ra > view.raFrom + RA_OFFSET &&
-    target.ra < view.raTo - RA_OFFSET &&
-    target.dec > view.decFrom + DEC_OFFSET &&
-    target.dec < view.decTo - DEC_OFFSET
+    target.ra > view.raFrom + TARGET_FOUND_RA_OFFSET &&
+    target.ra < view.raTo - TARGET_FOUND_RA_OFFSET &&
+    target.dec > view.decFrom + TARGET_FOUND_DEC_OFFSET &&
+    target.dec < view.decTo - TARGET_FOUND_DEC_OFFSET
   );
 }

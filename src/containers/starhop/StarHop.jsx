@@ -19,6 +19,14 @@ import {
 
 import styles from './StarHop.scss';
 
+const MAGNIFICATIONS = [
+  { value: 1.5, label: 'Low (1.5° FOV)' },
+  { value: 1, label: 'Medium (1°Fov)' },
+  { value: 0.5, label: 'High (0.5° FOV)' },
+];
+
+const FINDER_MAGNIFICATIONS = [{ value: 7, label: 'Finder (7° FOV)' }, { value: 20, label: 'Naked Eye (20°Fov)' }];
+
 const hopItems = [];
 
 // Take redux state and set it into the component properties for easy access
@@ -69,6 +77,16 @@ export default class StarHop extends Component {
     this.props.updateEyepieceView(newView);
   };
 
+  handleFinderMagnification = e => {
+    // console.log('Change scopeType=', e);
+    let fov = e.value;
+
+    let newView = this.props.starhop.view;
+    newView.fov = fov;
+
+    this.props.updateView(newView);
+  };
+
   render() {
     let targetFound = this.props.starhop.targetFound ? (
       <div className="starhop-hopview__target-found">Target in Eyepiece View!</div>
@@ -78,13 +96,20 @@ export default class StarHop extends Component {
       <div>
         <div className="starhop-hopview">
           <ErrorLine statusList={[this.props.starhop.zipCodeStatus]} />
-          <StarMap
-            stars={this.props.starhop.stars}
-            dsos={this.props.starhop.dsos}
-            location={this.props.starhop.location}
-            view={this.props.starhop.view}
-            updateLocation={this.props.updateLocation}
-          />
+          <div>
+            <StarMap
+              stars={this.props.starhop.stars}
+              dsos={this.props.starhop.dsos}
+              location={this.props.starhop.location}
+              view={this.props.starhop.view}
+              updateLocation={this.props.updateLocation}
+            />
+            <ScopeMagnificationSelector
+              view={this.props.starhop.view}
+              handler={this.handleFinderMagnification}
+              magnifications={FINDER_MAGNIFICATIONS}
+            />
+          </div>
           <div>
             <ScopeTypeSelector view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
             <StarMap
@@ -94,7 +119,11 @@ export default class StarHop extends Component {
               updateLocation={this.props.updateLocation}
               dsos={this.props.starhop.dsos}
             />
-            <ScopeMagnificationSelector view={this.props.starhop.eyepieceView} handler={this.handleMagnification} />
+            <ScopeMagnificationSelector
+              view={this.props.starhop.eyepieceView}
+              handler={this.handleMagnification}
+              magnifications={MAGNIFICATIONS}
+            />
             {targetFound}
             <div>
               <StarHopSelector

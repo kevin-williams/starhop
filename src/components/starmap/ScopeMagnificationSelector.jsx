@@ -5,12 +5,6 @@ import 'react-select/dist/react-select.css';
 
 import style from './ScopeMagnificationSelector.scss';
 
-const MAGNIFICATIONS = [
-  { value: 1.5, label: 'Low (1.5° FOV)' },
-  { value: 1, label: 'Medium (1°Fov)' },
-  { value: 0.5, label: 'High (0.5° FOV)' },
-];
-
 export default class ScopeMagnificationSelector extends Component {
   render() {
     return (
@@ -19,7 +13,7 @@ export default class ScopeMagnificationSelector extends Component {
         name="scope-mag-selector"
         value={this.props.view.fov}
         onChange={this.props.handler}
-        options={MAGNIFICATIONS}
+        options={this.props.magnifications}
         placeholder="Select Magnification..."
       />
     );
@@ -29,4 +23,5 @@ export default class ScopeMagnificationSelector extends Component {
 ScopeMagnificationSelector.propTypes = {
   view: PropTypes.object.isRequired,
   handler: PropTypes.func.isRequired,
+  magnifications: PropTypes.array.isRequired,
 };
