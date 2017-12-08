@@ -417,8 +417,14 @@
 @-webkit-keyframes Select-animation-spin {
   to {
     -webkit-transform: rotate(1turn); } }
+body {
+  background: #222222; }
+
 .starhop-mag-selector {
   margin: 5px; }
+body {
+  background: #222222; }
+
 .app-error-line {
   top: -20px;
   position: relative;
@@ -481,20 +487,35 @@
     opacity: 1; }
   100% {
     top: 0; } }
+body {
+  background: #222222; }
+
 .starhop-scope-selector {
   margin: 5px; }
+body {
+  background: #222222; }
+
 .starhop-hop-selector {
   width: 250px;
   padding: 20px; }
+body {
+  background: #222222; }
+
 .starhop-starmap canvas {
   background: black;
   color: white;
   margin: 5px; }
+body {
+  background: #222222; }
+
 .starhop-hopview {
   display: flex; }
   .starhop-hopview__target-found {
     text-align: center;
     color: green; }
+body {
+  background: #222222; }
+
 .starhop-header {
   display: flex;
   flex-direction: row;
@@ -522,6 +543,9 @@ a:link, a:visited {
   display: inline-block;
   margin: 5px;
   line-height: 35px; }
+body {
+  background: #222222; }
+
 .starhop-homepage {
   display: flex;
   flex-direction: column; }
@@ -532,5 +556,7 @@ a:link, a:visited {
     border-radius: 5px;
     text-decoration: none;
     padding: 10px; }
+body {
+  background: #222222; }
 
 /*# sourceMappingURL=main.css.map*/
