@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import style from './StarMap.scss';
-
 const ARCMINUTE_TO_DEG = 0.0167;
 const DSO_SCALE_CONSTANT = 0.7; // You won't see the full extent of the object in most scopes, so make it a bit smaller
 const RA_TO_DEG = 24 / 360;
@@ -24,33 +22,26 @@ export default class StarMap extends Component {
     let myView = this.props.view;
     let location = this.props.location;
 
-    // In RA, 0.07 =~ 1 degree
-    myView.raFrom = location.ra - myView.fov * RA_TO_DEG / 2;
-    myView.raTo = location.ra + myView.fov * RA_TO_DEG / 2;
-
-    myView.decFrom = location.dec - myView.fov / 2;
-    myView.decTo = location.dec + myView.fov / 2;
-
     // console.log('drawing map for ' + this.props.stars.length + ' stars with view=', myView);
 
     this.drawFOV(ctx, myView);
+    this.drawReticle(ctx, myView);
 
     ctx.save();
     this.drawScopeCircle(ctx, myView);
 
     this.props.stars.map(star => {
-      if (isInView(star.ra, star.dec, star.mag, myView)) {
-        this.drawStar(ctx, myView, star);
+      if (isInView(star.ra, star.dec, star.mag, myView, location)) {
+        this.drawStar(ctx, myView, location, star);
       }
     });
 
     this.props.dsos.map(dso => {
-      if (isInView(dso.ra, dso.dec, dso.mag, myView)) {
-        this.drawDSO(ctx, myView, dso);
+      if (isInView(dso.ra, dso.dec, dso.mag, myView, location)) {
+        this.drawDSO(ctx, myView, location, dso);
       }
     });
 
-    this.drawReticle(ctx, myView);
     ctx.restore();
   }
 
@@ -101,56 +92,53 @@ export default class StarMap extends Component {
     ctx.stroke();
   }
 
-  drawStar(ctx, view, starEntry) {
-    let { ra, dec, mag } = starEntry;
-    // console.log('view=', view);
-    // console.log('starEntry=', starEntry);
+  drawStar(ctx, view, location, starEntry) {
+    try {
+      let { ra, dec, mag } = starEntry;
+      // console.log('view=', view);
+      // console.log('starEntry=', starEntry);
 
-    let flipVertically = false;
-    let flipHorizontally = false;
+      let { x, y } = getXYCoords(ra, dec, view, location);
 
-    switch (view.scopeType) {
-      case 'Refractor':
-      case 'SCT':
-        flipHorizontally = true;
-        break;
-      case 'Dobsonian':
-        flipHorizontally = true;
-        flipVertically = true;
+      let flipVertically = false;
+      let flipHorizontally = false;
+
+      switch (view.scopeType) {
+        case 'Refractor':
+        case 'SCT':
+          flipHorizontally = true;
+          break;
+        case 'Dobsonian':
+          flipHorizontally = true;
+          flipVertically = true;
+      }
+
+      if (flipVertically) {
+        y = view.height - y;
+      }
+
+      if (flipHorizontally) {
+        x = view.width - x;
+      }
+
+      let size = Math.floor(20 - 2 * mag);
+      let halfSize = Math.ceil(size / 2);
+      if (size > 2) {
+        var grd = ctx.createRadialGradient(x, y, 0, x, y, halfSize);
+        grd.addColorStop(0, 'rgba(255,255,255,1)');
+        grd.addColorStop(1, 'rgba(0,0,0,0');
+
+        ctx.fillStyle = grd;
+      } else {
+        size = 2;
+        ctx.fillStyle = 'White';
+      }
+      // console.log(`drawing star (${ra}, ${dec}) at x=${x} y=${y} size=${size} mag=${mag} for fov=${view.fov}`);
+
+      ctx.fillRect(x - halfSize, y - halfSize, size, size);
+    } catch (error) {
+      console.log('error drawing star', error);
     }
-
-    let x = view.width / (view.raTo - view.raFrom) * (view.raTo - ra);
-    let y = view.height / view.fov * (view.decTo - dec);
-
-    // console.log(`
-    //   ${x} = ${view.width} / ${view.raTo - view.raFrom} * ${view.raTo - ra}
-    //   ${y} = ${view.height} / ${view.fov} * ${view.decTo - dec}
-    // `);
-
-    if (flipVertically) {
-      y = view.height - y;
-    }
-
-    if (flipHorizontally) {
-      x = view.width - x;
-    }
-
-    let size = Math.floor(20 - 2 * mag);
-    if (size > 2) {
-      let xadd = Math.floor(size / 2);
-
-      var grd = ctx.createRadialGradient(x + xadd, y + xadd, 0, x + xadd, y + xadd, xadd);
-      grd.addColorStop(0, 'rgba(255,255,255,1)');
-      grd.addColorStop(1, 'rgba(0,0,0,0');
-
-      ctx.fillStyle = grd;
-    } else {
-      size = 2;
-      ctx.fillStyle = 'White';
-    }
-    // console.log(`drawing star (${ra}, ${dec}) at x=${x} y=${y} size=${size} mag=${mag} for fov=${view.fov}`);
-
-    ctx.fillRect(x, y, size, size);
   }
 
   getFlip(view) {
@@ -172,7 +160,7 @@ export default class StarMap extends Component {
     return result;
   }
 
-  drawDSO(ctx, view, dso) {
+  drawDSO(ctx, view, location, dso) {
     // console.log('view=', view);
     // console.log('dso=', dso);
     ctx.save();
@@ -185,12 +173,11 @@ export default class StarMap extends Component {
 
       // console.log('dso=', dso);
       // Scale vs the view size in both RA (X) and degrees (Y)
-      let scaleX = view.width / (view.raTo - view.raFrom);
-      let scaleY = view.height / (view.decTo - view.decFrom);
+      let scaleX = view.width / view.fov / RA_TO_DEG;
+      let scaleY = view.height / view.fov;
 
       // Calculate the x,y using the difference from the location and the bottom right corner
-      let x = scaleX * (view.raTo - ra);
-      let y = scaleY * (view.decTo - dec);
+      let { x, y } = getXYCoords(ra, dec, view, location);
 
       // Figure height and width of the DSO, but use scaleY (degrees) for both directions
       let dsoWidth = Math.ceil(r1 * ARCMINUTE_TO_DEG * scaleY * DSO_SCALE_CONSTANT); // NOT scaleX
@@ -259,13 +246,15 @@ export default class StarMap extends Component {
   onMouseMove = e => {
     if (this.props.updateLocation && this.state && this.state.dragging) {
       // Process drag move
-      // console.log('handling drag');
+      // console.log('handling drag with state=', this.state);
       let view = this.props.view;
-      let scaleX = view.width / (view.raTo - view.raFrom);
-      let scaleY = view.height / (view.decTo - view.decFrom);
+      let scaleX = view.width / view.fov / RA_TO_DEG;
+      let scaleY = view.height / view.fov;
 
       let diffX = e.clientX - this.state.startX;
       let diffY = e.clientY - this.state.startY;
+
+      // console.log(`scaleX = ${scaleX} scaleY=${scaleY} diffX=${diffX} diffY=${diffY}`);
 
       let flip = this.getFlip(view);
       if (flip.flipHorizontally) {
@@ -310,20 +299,25 @@ export default class StarMap extends Component {
   }
 }
 
-function isInView(ra, dec, mag, view) {
-  // console.log(`isInView(
-  //   ${Number(view.raFrom) < Number(ra)} ${view.raFrom} < ${ra} < ${view.raTo} ${Number(view.raTo) > Number(ra)}
-  //   ${Number(view.decFrom) < Number(dec)} ${view.decFrom} < ${dec} < ${view.decTo} ${Number(view.decTo) > Number(dec)}
-  //   ${Number(view.magLimit) > Number(mag)} ${view.magLimit} > ${mag}
-  // `);
+// TODO move this to util
+function isInView(ra, dec, mag, view, location) {
+  let widthRA = view.fov * RA_TO_DEG / 2;
+  let widthDec = view.fov / 2;
 
-  return (
-    Number(view.raFrom) < Number(ra) &&
-    Number(view.raTo) > Number(ra) &&
-    Number(view.decFrom) < Number(dec) &&
-    Number(view.decTo) > Number(dec) &&
-    Number(view.magLimit) > Number(mag)
-  );
+  return Math.abs(location.ra - ra) < widthRA && Math.abs(location.dec - dec) < widthDec && view.magLimit > mag;
+}
+
+function getXYCoords(ra, dec, view, location) {
+  let x = view.width / 2;
+  let y = view.height / 2;
+
+  let widthRA = view.fov * RA_TO_DEG / 2;
+  let widthDec = view.fov / 2;
+
+  let offsetX = (location.ra - ra) / widthRA * view.width / 2;
+  let offsetY = (location.dec - dec) / widthDec * view.height / 2;
+
+  return { x: x + offsetX, y: y + offsetY };
 }
 
 StarMap.propTypes = {

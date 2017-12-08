@@ -54,7 +54,7 @@ export default function userReducer(state = defaultState, action) {
       };
 
     case c.UPDATE_LOCATION:
-      let targetFound = viewContainsTarget(state.eyepieceView, state.selectedHop.targetLocation);
+      let targetFound = viewContainsTarget(state.location, state.eyepieceView, state.selectedHop.targetLocation);
       return {
         ...state,
         location: action.location,
@@ -86,15 +86,19 @@ export default function userReducer(state = defaultState, action) {
   }
 }
 
-function viewContainsTarget(view, target) {
+function viewContainsTarget(location, view, target) {
   // console.log(`containsTarget
   //   view=${JSON.stringify(view)}
   //   target=${JSON.stringify(target)}
   // `);
-  return (
-    target.ra > view.raFrom + TARGET_FOUND_RA_OFFSET &&
-    target.ra < view.raTo - TARGET_FOUND_RA_OFFSET &&
-    target.dec > view.decFrom + TARGET_FOUND_DEC_OFFSET &&
-    target.dec < view.decTo - TARGET_FOUND_DEC_OFFSET
-  );
+  return isInView(target.ra, target.dec, 1, view, location);
+}
+
+// TODO Move to shared util
+const RA_TO_DEG = 24 / 360;
+function isInView(ra, dec, mag, view, location) {
+  let widthRA = view.fov * RA_TO_DEG / 2;
+  let widthDec = view.fov / 2;
+
+  return Math.abs(location.ra - ra) < widthRA && Math.abs(location.dec - dec) < widthDec && view.magLimit > mag;
 }
