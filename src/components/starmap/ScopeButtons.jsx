@@ -73,12 +73,14 @@ export default class ScopeButtons extends Component {
           className="starhop-hop-scope-buttons__up"
           onMouseDown={() => this.onStartMove('dec', '+')}
           onMouseUp={this.onStopMove}
+          onMouseLeave={this.onStopMove}
         />
         <div className="starhop-hop-scope-buttons__center_row">
           <button
             className="starhop-hop-scope-buttons__left"
             onMouseDown={() => this.onStartMove('ra', '+')}
             onMouseUp={this.onStopMove}
+            onMouseLeave={this.onStopMove}
           />
           <Select
             className="starhop-hop-scope-buttons__speed_select"
@@ -93,12 +95,14 @@ export default class ScopeButtons extends Component {
             className="starhop-hop-scope-buttons__right"
             onMouseDown={() => this.onStartMove('ra', '-')}
             onMouseUp={this.onStopMove}
+            onMouseLeave={this.onStopMove}
           />
         </div>
         <button
           className="starhop-hop-scope-buttons__down"
           onMouseDown={() => this.onStartMove('dec', '-')}
           onMouseUp={this.onStopMove}
+          onMouseLeave={this.onStopMove}
         />
       </div>
     );
