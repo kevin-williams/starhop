@@ -1,3 +1,68 @@
+body {
+  background: #222222; }
+
+.app-error-line {
+  top: -20px;
+  position: relative;
+  display: flex;
+  text-align: left;
+  border-top: 2px solid #d9d9d9;
+  border-bottom: 2px solid #d9d9d9;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+  -webkit-animation: app-error-line 1s ease forwards;
+  -moz-animation: app-error-line 1s ease forwards;
+  -ms-animation: app-error-line 1s ease forwards;
+  -o-animation: app-error-line 1s ease forwards;
+  animation: app-error-line 1s ease forwards; }
+  .app-error-line-error {
+    color: #b21411;
+    border-right: 3px solid #b21411; }
+  .app-error-line-warn {
+    color: #eb9e17;
+    border-right: 3px solid #eb9e17; }
+  .app-error-line__image {
+    padding-right: 20px; }
+
+@-webkit-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@-moz-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@-ms-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@-o-keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
+
+@keyframes app-error-line {
+  0% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    top: 0; } }
 /**
  * React Select
  * ============
@@ -420,73 +485,47 @@
 body {
   background: #222222; }
 
-.starhop-mag-selector {
+.starhop-hop-scope-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 5px; }
+  .starhop-hop-scope-buttons__speed_select {
+    margin: 5px; }
+  .starhop-hop-scope-buttons__center_row {
+    display: flex;
+    justify-content: center; }
+  .starhop-hop-scope-buttons button:focus button:active:focus {
+    outline: none; }
+  .starhop-hop-scope-buttons__left {
+    width: 40px;
+    height: 40px;
+    background-image: url(/images/arrow_left_blue.png), url(/starhop/images/arrow_left_blue.png);
+    background-repeat: no-repeat;
+    margin: 5px; }
+  .starhop-hop-scope-buttons__right {
+    width: 40px;
+    height: 40px;
+    background-image: url(/images/arrow_right_blue.png), url(/starhop/images/arrow_right_blue.png);
+    background-repeat: no-repeat;
+    margin: 5px; }
+  .starhop-hop-scope-buttons__up {
+    width: 40px;
+    height: 40px;
+    background-image: url(/images/arrow_up_blue.png), url(/starhop/images/arrow_up_blue.png);
+    background-repeat: no-repeat;
+    margin: 5px; }
+  .starhop-hop-scope-buttons__down {
+    width: 40px;
+    height: 40px;
+    background-image: url(/images/arrow_down_blue.png), url(/starhop/images/arrow_down_blue.png);
+    background-repeat: no-repeat;
+    margin: 5px; }
 body {
   background: #222222; }
 
-.app-error-line {
-  top: -20px;
-  position: relative;
-  display: flex;
-  text-align: left;
-  border-top: 2px solid #d9d9d9;
-  border-bottom: 2px solid #d9d9d9;
-  border-radius: 3px;
-  background-color: #FFFFFF;
-  -webkit-animation: app-error-line 1s ease forwards;
-  -moz-animation: app-error-line 1s ease forwards;
-  -ms-animation: app-error-line 1s ease forwards;
-  -o-animation: app-error-line 1s ease forwards;
-  animation: app-error-line 1s ease forwards; }
-  .app-error-line-error {
-    color: #b21411;
-    border-right: 3px solid #b21411; }
-  .app-error-line-warn {
-    color: #eb9e17;
-    border-right: 3px solid #eb9e17; }
-  .app-error-line__image {
-    padding-right: 20px; }
-
-@-webkit-keyframes app-error-line {
-  0% {
-    opacity: 0; }
-  75% {
-    opacity: 1; }
-  100% {
-    top: 0; } }
-
-@-moz-keyframes app-error-line {
-  0% {
-    opacity: 0; }
-  75% {
-    opacity: 1; }
-  100% {
-    top: 0; } }
-
-@-ms-keyframes app-error-line {
-  0% {
-    opacity: 0; }
-  75% {
-    opacity: 1; }
-  100% {
-    top: 0; } }
-
-@-o-keyframes app-error-line {
-  0% {
-    opacity: 0; }
-  75% {
-    opacity: 1; }
-  100% {
-    top: 0; } }
-
-@keyframes app-error-line {
-  0% {
-    opacity: 0; }
-  75% {
-    opacity: 1; }
-  100% {
-    top: 0; } }
+.starhop-mag-selector {
+  margin: 5px; }
 body {
   background: #222222; }
 
@@ -500,6 +539,13 @@ body {
   padding: 5px; }
   .starhop-hop-selector__description {
     color: lightgray; }
+body {
+  background: #222222; }
+
+.starhop-starmap canvas {
+  background: black;
+  color: white;
+  margin: 5px; }
 body {
   background: #222222; }
 
