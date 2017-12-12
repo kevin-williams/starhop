@@ -1,10 +1,11 @@
 import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
-import ScopeMagnificationSelector from '../../components/starmap/ScopeMagnificationSelector';
 
 const hopData = require('../../../public/db/hopData.json');
 
 import ErrorLine from '../../components/error/ErrorLine';
+import ScopeButtons from '../../components/starmap/ScopeButtons';
+import ScopeMagnificationSelector from '../../components/starmap/ScopeMagnificationSelector';
 import ScopeTypeSelector from '../../components/starmap/ScopeTypeSelector';
 import StarHopSelector from '../../components/starmap/StarHopSelector';
 import StarMap from '../../components/starmap/StarMap';
@@ -25,10 +26,7 @@ const MAGNIFICATIONS = [
   { value: 0.5, label: 'High (0.5° FOV)' },
 ];
 
-const FINDER_MAGNIFICATIONS = [
-  { value: { fov: 7, magLimit: 8 }, label: 'Finder (7° FOV)' },
-  { value: { fov: 20, magLimit: 5.5 }, label: 'Naked Eye (20°Fov)' },
-];
+const FINDER_MAGNIFICATIONS = [{ value: 7, label: 'Finder (7° FOV)' }, { value: 20, label: 'Naked Eye (20°Fov)' }];
 
 const hopItems = [];
 
@@ -82,11 +80,11 @@ export default class StarHop extends Component {
 
   handleFinderMagnification = e => {
     // console.log('Change scopeType=', e);
-    let targetView = e.value;
+    let fov = e.value;
 
     let newView = { ...this.props.starhop.view };
-    newView.fov = targetView.fov;
-    newView.magLimit = targetView.magLimit;
+    newView.fov = fov;
+    newView.magLimit = fov == 7 ? 8 : 5.5;
 
     this.props.updateView(newView);
   };
@@ -109,7 +107,7 @@ export default class StarHop extends Component {
               updateLocation={this.props.updateLocation}
             />
             <ScopeMagnificationSelector
-              view={this.props.starhop.view.fov}
+              view={this.props.starhop.view}
               handler={this.handleFinderMagnification}
               magnifications={FINDER_MAGNIFICATIONS}
             />
@@ -129,6 +127,8 @@ export default class StarHop extends Component {
               magnifications={MAGNIFICATIONS}
             />
             {targetFound}
+            <ScopeButtons location={this.props.starhop.location} changeLocation={this.props.updateLocation} />
+
             <div>
               <StarHopSelector
                 selectedItem={this.props.starhop.selectedHop.id}

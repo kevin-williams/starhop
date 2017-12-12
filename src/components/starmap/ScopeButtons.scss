@@ -1,0 +1,55 @@
+//Import the base styles/colors
+@import '~styles/main';
+
+.starhop-hop-scope-buttons {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+
+    &__speed_select {
+        margin: 5px;
+    }
+
+    &__center_row {
+        display: flex;
+        justify-content: center;
+    }
+
+    button:focus button:active:focus {
+        outline: none;
+    }
+
+
+    &__left {
+        width: 40px;
+        height: 40px;
+        background-image: url(/images/arrow_left_blue.png), url(/starhop/images/arrow_left_blue.png);
+        background-repeat: no-repeat;
+        margin: 5px;
+    }
+
+    &__right {
+        width: 40px;
+        height: 40px;
+        background-image: url(/images/arrow_right_blue.png), url(/starhop/images/arrow_right_blue.png);
+        background-repeat: no-repeat;
+        margin: 5px;
+    }
+    &__up {
+        width: 40px;
+        height: 40px;
+        background-image: url(/images/arrow_up_blue.png), url(/starhop/images/arrow_up_blue.png);
+        background-repeat: no-repeat;
+        margin: 5px;
+    }
+    &__down {
+        width: 40px;
+        height: 40px;
+        background-image: url(/images/arrow_down_blue.png), url(/starhop/images/arrow_down_blue.png);
+        background-repeat: no-repeat;
+        margin: 5px;
+    }
+
+}
