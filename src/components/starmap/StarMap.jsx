@@ -132,7 +132,8 @@ export default class StarMap extends Component {
 
         ctx.fillStyle = grd;
       } else {
-        size = 2;
+        size = 1;
+        halSize = 0;
         ctx.fillStyle = 'White';
       }
       // console.log(`drawing star (${ra}, ${dec}) at x=${x} y=${y} size=${size} mag=${mag} for fov=${view.fov}`);
