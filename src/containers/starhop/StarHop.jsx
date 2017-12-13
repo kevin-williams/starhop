@@ -128,15 +128,14 @@ export default class StarHop extends Component {
             />
             {targetFound}
             <ScopeButtons location={this.props.starhop.location} changeLocation={this.props.updateLocation} />
-
-            <div>
-              <StarHopSelector
-                selectedItem={this.props.starhop.selectedHop.id}
-                items={hopItems}
-                handler={this.loadHopData}
-                description={this.props.starhop.selectedHop.description}
-              />
-            </div>
+          </div>
+          <div>
+            <StarHopSelector
+              selectedItem={this.props.starhop.selectedHop.id}
+              items={hopItems}
+              handler={this.loadHopData}
+              description={this.props.starhop.selectedHop.description}
+            />
           </div>
         </div>
       </div>
