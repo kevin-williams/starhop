@@ -11,6 +11,11 @@ export const getDeepSpaceObjects = catalog => ({
   catalog,
 });
 
+export const updateHints = hints => ({
+  type: c.UPDATE_HINTS,
+  hints,
+});
+
 export const updateLocation = location => ({
   type: c.UPDATE_LOCATION,
   location,

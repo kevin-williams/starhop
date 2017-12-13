@@ -42,7 +42,7 @@ export const defaultState = {
     },
   },
   hints: {
-    directionArrow: true,
+    directionArrow: false,
     currentLocation: true,
     hintText: true,
   },
@@ -64,6 +64,12 @@ export default function userReducer(state = defaultState, action) {
       return {
         ...state,
         dsos: action.dsos,
+      };
+
+    case c.UPDATE_HINTS:
+      return {
+        ...state,
+        hints: action.hints,
       };
 
     case c.UPDATE_LOCATION:

@@ -5,6 +5,7 @@ import HopProgress from '../../components/starmap/HopProgress';
 const hopData = require('../../../public/db/hopData.json');
 
 import ErrorLine from '../../components/error/ErrorLine';
+import Hints from '../../components/starmap/Hints';
 import ScopeButtons from '../../components/starmap/ScopeButtons';
 import ScopeMagnificationSelector from '../../components/starmap/ScopeMagnificationSelector';
 import ScopeTypeSelector from '../../components/starmap/ScopeTypeSelector';
@@ -13,6 +14,7 @@ import StarMap from '../../components/starmap/StarMap';
 import {
   getStars,
   getDeepSpaceObjects,
+  updateHints,
   updateLocation,
   updateView,
   updateEyepieceView,
@@ -36,6 +38,7 @@ const mapStateToProps = state => state;
 @connect(mapStateToProps, {
   getStars,
   getDeepSpaceObjects,
+  updateHints,
   updateLocation,
   updateView,
   updateEyepieceView,
@@ -148,6 +151,7 @@ export default class StarHop extends Component {
               handler={this.loadHopData}
               description={this.props.starhop.selectedHop.description}
             />
+            <Hints hints={this.props.starhop.hints} updateHints={this.props.updateHints} />
           </div>
         </div>
       </div>

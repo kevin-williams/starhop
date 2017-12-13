@@ -1,0 +1,12 @@
+//Import the base styles/colors
+@import '~styles/main';
+
+.starhop-hop-hints {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: baseline;
+    height: 100px;
+    margin-left: 30px;
+}
