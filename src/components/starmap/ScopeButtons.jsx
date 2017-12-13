@@ -68,7 +68,8 @@ export default class ScopeButtons extends Component {
 
   render() {
     return (
-      <div className="starhop-hop-scope-buttons">
+      <fieldset className="starhop-hop-scope-buttons">
+        <legend>Scope RA/Dec</legend>
         <button
           className="starhop-hop-scope-buttons__up"
           onMouseDown={() => this.onStartMove('dec', '+')}
@@ -104,7 +105,7 @@ export default class ScopeButtons extends Component {
           onMouseUp={this.onStopMove}
           onMouseLeave={this.onStopMove}
         />
-      </div>
+      </fieldset>
     );
   }
 }
