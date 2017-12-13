@@ -1,5 +1,6 @@
 import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
+import HopProgress from '../../components/starmap/HopProgress';
 
 const hopData = require('../../../public/db/hopData.json');
 
@@ -101,8 +102,14 @@ export default class StarHop extends Component {
 
     return (
       <div>
+        <HopProgress
+          location={this.props.starhop.location}
+          start={this.props.starhop.selectedHop.startingLocation}
+          target={this.props.starhop.selectedHop.targetLocation}
+        />
         <div className="starhop-hopview">
           <ErrorLine statusList={[this.props.starhop.zipCodeStatus]} />
+
           <div>
             <StarMap
               stars={this.props.starhop.stars}

@@ -32,6 +32,10 @@ export const defaultState = {
   selectedHop: {
     id: '',
     description: 'Please select an object to practicing hopping to',
+    startingLocation: {
+      ra: -1,
+      dec: -1,
+    },
     targetLocation: {
       ra: -1,
       dec: -1,

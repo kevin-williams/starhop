@@ -1,6 +1,9 @@
 // This is used to set up the default status for service calls that haven't happened yet.
 export const DEFAULT_SERVICE_STATUS = { serviceFailure: null, message: '' };
 
+export const ARCMINUTE_TO_DEG = 0.0167;
+export const DSO_SCALE_CONSTANT = 0.7; // You won't see the full extent of the object in most scopes, so make it a bit smaller
+export const RA_TO_DEG = 24 / 360;
 /**
  * Helper function to get a URL parameter from the initial load of the app.   Often used to set state from the URL by
  * calling this function directly from the reducer.
