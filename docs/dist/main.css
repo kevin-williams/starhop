@@ -63,6 +63,16 @@ body {
     opacity: 1; }
   100% {
     top: 0; } }
+body {
+  background: #222222; }
+
+.starhop-hop-hints {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: baseline;
+  height: 100px;
+  margin-left: 30px; }
 /**
  * React Select
  * ============
@@ -516,13 +526,13 @@ body {
     height: 40px;
     background-image: url(/images/arrow_up_blue.png), url(/starhop/images/arrow_up_blue.png);
     background-repeat: no-repeat;
-    margin: 5px; }
+    margin: auto; }
   .starhop-hop-scope-buttons__down {
     width: 40px;
     height: 40px;
     background-image: url(/images/arrow_down_blue.png), url(/starhop/images/arrow_down_blue.png);
     background-repeat: no-repeat;
-    margin: 5px; }
+    margin: auto; }
 body {
   background: #222222; }
 
