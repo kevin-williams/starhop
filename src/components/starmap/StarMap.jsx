@@ -123,9 +123,16 @@ export default class StarMap extends Component {
         x = view.width - x;
       }
 
-      let size = Math.floor(20 - 2 * mag);
+      let starScale = view.fov / view.width * 1000;
+      if (view.fov > 7) {
+        starScale = 15;
+      }
+
+      let size = Math.floor(30 - 2 * (mag + 6) - starScale);
+
+      // let size = Math.floor(starScale - 2 * mag);
       let halfSize = Math.ceil(size / 2);
-      if (size > 2) {
+      if (size >= 2) {
         var grd = ctx.createRadialGradient(x, y, 0, x, y, halfSize);
         grd.addColorStop(0, 'rgba(255,255,255,1)');
         grd.addColorStop(1, 'rgba(0,0,0,0');

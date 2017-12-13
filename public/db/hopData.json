@@ -80,6 +80,26 @@
       "dec": 33.03
     }
   },
+  "M76": {
+    "id": "M76",
+    "label": "M76 (medium)",
+    "description": "Hop to M76 (Little Dumbbell Nebula) starting at the star Shedar in Cassiopeia.",
+    "starMapQuery" : {
+      "raFrom": 0,
+      "raTo": 6,
+      "decFrom": 45,
+      "decTo": 60,
+      "magLimit": 15
+    },
+    "startingLocation" : {
+      "ra": 0.69222,
+      "dec": 56.63
+    },
+    "targetLocation" : {
+      "ra": 1.73,
+      "dec": 51.657
+    }
+  },
   "M81": {
     "id": "M81",
     "label": "M81 (hard)",
