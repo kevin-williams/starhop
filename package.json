@@ -1,6 +1,6 @@
 {
   "name": "starhop-trainer",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "Helps a new astronomer learn how to star hop to find objects in space.",
   "main": "index.js",
   "scripts": {
