@@ -94,6 +94,11 @@ export default class StarHop extends Component {
       <div className="starhop-hopview__target-found">Target in Eyepiece View!</div>
     ) : null;
 
+    // Add hints into only the finder view
+    let finderView = { ...this.props.starhop.view };
+    finderView.hints = this.props.starhop.hints;
+    finderView.target = this.props.starhop.selectedHop.targetLocation;
+
     return (
       <div>
         <div className="starhop-hopview">
@@ -103,7 +108,7 @@ export default class StarHop extends Component {
               stars={this.props.starhop.stars}
               dsos={this.props.starhop.dsos}
               location={this.props.starhop.location}
-              view={this.props.starhop.view}
+              view={finderView}
               updateLocation={this.props.updateLocation}
             />
             <ScopeMagnificationSelector

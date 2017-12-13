@@ -25,16 +25,16 @@ export const defaultState = {
   view: DEFAULT_FINDER_VIEW,
   eyepieceView: DEFAULT_EYEPIECE_VIEW,
   location: {
-    ra: 5,
-    dec: 15,
+    ra: -1,
+    dec: -1,
   },
   starStatus: DEFAULT_SERVICE_STATUS,
   selectedHop: {
     id: '',
     description: 'Please select an object to practicing hopping to',
     targetLocation: {
-      ra: 6,
-      dec: 16,
+      ra: -1,
+      dec: -1,
     },
   },
   hints: {

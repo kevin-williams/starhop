@@ -27,8 +27,11 @@ export default class StarMap extends Component {
     // console.log('drawing map for ' + this.props.stars.length + ' stars with view=', myView);
 
     this.drawFOV(ctx, myView);
+    this.drawLocation(ctx, myView, location);
+    this.drawArrow(ctx, myView, location);
 
     ctx.save();
+
     if (myView.fov > 7) {
       this.drawTelrad(ctx, myView);
     } else {
@@ -49,6 +52,48 @@ export default class StarMap extends Component {
     });
 
     ctx.restore();
+  }
+
+  drawLocation(ctx, view, location) {
+    if (view.hints && view.hints.currentLocation && location.ra >= 0) {
+      ctx.save();
+      ctx.fillStyle = 'white';
+      ctx.font = '15px Georgia';
+      ctx.fillText(`${location.ra.toFixed(3)}h`, view.width - 80, 20);
+      ctx.fillText(`${location.dec.toFixed(3)}°`, view.width - 80, 40);
+      ctx.restore();
+    }
+  }
+
+  drawArrow(ctx, view, location) {
+    if (view.hints && view.hints.directionArrow && location.ra && view.target.ra >= 0) {
+      let centerX = view.width / 2;
+      let centerY = view.height / 2;
+      let scale = view.height / view.fov;
+
+      let raDiff = (location.ra - view.target.ra) / RA_TO_DEG;
+      let decDiff = location.dec - view.target.dec;
+
+      let angle = Math.atan2(decDiff, raDiff);
+
+      let xDiff = Math.abs(raDiff * scale);
+      let yDiff = Math.abs(decDiff * scale);
+
+      let arrowLength = xDiff > yDiff ? xDiff : yDiff;
+      arrowLength = arrowLength > view.width / 3 ? view.width / 3 : arrowLength;
+
+      // Draw Arrow
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(angle);
+      ctx.beginPath();
+      ctx.moveTo(10, 0);
+      ctx.lineTo(arrowLength, 0);
+
+      ctx.strokeStyle = 'yellow';
+      ctx.stroke();
+      ctx.restore();
+    }
   }
 
   drawFOV(ctx, view) {
@@ -161,7 +206,7 @@ export default class StarMap extends Component {
         ctx.fillStyle = grd;
       } else {
         size = 1;
-        halSize = 0;
+        halfSize = 0;
         ctx.fillStyle = 'White';
       }
       // console.log(`drawing star (${ra}, ${dec}) at x=${x} y=${y} size=${size} mag=${mag} for fov=${view.fov}`);
@@ -263,7 +308,7 @@ export default class StarMap extends Component {
     }
   }
 
-  onMouseDown = e => {
+  startDragging = e => {
     // console.log('MouseDown=', e);
     this.setState({
       dragging: true,
@@ -309,7 +354,7 @@ export default class StarMap extends Component {
     }
   };
 
-  onMouseUp = e => {
+  stopDragging = e => {
     // console.log('MouseUp=', e);
     this.setState({
       dragging: false,
@@ -320,9 +365,10 @@ export default class StarMap extends Component {
     return (
       <div
         className="starhop-starmap"
-        onMouseDown={this.onMouseDown}
+        onMouseDown={this.startDragging}
         onMouseMove={this.onMouseMove}
-        onMouseUp={this.onMouseUp}
+        onMouseUp={this.stopDragging}
+        onMouseLeave={this.stopDragging}
       >
         <canvas ref="canvas" width={this.props.view.width} height={this.props.view.height} />
       </div>
