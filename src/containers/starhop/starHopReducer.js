@@ -37,6 +37,11 @@ export const defaultState = {
       dec: 16,
     },
   },
+  hints: {
+    directionArrow: true,
+    currentLocation: true,
+    hintText: true,
+  },
   targetFound: false,
 };
 

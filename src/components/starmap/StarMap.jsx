@@ -27,10 +27,14 @@ export default class StarMap extends Component {
     // console.log('drawing map for ' + this.props.stars.length + ' stars with view=', myView);
 
     this.drawFOV(ctx, myView);
-    this.drawReticle(ctx, myView);
 
     ctx.save();
-    this.drawScopeCircle(ctx, myView);
+    if (myView.fov > 7) {
+      this.drawTelrad(ctx, myView);
+    } else {
+      this.drawReticle(ctx, myView);
+      this.drawScopeCircle(ctx, myView);
+    }
 
     this.props.stars.map(star => {
       if (isInView(star.ra, star.dec, star.mag, myView, location)) {
@@ -55,6 +59,23 @@ export default class StarMap extends Component {
       ctx.fillText(`${view.fov}°`, 10, 20);
       ctx.restore();
     }
+  }
+
+  drawTelrad(ctx, view) {
+    let outerCircleScale = 4 / view.fov;
+    let middleCircleScale = 2 / view.fov;
+    let innerCircleScale = 0.5 / view.fov;
+
+    let circles = [outerCircleScale, middleCircleScale, innerCircleScale];
+
+    circles.map(circleScale => {
+      // draw edge of circle
+      ctx.beginPath();
+      ctx.arc(view.width / 2, view.height / 2, view.height * circleScale / 2 - 1, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+    });
   }
 
   drawReticle(ctx, view) {
