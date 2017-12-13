@@ -490,6 +490,8 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 5px; }
+  .starhop-hop-scope-buttons legend {
+    color: lightgrey; }
   .starhop-hop-scope-buttons__speed_select {
     margin: 5px; }
   .starhop-hop-scope-buttons__center_row {
