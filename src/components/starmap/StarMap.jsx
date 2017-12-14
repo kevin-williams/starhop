@@ -282,7 +282,7 @@ export default class StarMap extends Component {
       // );
 
       var grd = ctx.createRadialGradient(0, 0, 0, 0, 0, minSize);
-      grd.addColorStop(0, 'rgba(255,255,255,1)');
+      grd.addColorStop(0, 'rgba(125,150,230,1)');
       grd.addColorStop(1, 'rgba(0,0,0,0');
 
       ctx.fillStyle = grd;

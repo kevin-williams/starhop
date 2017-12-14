@@ -27,7 +27,7 @@ export default class HopProgress extends Component {
       height: 20,
     };
 
-    return <meter min="0" max="100" value={progress} style={meterStyle} />;
+    return <meter min="0" low="50" high="90" optimum="95" max="100" value={progress} style={meterStyle} />;
   }
 }
 

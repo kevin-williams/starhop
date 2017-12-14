@@ -3,6 +3,7 @@
     "id": "M13",
     "label": "M13 (easy)",
     "description": "Hop to M13 (Hercules Cluster) starting at the star Eta Hercules (very easy).",
+    "hint": "You can see M13 in the finder view.   But check the patterns of stars with your chart to learn to align them with what you see.\n\nMatch the triangle SE of the starting point and the 2 stars straddling M13.",
     "starMapQuery" : {
       "raFrom": 15.75,
       "raTo": 18.25,
@@ -23,6 +24,7 @@
     "id": "M27",
     "label": "M27 (hard)",
     "description": "Hop to M27 (Dumbell Nebula) starting at the star Altair (long hop on purpose)",
+    "hint": "This is a long hop.  Find the angle you need to travel to get to M27 and line it up with the stars in the finder\n\nSee the long triangle above the starting point?  Use it to get your angle.\n\nYou will probably have to move left and right to follow the stars as you move up.  Just check regularly that the direction is still correct.",
     "starMapQuery" : {
       "raFrom": 18.5,
       "raTo": 20.5,
@@ -42,7 +44,8 @@
   "M56": {
     "id": "M56",
     "label": "M56 (medium)",
-    "description": "Hop to M57 (Globular cluster) starting at the star Vega (Hint: Similar to M57 hop, but farther!)",
+    "description": "Hop to M56 (Globular cluster) starting at the star Vega (Hint: Similar to M57 hop, but farther!)",
+    "hint": "Do the M57 hop first.\n\n Then continue on to M56.  Near the target are several triangles of stars to help you get oriented.",
     "starMapQuery" : {
       "raFrom": 18,
       "raTo": 20,
@@ -64,6 +67,7 @@
     "id": "M57",
     "label": "M57 (medium)",
     "description": "Hop to M57 (Ring Nebula) starting at the star Vega (Hint: M57 is small!)",
+    "hint": "Vega is bright and makes an easy start point.  There are many bright stars to help in the hop.  You can hop from bright star to bright star by just moving the last star to the edge of the finder.\n\nAlso the pattern is easily recognizable in the naked eye view and you can use the Telrad circles to position the eyepiece view quickly.\n\nM57 is small and in low magnifications will appear stellar.",
     "starMapQuery" : {
       "raFrom": 18,
       "raTo": 20,
@@ -84,6 +88,7 @@
     "id": "M76",
     "label": "M76 (medium)",
     "description": "Hop to M76 (Little Dumbbell Nebula) starting at the star Shedar in Cassiopeia.",
+    "hint": "Right off you have a fairly empty starfield to hop through.\n\nHop to the little triangle first, then find the one star near the bottom left or your star field.\n\nOften there is only 1 star you can use to get to the next section of your hop.  This is an example of that.",
     "starMapQuery" : {
       "raFrom": 0,
       "raTo": 6,
@@ -104,6 +109,7 @@
     "id": "M81",
     "label": "M81 (hard)",
     "description": "Hop to M81 Galaxy starting at the star Dubhe (tip of the ladle in the big dipper)",
+    "hint": "Starting at the end of the big dipper is easier, especially if you're not in really dark skies.   But the first hops will need to be large as the starfield is sparse.\n\nKeep your orientation and target direction as you make the long hops.\n\nM81 is fairly bright and unless you have severe light pollution or a small finder, it should show in your finder.\n\n As a bonus, M82 is close by!",
     "starMapQuery" : {
       "raFrom": 8,
       "raTo": 12,

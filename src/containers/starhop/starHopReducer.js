@@ -42,9 +42,9 @@ export const defaultState = {
     },
   },
   hints: {
-    directionArrow: false,
     currentLocation: true,
-    hintText: true,
+    directionArrow: false,
+    hintText: false,
   },
   targetFound: false,
 };

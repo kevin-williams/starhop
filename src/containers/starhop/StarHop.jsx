@@ -151,7 +151,11 @@ export default class StarHop extends Component {
               handler={this.loadHopData}
               description={this.props.starhop.selectedHop.description}
             />
-            <Hints hints={this.props.starhop.hints} updateHints={this.props.updateHints} />
+            <Hints
+              starhop={this.props.starhop.selectedHop}
+              hints={this.props.starhop.hints}
+              updateHints={this.props.updateHints}
+            />
           </div>
         </div>
       </div>
