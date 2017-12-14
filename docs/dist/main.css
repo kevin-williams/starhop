@@ -71,8 +71,13 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: baseline;
-  height: 100px;
-  margin-left: 30px; }
+  max-width: 300px; }
+  .starhop-hop-hints legend {
+    color: lightgrey; }
+  .starhop-hop-hints span {
+    color: lightgrey;
+    margin-top: 5px;
+    margin-bottom: 2px; }
 /**
  * React Select
  * ============
