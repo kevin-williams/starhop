@@ -20,7 +20,7 @@ export default class HopProgress extends Component {
     // Draw Arrow
     let progress = (targetRADiff + targetDecDiff - raDiff - decDiff) / (targetRADiff + targetDecDiff) * 100 + 5;
 
-    console.log(`progress= ${progress}   raDiff=${raDiff} decDiff=${decDiff}`);
+    // console.log(`progress= ${progress}   raDiff=${raDiff} decDiff=${decDiff}`);
 
     let meterStyle = {
       width: '100%',

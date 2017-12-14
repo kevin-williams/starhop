@@ -20,6 +20,71 @@
       "dec": 36.42
     }
   },
+  "M16": {
+    "id": "M16",
+    "label": "M16 (medium)",
+    "description": "Hop to M16 (Eagle Nebula) starting at Kaus Borealis (top of the teapot/Sagittarius)",
+    "hint": "If you did the M22 hop and then the M25 hop, repeat those steps and then continue on to M16.\n\nThere are many Messier objects in this area.  Don't get distracted!",
+    "starMapQuery" : {
+      "raFrom": 17.5,
+      "raTo": 19.5,
+      "decFrom": -35,
+      "decTo": 0,
+      "magLimit": 15
+    },
+    "startingLocation" : {
+      "ra": 18.484,
+      "dec": -25.4
+    },
+    "targetLocation" : {
+      "ra": 18.33,
+      "dec": -13.773
+    }
+  },
+  "M22": {
+    "id": "M22",
+    "label": "M22 (easy)",
+    "description": "Hop to M22 starting at Kaus Borealis (top of the teapot/Sagittarius)",
+    "hint": "Another very easy hop.  M28 is near the starting point as well.\n\nTake your time to get your chart aligned.  In and around Sagittarius it is easy to find objects to see.   But to know which one you are viewing you have to keep track of your star field.\n\nOnce found, move on to the M25 hop.",
+    "starMapQuery" : {
+      "raFrom": 17.5,
+      "raTo": 19.5,
+      "decFrom": -35,
+      "decTo": 0,
+      "magLimit": 15
+    },
+    "startingLocation" : {
+      "ra": 18.484,
+      "dec": -25.4
+    },
+    "targetLocation" : {
+      "ra": 18.625,
+      "dec": -23.887
+    }
+  },
+
+  "M25": {
+    "id": "M25",
+    "label": "M25 (medium)",
+    "description": "Hop to M25 starting at Kaus Borealis (top of the teapot/Sagittarius)",
+    "hint": "First ease over to M22, then follow the stars up.  M25 is right next to a large clump of stars with an obvious pattern.  Next head to M16.",
+    "starMapQuery" : {
+      "raFrom": 17.5,
+      "raTo": 19.5,
+      "decFrom": -35,
+      "decTo": 0,
+      "magLimit": 15
+    },
+    "startingLocation" : {
+      "ra": 18.484,
+      "dec": -25.4
+    },
+    "targetLocation" : {
+      "ra": 18.547,
+      "dec": -19.1
+    }
+  },
+
   "M27": {
     "id": "M27",
     "label": "M27 (hard)",
@@ -39,6 +104,27 @@
     "targetLocation" : {
       "ra": 20.0,
       "dec": 22.76
+    }
+  },
+  "M55": {
+    "id": "M55",
+    "label": "M55 (medium)",
+    "description": "Hop to M55 starting at Ascella (bottom of the teapot handle/Sagittarius)",
+    "hint": "Follow the patterns of stars west.  Remember to keep your place in your chart or move the view on your digital chart to keep your place!",
+    "starMapQuery" : {
+      "raFrom": 18.5,
+      "raTo": 21.5,
+      "decFrom": -35,
+      "decTo": -20,
+      "magLimit": 15
+    },
+    "startingLocation" : {
+      "ra": 19.044,
+      "dec": -29.85
+    },
+    "targetLocation" : {
+      "ra": 19.685,
+      "dec": -30.921
     }
   },
   "M56": {
