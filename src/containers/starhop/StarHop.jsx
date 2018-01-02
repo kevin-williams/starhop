@@ -59,7 +59,20 @@ export default class StarHop extends Component {
     this.props.updateSelectedHop(hopInfo);
 
     this.props.getStars(hopInfo.starMapQuery);
-    this.props.updateLocation(hopInfo.startingLocation);
+    this.props.updateLocation(hopInfo.startingLocation[0]);
+  };
+
+  updateStartingStar = star => {
+    console.log('updateStar=', star);
+
+    this.props.starhop.selectedHop.startingLocation.map(location => {
+      if (star.value == location.name) {
+        let hopInfo = { ...this.props.starhop.selectedHop };
+        hopInfo.selectedStar = location;
+        this.props.updateSelectedHop(hopInfo);
+        this.props.updateLocation(location);
+      }
+    });
   };
 
   handleScopeType = e => {
@@ -103,11 +116,16 @@ export default class StarHop extends Component {
     finderView.hints = this.props.starhop.hints;
     finderView.target = this.props.starhop.selectedHop.targetLocation;
 
+    let hopStars = this.props.starhop.selectedHop.startingLocation.map(location => ({
+      value: location.name,
+      label: location.name,
+    }));
+
     return (
       <div>
         <HopProgress
           location={this.props.starhop.location}
-          start={this.props.starhop.selectedHop.startingLocation}
+          start={this.props.starhop.selectedHop.selectedStar}
           target={this.props.starhop.selectedHop.targetLocation}
         />
         <div className="starhop-hopview">
@@ -147,8 +165,11 @@ export default class StarHop extends Component {
           <div>
             <StarHopSelector
               selectedItem={this.props.starhop.selectedHop.id}
-              items={hopItems}
+              hops={hopItems}
               handler={this.loadHopData}
+              stars={hopStars}
+              selectedStar={this.props.starhop.selectedHop.selectedStar.name}
+              starHandler={this.updateStartingStar}
               description={this.props.starhop.selectedHop.description}
             />
             <Hints

@@ -32,11 +32,18 @@ export const defaultState = {
   selectedHop: {
     id: '',
     description: 'Please select an object to practicing hopping to',
-    startingLocation: {
+    startingLocation: [
+      {
+        ra: -1,
+        dec: -1,
+      },
+    ],
+    targetLocation: {
       ra: -1,
       dec: -1,
     },
-    targetLocation: {
+    selectedStar: {
+      name: '',
       ra: -1,
       dec: -1,
     },
@@ -93,10 +100,16 @@ export default function userReducer(state = defaultState, action) {
       };
 
     case c.UPDATE_SELECTED_HOP:
+      let newHop = action.hop;
+
+      if (!action.hop.selectedStar) {
+        newHop.selectedStar = newHop.startingLocation[0];
+      }
+
       return {
         ...state,
-        selectedHop: action.hop,
-        location: action.hop.startingLocation,
+        selectedHop: newHop,
+        location: action.hop.selectedStar,
         targetFound: false,
       };
 
