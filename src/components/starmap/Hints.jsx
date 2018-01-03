@@ -8,6 +8,13 @@ import { RA_TO_DEG } from 'utils';
 import style from './Hints.scss';
 
 export default class Hints extends Component {
+  toggleProgress = () => {
+    let myHints = { ...this.props.hints };
+    myHints.showProgress = !myHints.showProgress;
+
+    this.props.updateHints(myHints);
+  };
+
   toggleLocation = () => {
     let myHints = { ...this.props.hints };
     myHints.currentLocation = !myHints.currentLocation;
@@ -41,6 +48,8 @@ export default class Hints extends Component {
     return (
       <fieldset className="starhop-hop-hints">
         <legend>Hints</legend>
+        <span>Progress</span>
+        <ToggleButton value={this.props.hints.showProgress} onToggle={this.toggleProgress} />
         <span>Location</span>
         <ToggleButton value={this.props.hints.currentLocation} onToggle={this.toggleLocation} />
         <span>Arrow</span>

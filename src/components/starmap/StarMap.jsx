@@ -47,7 +47,6 @@ export default class StarMap extends Component {
 
     this.props.dsos.map(dso => {
       if (isInView(dso.ra, dso.dec, dso.mag, myView, location)) {
-        console.log('dso=', dso);
         this.drawDSO(ctx, myView, location, dso);
       }
     });

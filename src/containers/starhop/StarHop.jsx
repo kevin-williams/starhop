@@ -125,6 +125,7 @@ export default class StarHop extends Component {
     return (
       <div>
         <HopProgress
+          visible={this.props.starhop.hints.showProgress}
           location={this.props.starhop.location}
           start={this.props.starhop.selectedHop.selectedStar}
           target={this.props.starhop.selectedHop.targetLocation}

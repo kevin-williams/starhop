@@ -50,7 +50,8 @@ export const defaultState = {
     },
   },
   hints: {
-    currentLocation: true,
+    showProgress: false,
+    currentLocation: false,
     directionArrow: false,
     hintText: false,
   },

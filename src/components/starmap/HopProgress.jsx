@@ -5,6 +5,10 @@ import { RA_TO_DEG } from 'utils';
 
 export default class HopProgress extends Component {
   render() {
+    if (!this.props.visible) {
+      return null;
+    }
+
     let { location, start, target } = this.props;
 
     if (location.ra < 0) {
@@ -18,7 +22,9 @@ export default class HopProgress extends Component {
     let decDiff = Math.abs(location.dec - target.dec);
 
     // Calculate % of progress
-    let progress = (targetRADiff + targetDecDiff - raDiff - decDiff) / (targetRADiff + targetDecDiff) * 100 + 5;
+    let progress = (targetRADiff + targetDecDiff - raDiff - decDiff) / (targetRADiff + targetDecDiff) * 100;
+
+    progress = Math.ceil(progress / 5) * 5;
 
     // console.log(`progress= ${progress}   raDiff=${raDiff} decDiff=${decDiff}`);
 
@@ -32,6 +38,7 @@ export default class HopProgress extends Component {
 }
 
 HopProgress.propTypes = {
+  visible: PropTypes.boolean,
   location: PropTypes.object.isRequired,
   start: PropTypes.object.isRequired,
   target: PropTypes.object.isRequired,
