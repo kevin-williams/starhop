@@ -18,8 +18,11 @@ export default class StarMap extends Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, this.props.view.width, this.props.view.height);
 
-    let myView = this.props.view;
-    let location = this.props.location;
+    let { view: myView, location, skyDarkness } = this.props;
+
+    // SkyDarkness is a percent, so adjust to be a decimal up to 1 magnitude
+    myView.magAdjustment = skyDarkness / 100;
+    myView.magLimitAdjusted = myView.magLimit - myView.magAdjustment;
 
     // console.log('drawing map for ' + this.props.stars.length + ' stars with view=', myView);
 
@@ -44,6 +47,7 @@ export default class StarMap extends Component {
 
     this.props.dsos.map(dso => {
       if (isInView(dso.ra, dso.dec, dso.mag, myView, location)) {
+        console.log('dso=', dso);
         this.drawDSO(ctx, myView, location, dso);
       }
     });
@@ -382,7 +386,7 @@ function isInView(ra, dec, mag, view, location) {
   let widthRA = view.fov * RA_TO_DEG / 2;
   let widthDec = view.fov / 2;
 
-  return Math.abs(location.ra - ra) < widthRA && Math.abs(location.dec - dec) < widthDec && view.magLimit > mag;
+  return Math.abs(location.ra - ra) < widthRA && Math.abs(location.dec - dec) < widthDec && view.magLimitAdjusted > mag;
 }
 
 function getXYCoords(ra, dec, view, location) {
@@ -403,5 +407,6 @@ StarMap.propTypes = {
   dsos: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
   view: PropTypes.object.isRequired,
+  skyDarkness: PropTypes.number.isRequired,
   updateLocation: PropTypes.func,
 };

@@ -1,6 +1,7 @@
 import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
 import HopProgress from '../../components/starmap/HopProgress';
+import SkyDarkness from '../../components/starmap/SkyDarkness';
 
 const hopData = require('../../../public/db/hopData.json');
 
@@ -19,6 +20,7 @@ import {
   updateView,
   updateEyepieceView,
   updateSelectedHop,
+  updateSkyDarkness,
 } from './starHopActions';
 
 import styles from './StarHop.scss';
@@ -43,6 +45,7 @@ const mapStateToProps = state => state;
   updateView,
   updateEyepieceView,
   updateSelectedHop,
+  updateSkyDarkness,
 })
 export default class StarHop extends Component {
   componentDidMount() {
@@ -83,6 +86,12 @@ export default class StarHop extends Component {
     newView.scopeType = scopeType;
 
     this.props.updateEyepieceView(newView);
+  };
+
+  handleSkyDarkness = e => {
+    console.log('Change SkyDarkness=', e.target.value);
+
+    this.props.updateSkyDarkness(e.target.value);
   };
 
   handleMagnification = e => {
@@ -137,6 +146,7 @@ export default class StarHop extends Component {
               dsos={this.props.starhop.dsos}
               location={this.props.starhop.location}
               view={finderView}
+              skyDarkness={this.props.starhop.skyDarkness}
               updateLocation={this.props.updateLocation}
             />
             <ScopeMagnificationSelector
@@ -144,6 +154,7 @@ export default class StarHop extends Component {
               handler={this.handleFinderMagnification}
               magnifications={FINDER_MAGNIFICATIONS}
             />
+            <SkyDarkness value={this.props.starhop.skyDarkness} handler={this.handleSkyDarkness} />
           </div>
           <div>
             <ScopeTypeSelector view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />
@@ -151,6 +162,7 @@ export default class StarHop extends Component {
               stars={this.props.starhop.stars}
               view={this.props.starhop.eyepieceView}
               location={this.props.starhop.location}
+              skyDarkness={this.props.starhop.skyDarkness}
               updateLocation={this.props.updateLocation}
               dsos={this.props.starhop.dsos}
             />

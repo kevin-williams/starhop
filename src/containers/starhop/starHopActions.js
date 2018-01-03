@@ -35,3 +35,8 @@ export const updateSelectedHop = hop => ({
   type: c.UPDATE_SELECTED_HOP,
   hop,
 });
+
+export const updateSkyDarkness = skyDarkness => ({
+  type: c.UPDATE_SKY_DARKNESS,
+  skyDarkness,
+});

@@ -17,7 +17,7 @@ export default class HopProgress extends Component {
     let raDiff = Math.abs((location.ra - target.ra) / RA_TO_DEG);
     let decDiff = Math.abs(location.dec - target.dec);
 
-    // Draw Arrow
+    // Calculate % of progress
     let progress = (targetRADiff + targetDecDiff - raDiff - decDiff) / (targetRADiff + targetDecDiff) * 100 + 5;
 
     // console.log(`progress= ${progress}   raDiff=${raDiff} decDiff=${decDiff}`);

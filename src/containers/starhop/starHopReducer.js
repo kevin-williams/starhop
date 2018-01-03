@@ -24,6 +24,7 @@ export const defaultState = {
   dsos: [],
   view: DEFAULT_FINDER_VIEW,
   eyepieceView: DEFAULT_EYEPIECE_VIEW,
+  skyDarkness: 0,
   location: {
     ra: -1,
     dec: -1,
@@ -111,6 +112,12 @@ export default function userReducer(state = defaultState, action) {
         selectedHop: newHop,
         location: action.hop.selectedStar,
         targetFound: false,
+      };
+
+    case c.UPDATE_SKY_DARKNESS:
+      return {
+        ...state,
+        skyDarkness: action.skyDarkness,
       };
 
     default:
