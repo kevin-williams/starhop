@@ -7,8 +7,6 @@ import style from './StarHopSelector.scss';
 
 export default class StarHopSelector extends Component {
   render() {
-    console.log('StarHopSelecter hops=', this.props.hops);
-
     return (
       <div className="starhop-hop-selector">
         <Select

@@ -20,7 +20,6 @@ import {
   updateView,
   updateEyepieceView,
   updateSelectedHop,
-  updateSkyDarkness,
 } from './starHopActions';
 
 import styles from './StarHop.scss';
@@ -45,7 +44,6 @@ const mapStateToProps = state => state;
   updateView,
   updateEyepieceView,
   updateSelectedHop,
-  updateSkyDarkness,
 })
 export default class StarHop extends Component {
   componentDidMount() {
@@ -86,12 +84,6 @@ export default class StarHop extends Component {
     newView.scopeType = scopeType;
 
     this.props.updateEyepieceView(newView);
-  };
-
-  handleSkyDarkness = e => {
-    console.log('Change SkyDarkness=', e.target.value);
-
-    this.props.updateSkyDarkness(e.target.value);
   };
 
   handleMagnification = e => {
@@ -154,7 +146,6 @@ export default class StarHop extends Component {
               handler={this.handleFinderMagnification}
               magnifications={FINDER_MAGNIFICATIONS}
             />
-            <SkyDarkness value={this.props.starhop.skyDarkness} handler={this.handleSkyDarkness} />
           </div>
           <div>
             <ScopeTypeSelector view={this.props.starhop.eyepieceView} handler={this.handleScopeType} />

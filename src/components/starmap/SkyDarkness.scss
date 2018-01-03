@@ -1,9 +1,12 @@
 //Import the base styles/colors
 @import '~styles/main';
+@import '~rc-slider/assets/index.css';
+
 
 .starhop-sky-darkness {
-    width: 300px;
+    width: 500px;
     padding: 5px;
+    align-self: center;
 
-    color: lightgray;
 }
+

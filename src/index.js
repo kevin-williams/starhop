@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import StarHop from 'containers/starhop/StarHop';
 import Header from 'containers/header/Header';
-import Homepage from 'containers/homepage/Homepage';
 import store from 'store/reduxStore';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
