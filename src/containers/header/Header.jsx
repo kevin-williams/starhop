@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import AdSense from 'react-adsense';
+
 import { version } from '../../../package.json';
 import { updateSkyDarkness } from '../starhop/starHopActions';
 
@@ -19,12 +21,12 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div className="starhop-header">
-        <span className="starhop-header__title">StarHop Trainer {version}</span>
-        <SkyDarkness value={this.props.starhop.skyDarkness} handler={this.handleSkyDarkness} />
-        <a href="https://paypal.me/KevinWilliamsDev" className="starhop-link" target="_blank">
-          Donate if you enjoy this app!
-        </a>
+      <div>
+        <AdSense.Google client="ca-pub-6513320241703770" slot="9365940470" />
+        <div className="starhop-header">
+          <span className="starhop-header__title">StarHop Trainer {version}</span>
+          <SkyDarkness value={this.props.starhop.skyDarkness} handler={this.handleSkyDarkness} />
+        </div>
       </div>
     );
   }

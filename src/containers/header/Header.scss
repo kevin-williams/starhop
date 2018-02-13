@@ -2,29 +2,25 @@
 @import '~styles/main';
 
 .starhop-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-image: url(/images/banner.png), url(/starhop/images/banner.png);
+
+  &__title {
+    color: #d5d5d5;
+    padding-left: 20px;
+    margin: 5px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-image: url(/images/banner.png), url(/starhop/images/banner.png);
+    align-items: center;
+    background: transparent;
+    font-size: 1.3em;
 
-    &__title {
-        color: #d5d5d5;
-        padding-left: 20px;
-        margin: 5px;
-        display: flex;
-        align-items: center;
-        background: transparent;
-        font-size: 1.3em;
+    height: 50px;
+  }
 
-        height: 50px;
-    }
-}
-
-
-a:link, a:visited {
-    font-size: .9em;
-    background-color: #2196F3;
-    color: white;
+  &__ad {
+    font-size: 0.9em;
     padding: 5px 5px;
     text-align: center;
     align-items: center;
@@ -33,5 +29,5 @@ a:link, a:visited {
     display: inline-block;
     margin: 5px;
     line-height: 35px;
-
+  }
 }

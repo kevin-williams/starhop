@@ -1,5 +1,7 @@
 import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
+import AdSense from 'react-adsense';
+
 import HopProgress from '../../components/starmap/HopProgress';
 import SkyDarkness from '../../components/starmap/SkyDarkness';
 
@@ -165,6 +167,7 @@ export default class StarHop extends Component {
             />
             {targetFound}
             <ScopeButtons location={this.props.starhop.location} changeLocation={this.props.updateLocation} />
+            <AdSense.Google client="ca-pub-6513320241703770" slot="9365940470" />
           </div>
           <div>
             <StarHopSelector
