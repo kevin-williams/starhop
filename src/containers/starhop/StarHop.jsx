@@ -73,6 +73,11 @@ export default class StarHop extends Component {
 
   updateStartingStar = star => {
     console.log('updateStar=', star);
+    ReactGA.event({
+      category: 'StarHop',
+      action: 'Selected new starting star',
+      label: star.value,
+    });
 
     this.props.starhop.selectedHop.startingLocation.map(location => {
       if (star.value == location.name) {
@@ -87,6 +92,11 @@ export default class StarHop extends Component {
   handleScopeType = e => {
     // console.log('Change scopeType=', e);
     let scopeType = e.value;
+    ReactGA.event({
+      category: 'Scope',
+      action: 'Selected scope type',
+      label: e.value,
+    });
 
     let newView = { ...this.props.starhop.eyepieceView };
     newView.scopeType = scopeType;
@@ -97,7 +107,11 @@ export default class StarHop extends Component {
   handleMagnification = e => {
     // console.log('Change scopeType=', e);
     let fov = e.value;
-
+    ReactGA.event({
+      category: 'Scope',
+      action: 'Selected scope magnification',
+      label: e.value,
+    });
     let newView = { ...this.props.starhop.eyepieceView };
     newView.fov = fov;
 
@@ -107,7 +121,11 @@ export default class StarHop extends Component {
   handleFinderMagnification = e => {
     // console.log('Change scopeType=', e);
     let fov = e.value;
-
+    ReactGA.event({
+      category: 'Scope',
+      action: 'Selected finder magnification',
+      label: e.value,
+    });
     let newView = { ...this.props.starhop.view };
     newView.fov = fov;
     newView.magLimit = fov == 7 ? 8 : 5.5;
