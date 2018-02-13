@@ -167,7 +167,6 @@ export default class StarHop extends Component {
             />
             {targetFound}
             <ScopeButtons location={this.props.starhop.location} changeLocation={this.props.updateLocation} />
-            <AdSense.Google client="ca-pub-6513320241703770" slot="9365940470" />
           </div>
           <div>
             <StarHopSelector
@@ -184,6 +183,7 @@ export default class StarHop extends Component {
               hints={this.props.starhop.hints}
               updateHints={this.props.updateHints}
             />
+            <AdSense.Google client="ca-pub-6513320241703770" slot="9365940470" />
           </div>
         </div>
       </div>
