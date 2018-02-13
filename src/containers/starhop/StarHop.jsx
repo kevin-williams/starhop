@@ -110,7 +110,7 @@ export default class StarHop extends Component {
     ReactGA.event({
       category: 'Scope',
       action: 'Selected scope magnification',
-      label: e.value,
+      value: e.value,
     });
     let newView = { ...this.props.starhop.eyepieceView };
     newView.fov = fov;
@@ -124,7 +124,7 @@ export default class StarHop extends Component {
     ReactGA.event({
       category: 'Scope',
       action: 'Selected finder magnification',
-      label: e.value,
+      value: e.value,
     });
     let newView = { ...this.props.starhop.view };
     newView.fov = fov;

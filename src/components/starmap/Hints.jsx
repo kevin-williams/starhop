@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactGA from 'react-ga';
 import ToggleButton from 'react-toggle-button';
 import Text from 'react-format-text';
 
@@ -8,10 +9,19 @@ import { RA_TO_DEG } from 'utils';
 import style from './Hints.scss';
 
 export default class Hints extends Component {
+  componentDidMount() {
+    ReactGA.initialize('UA-114082743-1');
+  }
+
   toggleProgress = () => {
     let myHints = { ...this.props.hints };
     myHints.showProgress = !myHints.showProgress;
 
+    ReactGA.event({
+      category: 'Hints',
+      action: 'Toggle Progress',
+      label: myHints.showProgress + '',
+    });
     this.props.updateHints(myHints);
   };
 
@@ -19,13 +29,22 @@ export default class Hints extends Component {
     let myHints = { ...this.props.hints };
     myHints.currentLocation = !myHints.currentLocation;
 
+    ReactGA.event({
+      category: 'Hints',
+      action: 'Toggle Location',
+      label: myHints.currentLocation + '',
+    });
     this.props.updateHints(myHints);
   };
 
   toggleArrow = () => {
     let myHints = { ...this.props.hints };
     myHints.directionArrow = !myHints.directionArrow;
-
+    ReactGA.event({
+      category: 'Hints',
+      action: 'Toggle Arrow',
+      label: myHints.directionArrow + '',
+    });
     this.props.updateHints(myHints);
   };
 
@@ -33,6 +52,11 @@ export default class Hints extends Component {
     let myHints = { ...this.props.hints };
     myHints.hintText = !myHints.hintText;
 
+    ReactGA.event({
+      category: 'Hints',
+      action: 'Toggle Hint Text',
+      label: myHints.hintText + '',
+    });
     this.props.updateHints(myHints);
   };
 
