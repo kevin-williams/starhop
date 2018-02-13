@@ -1,5 +1,6 @@
 import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
+import ReactGA from 'react-ga';
 
 import HopProgress from '../../components/starmap/HopProgress';
 import SkyDarkness from '../../components/starmap/SkyDarkness';
@@ -49,6 +50,7 @@ const mapStateToProps = state => state;
 export default class StarHop extends Component {
   componentDidMount() {
     this.props.getDeepSpaceObjects('M');
+    ReactGA.initialize('UA-114082743-1');
 
     Object.entries(hopData).map(entry => {
       hopItems.push({ value: entry[0], label: entry[1].label });
@@ -56,6 +58,11 @@ export default class StarHop extends Component {
   }
 
   loadHopData = hop => {
+    ReactGA.event({
+      category: 'StarHop',
+      action: 'Selected new hop',
+      label: hop.value,
+    });
     const hopInfo = hopData[hop.value];
 
     this.props.updateSelectedHop(hopInfo);
@@ -122,6 +129,8 @@ export default class StarHop extends Component {
       value: location.name,
       label: location.name,
     }));
+
+    ReactGA.pageview('/starhop');
 
     return (
       <div>
