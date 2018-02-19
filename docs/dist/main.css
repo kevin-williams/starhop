@@ -860,6 +860,24 @@ body {
 body {
   background: #222222; }
 
+.starhop-hop-customhop {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: baseline;
+  max-width: 300px; }
+  .starhop-hop-customhop legend {
+    color: lightgrey; }
+  .starhop-hop-customhop span {
+    color: lightgrey;
+    margin-top: 5px;
+    margin-bottom: 2px; }
+  .starhop-hop-customhop__input {
+    display: flex;
+    flex-direction: row; }
+body {
+  background: #222222; }
+
 .starhop-hop-selector {
   width: 300px;
   padding: 5px; }
@@ -897,16 +915,6 @@ body {
     background: transparent;
     font-size: 1.3em;
     height: 50px; }
-  .starhop-header__ad {
-    font-size: 0.9em;
-    padding: 5px 5px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 5px;
-    line-height: 35px; }
 body {
   background: #222222; }
 
