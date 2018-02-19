@@ -30,6 +30,29 @@ export const defaultState = {
     dec: -1,
   },
   starStatus: DEFAULT_SERVICE_STATUS,
+  customHop: {
+    id: 'Custom',
+    label: 'Custom',
+    description: 'Enter your own hop parameters',
+    hint: 'Your guess is as good as mine!',
+    starMapQuery: {
+      raFrom: 0,
+      raTo: 24,
+      decFrom: -90,
+      decTo: 90,
+      magLimit: 15,
+    },
+    startingLocation: {
+      name: 'Unknown',
+      ra: 1,
+      dec: 50,
+    },
+    targetLocation: {
+      ra: -1,
+      dec: 50,
+    },
+  },
+
   selectedHop: {
     id: '',
     description: 'Please select an object to practicing hopping to',
@@ -82,6 +105,9 @@ export default function userReducer(state = defaultState, action) {
       };
 
     case c.UPDATE_LOCATION:
+      // console.log('update action=', action);
+      // console.log('state=', state);
+
       let targetFound = viewContainsTarget(state.location, state.eyepieceView, state.selectedHop.targetLocation);
       return {
         ...state,
@@ -112,6 +138,21 @@ export default function userReducer(state = defaultState, action) {
         ...state,
         selectedHop: newHop,
         location: action.hop.selectedStar,
+        targetFound: false,
+      };
+
+    case c.UPDATE_CUSTOM_HOP:
+      let customHop = action.hop;
+
+      let customSelectedHop = { ...customHop };
+      customSelectedHop.startingLocation = [customHop.startingLocation];
+      customSelectedHop.selectedStar = customHop.startingLocation;
+
+      return {
+        ...state,
+        selectedHop: customSelectedHop,
+        customHop: customHop,
+        location: customHop.startingLocation,
         targetFound: false,
       };
 

@@ -40,3 +40,8 @@ export const updateSkyDarkness = skyDarkness => ({
   type: c.UPDATE_SKY_DARKNESS,
   skyDarkness,
 });
+
+export const updateCustomHop = hop => ({
+  type: c.UPDATE_CUSTOM_HOP,
+  hop,
+});

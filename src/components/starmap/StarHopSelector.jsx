@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import PropTypes from 'prop-types';
+import CustomHop from './CustomHop';
 
 import style from './StarHopSelector.scss';
 
@@ -16,13 +17,17 @@ export default class StarHopSelector extends Component {
           options={this.props.hops}
           placeholder="Select Hop..."
         />
-        <Select
-          name="star-selector"
-          value={this.props.selectedStar}
-          onChange={this.props.starHandler}
-          options={this.props.stars}
-          placeholder="Select Starting Star"
-        />
+        {this.props.selectedItem !== 'Custom' ? (
+          <Select
+            name="star-selector"
+            value={this.props.selectedStar}
+            onChange={this.props.starHandler}
+            options={this.props.stars}
+            placeholder="Select Starting Star"
+          />
+        ) : (
+          <CustomHop customHop={this.props.customHop} customHopHandler={this.props.customHopHandler} />
+        )}
         <p className="starhop-hop-selector__description">{this.props.description}</p>
       </div>
     );
@@ -32,6 +37,8 @@ export default class StarHopSelector extends Component {
 StarHopSelector.propTypes = {
   hops: PropTypes.array.isRequired,
   handler: PropTypes.func.isRequired,
+  customHop: PropTypes.object.isRequired,
+  customHopHandler: PropTypes.func.isRequired,
   stars: PropTypes.array.isRequired,
   starHandler: PropTypes.func.isRequired,
   selectedItem: PropTypes.string.isRequired,

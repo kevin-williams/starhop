@@ -47,9 +47,19 @@ export default class StarMap extends Component {
 
     this.props.dsos.map(dso => {
       if (isInView(dso.ra, dso.dec, dso.mag, myView, location)) {
+        // console.log('dso=', dso);
         this.drawDSO(ctx, myView, location, dso);
       }
     });
+
+    if (this.props.customHop.targetLocation.ra >= 0) {
+      let customDSO = this.props.customHop.targetLocation;
+      customDSO.mag = 8;
+      customDSO.r1 = 5;
+      customDSO.r2 = 5;
+      // console.log('customDSO=', customDSO);
+      this.drawDSO(ctx, myView, location, customDSO);
+    }
 
     ctx.restore();
   }
@@ -408,4 +418,5 @@ StarMap.propTypes = {
   view: PropTypes.object.isRequired,
   skyDarkness: PropTypes.number.isRequired,
   updateLocation: PropTypes.func,
+  customHop: PropTypes.object.isRequired,
 };

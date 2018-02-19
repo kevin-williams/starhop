@@ -20,6 +20,7 @@ import {
   updateHints,
   updateLocation,
   updateView,
+  updateCustomHop,
   updateEyepieceView,
   updateSelectedHop,
 } from './starHopActions';
@@ -44,6 +45,7 @@ const mapStateToProps = state => state;
   updateHints,
   updateLocation,
   updateView,
+  updateCustomHop,
   updateEyepieceView,
   updateSelectedHop,
 })
@@ -169,6 +171,7 @@ export default class StarHop extends Component {
               view={finderView}
               skyDarkness={this.props.starhop.skyDarkness}
               updateLocation={this.props.updateLocation}
+              customHop={this.props.starhop.customHop}
             />
             <ScopeMagnificationSelector
               view={this.props.starhop.view}
@@ -185,6 +188,7 @@ export default class StarHop extends Component {
               skyDarkness={this.props.starhop.skyDarkness}
               updateLocation={this.props.updateLocation}
               dsos={this.props.starhop.dsos}
+              customHop={this.props.starhop.customHop}
             />
             <ScopeMagnificationSelector
               view={this.props.starhop.eyepieceView}
@@ -199,6 +203,8 @@ export default class StarHop extends Component {
               selectedItem={this.props.starhop.selectedHop.id}
               hops={hopItems}
               handler={this.loadHopData}
+              customHop={this.props.starhop.customHop}
+              customHopHandler={this.props.updateCustomHop}
               stars={hopStars}
               selectedStar={this.props.starhop.selectedHop.selectedStar.name}
               starHandler={this.updateStartingStar}

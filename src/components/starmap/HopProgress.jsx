@@ -38,7 +38,7 @@ export default class HopProgress extends Component {
 }
 
 HopProgress.propTypes = {
-  visible: PropTypes.boolean,
+  visible: PropTypes.bool,
   location: PropTypes.object.isRequired,
   start: PropTypes.object.isRequired,
   target: PropTypes.object.isRequired,
