@@ -2,9 +2,12 @@ import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import fetch from 'isomorphic-unfetch';
 
 const resolvers = {
-  dsos: (obj, { raFrom, raTo, decFrom, decTo }, context, info) => {
-    console.log('getting Dsos', raFrom, raTo, decFrom, decTo);
-    return [];
+  Query: {
+    dsos: (obj, args, context, info) => {
+      console.log('getting Dsos', obj, args, context, info);
+      const { raFrom, raTo, decFrom, decTo } = args;
+      return [];
+    }
   }
 };
 
