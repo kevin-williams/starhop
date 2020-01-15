@@ -7,7 +7,7 @@ import { MdBlurCircular } from 'react-icons/md';
 
 import Header from '../styles/Header';
 import NavBar from '../components/NavBar';
-import { __Type } from 'graphql';
+import SelectedHop from '../components/starmap/SelectedHop';
 
 const DATA_QUERY = gql`
   query dsos($rangeInput: Object!) {
@@ -19,6 +19,27 @@ const DATA_QUERY = gql`
 const SELECTION_QUERY = gql`
   query {
     hops @client
+    selectedHop @client {
+      id
+      hint
+      description
+      difficulty
+      starMapQuery {
+        raFrom
+        raTo
+        decFrom
+        decTo
+      }
+      startingLocation {
+        name
+        ra
+        dec
+      }
+      targetLocation {
+        ra
+        dec
+      }
+    }
   }
 `;
 
@@ -56,7 +77,7 @@ const Difficulty = styled(MdBlurCircular)`
 `;
 
 const HopSelection = () => {
-  const { client, data, loading } = useQuery(SELECTION_QUERY, {
+  const { client, data, loading, refetch } = useQuery(SELECTION_QUERY, {
     variables: { rangeInput: { raFrom: 1, raTo: 5, decFrom: 0, decTo: 50 } }
   });
 
@@ -66,6 +87,11 @@ const HopSelection = () => {
     <div>
       <Header />
       <NavBar />
+
+      {!loading && data.selectedHop && (
+        <SelectedHop selectedHop={data.selectedHop} />
+      )}
+
       {!loading &&
         data.hops.map(hop => (
           <HopDiv key={hop.id}>
@@ -78,6 +104,7 @@ const HopSelection = () => {
                   client.writeData({
                     data: { selectedHop: hopToGQL(hop) }
                   });
+                  refetch();
                 }}
               >
                 Select
