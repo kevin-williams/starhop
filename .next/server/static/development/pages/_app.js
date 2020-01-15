@@ -330,13 +330,12 @@ const globals = `
 /*!*******************************!*\
   !*** ./utils/apolloClient.js ***!
   \*******************************/
-/*! exports provided: client, default, reset */
+/*! exports provided: client, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "client", function() { return client; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reset", function() { return reset; });
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_define_property__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_define_properties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/define-properties */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-properties.js");
@@ -354,8 +353,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! apollo-link-http */ "apollo-link-http");
-/* harmony import */ var apollo_link_http__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(apollo_link_http__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -370,8 +367,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
-
-const resolvers = {};
+const resolvers = {
+  dsos: (obj, {
+    raFrom,
+    raTo,
+    decFrom,
+    decTo
+  }, context, info) => {
+    console.log('getting Dsos', raFrom, raTo, decFrom, decTo);
+    return [];
+  }
+};
 const defaults = {
   hopSelection: {
     __typename: 'hopSelection'
@@ -382,20 +388,23 @@ const defaults = {
     __typename: 'location'
   }
 };
-const link = Object(apollo_link_http__WEBPACK_IMPORTED_MODULE_9__["createHttpLink"])({
-  fetch: (isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_8___default())
-});
-const client = new apollo_boost__WEBPACK_IMPORTED_MODULE_7___default.a({
-  link,
+const client = new apollo_boost__WEBPACK_IMPORTED_MODULE_7__["ApolloClient"]({
+  cache: new apollo_boost__WEBPACK_IMPORTED_MODULE_7__["InMemoryCache"](),
+  link: new apollo_boost__WEBPACK_IMPORTED_MODULE_7__["HttpLink"]({
+    fetch: (isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_8___default())
+  }),
   resolvers
 });
 /* harmony default export */ __webpack_exports__["default"] = (client);
+
 const reset = () => {
   client.writeData({
     data: _objectSpread({}, defaults)
   });
 };
+
 reset();
+client.onResetStore(() => reset());
 
 /***/ }),
 
@@ -430,17 +439,6 @@ module.exports = require("@apollo/react-hooks");
 /***/ (function(module, exports) {
 
 module.exports = require("apollo-boost");
-
-/***/ }),
-
-/***/ "apollo-link-http":
-/*!***********************************!*\
-  !*** external "apollo-link-http" ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-link-http");
 
 /***/ }),
 

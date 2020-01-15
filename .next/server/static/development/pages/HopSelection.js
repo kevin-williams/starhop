@@ -1991,14 +1991,14 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 /*! exports provided: name, version, description, main, scripts, author, license, dependencies, babel, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"starhop-trainer\",\"version\":\"2.0.0\",\"description\":\"Helps a new astronomer learn how to star hop to find objects in space.\",\"main\":\"index.js\",\"scripts\":{\"build\":\"next build\",\"start\":\"next start\",\"dev\":\"next dev\"},\"author\":\"DTC - Kevin Williams\",\"license\":\"ISC\",\"dependencies\":{\"@apollo/react-hooks\":\"^3.1.3\",\"apollo-boost\":\"^0.4.7\",\"apollo-link-http\":\"^1.5.16\",\"graphql\":\"^14.5.8\",\"isomorphic-unfetch\":\"^3.0.0\",\"next\":\"^9.1.7\",\"prettier\":\"^1.19.1\",\"react\":\"^16.12.0\",\"react-dom\":\"^16.12.0\",\"styled-components\":\"^5.0.0\"},\"babel\":{\"env\":{\"development\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"production\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"test\":{\"presets\":[[\"next/babel\",{\"preset-env\":{\"modules\":\"commonjs\"}}]],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]}}}}");
+module.exports = JSON.parse("{\"name\":\"starhop-trainer\",\"version\":\"2.0.0\",\"description\":\"Helps a new astronomer learn how to star hop to find objects in space.\",\"main\":\"index.js\",\"scripts\":{\"build\":\"next build\",\"start\":\"next start\",\"dev\":\"next dev\"},\"author\":\"DTC - Kevin Williams\",\"license\":\"ISC\",\"dependencies\":{\"@apollo/react-hooks\":\"^3.1.3\",\"apollo-boost\":\"^0.4.7\",\"graphql\":\"^14.5.8\",\"isomorphic-unfetch\":\"^3.0.0\",\"next\":\"^9.1.7\",\"prettier\":\"^1.19.1\",\"react\":\"^16.12.0\",\"react-dom\":\"^16.12.0\",\"styled-components\":\"^5.0.0\"},\"babel\":{\"env\":{\"development\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"production\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"test\":{\"presets\":[[\"next/babel\",{\"preset-env\":{\"modules\":\"commonjs\"}}]],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]}}}}");
 
 /***/ }),
 
-/***/ "./pages/index.js":
-/*!************************!*\
-  !*** ./pages/index.js ***!
-  \************************/
+/***/ "./pages/HopSelection.js":
+/*!*******************************!*\
+  !*** ./pages/HopSelection.js ***!
+  \*******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2010,79 +2010,63 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _styles_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../styles/Header */ "./styles/Header.js");
-/* harmony import */ var _components_NavBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/NavBar */ "./components/NavBar.js");
-var _jsxFileName = "/Users/kwilliams/repositories/starhop/pages/index.js";
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apollo-boost */ "apollo-boost");
+/* harmony import */ var apollo_boost__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(apollo_boost__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @apollo/react-hooks */ "@apollo/react-hooks");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _styles_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/Header */ "./styles/Header.js");
+/* harmony import */ var _components_NavBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/NavBar */ "./components/NavBar.js");
+var _jsxFileName = "/Users/kwilliams/repositories/starhop/pages/HopSelection.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
 
 
-const ButtonDiv = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
-  displayName: "pages__ButtonDiv",
-  componentId: "sc-4r5zoq-0"
-})(["display:flex;width:100%;margin-top:40px;justify-content:center;"]);
-const HopImage = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
-  displayName: "pages__HopImage",
-  componentId: "sc-4r5zoq-1"
-})(["display:flex;justify-content:center;img{margin:20px;width:600px;}"]);
 
-const Index = () => {
+ // const SELECTION_QUERY = gql`
+//   query {
+//     dsos @client(raFrom: 1, raTo: 2, decFrom: 1, decTo: 2)
+//   }
+// `;
+
+const SELECTION_QUERY = apollo_boost__WEBPACK_IMPORTED_MODULE_3__["gql"]`
+  query {
+    location @client {
+      ra
+      dec
+    }
+  }
+`;
+
+const HopSelection = () => {
+  const {
+    client,
+    data
+  } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__["useQuery"])(SELECTION_QUERY);
+  console.log('data', data);
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 26
+      lineNumber: 31
     },
     __self: undefined
-  }, __jsx(_styles_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 27
-    },
-    __self: undefined
-  }), __jsx(_components_NavBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 28
-    },
-    __self: undefined
-  }), __jsx(HopImage, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 29
-    },
-    __self: undefined
-  }, __jsx("img", {
-    src: "/StarHop.jpg",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 30
-    },
-    __self: undefined
-  })), __jsx(ButtonDiv, {
+  }, __jsx(_styles_Header__WEBPACK_IMPORTED_MODULE_5__["default"], {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 32
     },
     __self: undefined
-  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/HopSelection",
+  }), __jsx(_components_NavBar__WEBPACK_IMPORTED_MODULE_6__["default"], {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 33
     },
     __self: undefined
-  }, __jsx("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 34
-    },
-    __self: undefined
-  }, "Get Started!"))));
+  }));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Index);
+/* harmony default export */ __webpack_exports__["default"] = (HopSelection);
 
 /***/ }),
 
@@ -2126,14 +2110,36 @@ const Header = () => __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, {
 /***/ }),
 
 /***/ 3:
-/*!******************************!*\
-  !*** multi ./pages/index.js ***!
-  \******************************/
+/*!*************************************!*\
+  !*** multi ./pages/HopSelection.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/kwilliams/repositories/starhop/pages/index.js */"./pages/index.js");
+module.exports = __webpack_require__(/*! /Users/kwilliams/repositories/starhop/pages/HopSelection.js */"./pages/HopSelection.js");
 
+
+/***/ }),
+
+/***/ "@apollo/react-hooks":
+/*!**************************************!*\
+  !*** external "@apollo/react-hooks" ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@apollo/react-hooks");
+
+/***/ }),
+
+/***/ "apollo-boost":
+/*!*******************************!*\
+  !*** external "apollo-boost" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-boost");
 
 /***/ }),
 
@@ -2336,4 +2342,4 @@ module.exports = require("url");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=HopSelection.js.map

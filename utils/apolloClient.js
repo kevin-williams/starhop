@@ -1,8 +1,12 @@
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import fetch from 'isomorphic-unfetch';
-import { createHttpLink } from 'apollo-link-http';
 
-const resolvers = {};
+const resolvers = {
+  dsos: (obj, { raFrom, raTo, decFrom, decTo }, context, info) => {
+    console.log('getting Dsos', raFrom, raTo, decFrom, decTo);
+    return [];
+  }
+};
 
 const defaults = {
   hopSelection: {
@@ -15,17 +19,15 @@ const defaults = {
   }
 };
 
-const link = createHttpLink({ fetch });
-
 export const client = new ApolloClient({
-  link,
-
+  cache: new InMemoryCache(),
+  link: new HttpLink({ fetch }),
   resolvers
 });
 
 export default client;
 
-export const reset = () => {
+const reset = () => {
   client.writeData({
     data: {
       ...defaults
@@ -34,3 +36,5 @@ export const reset = () => {
 };
 
 reset();
+
+client.onResetStore(() => reset());
