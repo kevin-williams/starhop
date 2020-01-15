@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import AdSense from 'react-adsense';
 
 const NavigationBar = styled.div`
   display: flex;
@@ -27,8 +28,6 @@ const NavBar = () => {
     router.pathname !== '/'
       ? `${router.pathname.replace(/\//, '').replace(/(\w+)([A-Z])/, '$1 $2')}`
       : 'Star Hop';
-
-  console.log('pageTitle1', pageTitle);
 
   return (
     <NavigationBar>

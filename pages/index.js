@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import AdSense from 'react-adsense';
 
 import Header from '../styles/Header';
 import NavBar from '../components/NavBar';
@@ -26,6 +27,11 @@ const Index = () => {
     <div>
       <Header />
       <NavBar />
+      <AdSense.Google
+        client="ca-pub-6513320241703770"
+        slot="9365940470"
+        style={{ width: 160, height: 600, float: 'left' }}
+      />
       <HopImage>
         <img src="/StarHop.jpg" />
       </HopImage>

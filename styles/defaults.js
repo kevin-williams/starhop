@@ -61,8 +61,20 @@ export const globals = `
   }
 
   button {
-    outline: none;
-    background-color: transparent;
+    color: ${theme.blue} !important;
+    text-transform: uppercase;
+    background: #ffffff;
+    padding: 10px;
+    border: 4px solid ${theme.blue} !important;
+    border-radius: 6px;
+    display: inline-block;
+    transition: all 0.3s ease 0s;
+  }
+
+  button:hover {
+    color: #494949 !important;
+    border-radius: 20px;
+    transition: all 0.3s ease 0s;
   }
 
 `;

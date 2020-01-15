@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import AdSense from 'react-adsense';
 
 import Header from '../styles/Header';
 
@@ -34,7 +35,7 @@ const About = () => {
     <MainDiv>
       <Header />
       <h1>Starhop</h1>
-
+      <AdSense.Google client="ca-pub-6513320241703770" slot="9365940470" />
       <h2>Purpose</h2>
       <p>
         I built this tool to help telescope users without computer assistance

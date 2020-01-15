@@ -31,6 +31,10 @@ class StyledCompsDocument extends Document {
     return (
       <Html>
         <Head>
+          <script
+            async
+            src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
           <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         </Head>
         <body>

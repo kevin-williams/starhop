@@ -20,8 +20,18 @@ const SELECTION_QUERY = gql`
   }
 `;
 
+const HopDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 5fr 2fr;
+  margin: 50px;
+`;
+
+const Difficulty = styled.span`
+  color: ${props => (props.difficulty === 'easy' ? 'green' : 'red')};
+`;
+
 const HopSelection = () => {
-  const { client, data } = useQuery(SELECTION_QUERY, {
+  const { client, data, loading } = useQuery(SELECTION_QUERY, {
     variables: { rangeInput: { raFrom: 1, raTo: 5, decFrom: 0, decTo: 50 } }
   });
 
@@ -31,6 +41,19 @@ const HopSelection = () => {
     <div>
       <Header />
       <NavBar />
+      {!loading &&
+        data.hops.map(hop => (
+          <HopDiv key={hop.id}>
+            <span>{hop.id}</span>
+            <Difficulty difficulty={hop.difficulty}>
+              {hop.difficulty}
+            </Difficulty>
+            <span>{hop.description}</span>
+            <span>
+              <button>Select</button>
+            </span>
+          </HopDiv>
+        ))}
     </div>
   );
 };
