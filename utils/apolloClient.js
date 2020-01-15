@@ -36,13 +36,30 @@ const resolvers = {
 };
 
 const defaults = {
-  hopSelection: {
-    __typename: 'hopSelection'
-  },
   location: {
     ra: 0,
     dec: 0,
     __typename: 'location'
+  },
+  selectedHop: {
+    id: '',
+    hint: '',
+    description: '',
+    difficulty: '',
+    starMapQuery: {
+      raFrom: 0,
+      raTo: 0,
+      decFrom: 0,
+      decTo: 0,
+      __typename: 'starMapQuery'
+    },
+    startingLocation: [],
+    targetLocation: {
+      ra: 0,
+      dec: 0,
+      __typename: 'targetLocation'
+    },
+    __typename: 'selectedHop'
   }
 };
 

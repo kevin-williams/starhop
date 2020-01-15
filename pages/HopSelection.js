@@ -3,9 +3,11 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
+import { MdBlurCircular } from 'react-icons/md';
 
 import Header from '../styles/Header';
 import NavBar from '../components/NavBar';
+import { __Type } from 'graphql';
 
 const DATA_QUERY = gql`
   query dsos($rangeInput: Object!) {
@@ -20,14 +22,37 @@ const SELECTION_QUERY = gql`
   }
 `;
 
+const hopToGQL = hop => {
+  const myHop = {
+    ...hop,
+    __typename: 'selectedHop'
+  };
+
+  myHop.starMapQuery.__typename = 'starMapQuery';
+  myHop.startingLocation = myHop.startingLocation.map(loc => {
+    return { ...loc, __typename: 'startingLocation' };
+  });
+  myHop.targetLocation.__typename = 'targetLocation';
+
+  console.log('myHop', myHop);
+  return myHop;
+};
+
 const HopDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 5fr 2fr;
-  margin: 50px;
+  margin: 10px;
+  justify-items: center;
+  align-items: center;
 `;
 
-const Difficulty = styled.span`
-  color: ${props => (props.difficulty === 'easy' ? 'green' : 'red')};
+const Difficulty = styled(MdBlurCircular)`
+  color: ${props =>
+    props.difficulty === 'easy'
+      ? 'green'
+      : props.difficulty === 'medium'
+      ? 'yellow'
+      : 'red'};
 `;
 
 const HopSelection = () => {
@@ -45,12 +70,18 @@ const HopSelection = () => {
         data.hops.map(hop => (
           <HopDiv key={hop.id}>
             <span>{hop.id}</span>
-            <Difficulty difficulty={hop.difficulty}>
-              {hop.difficulty}
-            </Difficulty>
+            <Difficulty size={20} difficulty={hop.difficulty} />
             <span>{hop.description}</span>
             <span>
-              <button>Select</button>
+              <button
+                onClick={() => {
+                  client.writeData({
+                    data: { selectedHop: hopToGQL(hop) }
+                  });
+                }}
+              >
+                Select
+              </button>
             </span>
           </HopDiv>
         ))}
