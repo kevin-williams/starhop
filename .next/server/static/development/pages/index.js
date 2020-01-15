@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1991,7 +1991,7 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 /*! exports provided: name, version, description, main, scripts, author, license, dependencies, babel, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"starhop-trainer\",\"version\":\"2.0.0\",\"description\":\"Helps a new astronomer learn how to star hop to find objects in space.\",\"main\":\"index.js\",\"scripts\":{\"build\":\"next build\",\"start\":\"next start\",\"dev\":\"next dev\"},\"author\":\"DTC - Kevin Williams\",\"license\":\"ISC\",\"dependencies\":{\"next\":\"^9.1.7\",\"prettier\":\"^1.19.1\",\"react\":\"^16.12.0\",\"react-dom\":\"^16.12.0\",\"styled-components\":\"^5.0.0\"},\"babel\":{\"env\":{\"development\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"production\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"test\":{\"presets\":[[\"next/babel\",{\"preset-env\":{\"modules\":\"commonjs\"}}]],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]}}}}");
+module.exports = JSON.parse("{\"name\":\"starhop-trainer\",\"version\":\"2.0.0\",\"description\":\"Helps a new astronomer learn how to star hop to find objects in space.\",\"main\":\"index.js\",\"scripts\":{\"build\":\"next build\",\"start\":\"next start\",\"dev\":\"next dev\"},\"author\":\"DTC - Kevin Williams\",\"license\":\"ISC\",\"dependencies\":{\"@apollo/react-hooks\":\"^3.1.3\",\"apollo-boost\":\"^0.4.7\",\"apollo-link-http\":\"^1.5.16\",\"graphql\":\"^14.5.8\",\"isomorphic-unfetch\":\"^3.0.0\",\"next\":\"^9.1.7\",\"prettier\":\"^1.19.1\",\"react\":\"^16.12.0\",\"react-dom\":\"^16.12.0\",\"styled-components\":\"^5.0.0\"},\"babel\":{\"env\":{\"development\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"production\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"test\":{\"presets\":[[\"next/babel\",{\"preset-env\":{\"modules\":\"commonjs\"}}]],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]}}}}");
 
 /***/ }),
 
@@ -2125,7 +2125,7 @@ const Header = () => __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, {
 
 /***/ }),
 
-/***/ 5:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/

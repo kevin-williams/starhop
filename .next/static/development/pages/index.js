@@ -12097,7 +12097,7 @@ if ( true && typeof window !== 'undefined') {
 /*! exports provided: name, version, description, main, scripts, author, license, dependencies, babel, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"starhop-trainer\",\"version\":\"2.0.0\",\"description\":\"Helps a new astronomer learn how to star hop to find objects in space.\",\"main\":\"index.js\",\"scripts\":{\"build\":\"next build\",\"start\":\"next start\",\"dev\":\"next dev\"},\"author\":\"DTC - Kevin Williams\",\"license\":\"ISC\",\"dependencies\":{\"next\":\"^9.1.7\",\"prettier\":\"^1.19.1\",\"react\":\"^16.12.0\",\"react-dom\":\"^16.12.0\",\"styled-components\":\"^5.0.0\"},\"babel\":{\"env\":{\"development\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"production\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"test\":{\"presets\":[[\"next/babel\",{\"preset-env\":{\"modules\":\"commonjs\"}}]],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]}}}}");
+module.exports = JSON.parse("{\"name\":\"starhop-trainer\",\"version\":\"2.0.0\",\"description\":\"Helps a new astronomer learn how to star hop to find objects in space.\",\"main\":\"index.js\",\"scripts\":{\"build\":\"next build\",\"start\":\"next start\",\"dev\":\"next dev\"},\"author\":\"DTC - Kevin Williams\",\"license\":\"ISC\",\"dependencies\":{\"@apollo/react-hooks\":\"^3.1.3\",\"apollo-boost\":\"^0.4.7\",\"apollo-link-http\":\"^1.5.16\",\"graphql\":\"^14.5.8\",\"isomorphic-unfetch\":\"^3.0.0\",\"next\":\"^9.1.7\",\"prettier\":\"^1.19.1\",\"react\":\"^16.12.0\",\"react-dom\":\"^16.12.0\",\"styled-components\":\"^5.0.0\"},\"babel\":{\"env\":{\"development\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"production\":{\"presets\":[\"next/babel\"],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]},\"test\":{\"presets\":[[\"next/babel\",{\"preset-env\":{\"modules\":\"commonjs\"}}]],\"plugins\":[[\"styled-components\",{\"ssr\":true,\"displayName\":true}]]}}}}");
 
 /***/ }),
 
@@ -12232,7 +12232,7 @@ var Header = function Header() {
 
 /***/ }),
 
-/***/ 2:
+/***/ 0:
 /*!*********************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2FUsers%2Fkwilliams%2Frepositories%2Fstarhop%2Fpages%2Findex.js ***!
   \*********************************************************************************************************************************/
@@ -12255,5 +12255,5 @@ module.exports = dll_ef0ff7c60362f24a921f;
 
 /***/ })
 
-},[[2,"static/runtime/webpack.js"]]]);
+},[[0,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=index.js.map
