@@ -7,11 +7,13 @@ const NavigationBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 10px;
+  padding: 20px;
   border-width: 0px;
   border-bottom-width: 2px;
   border-bottom-color: ${({ theme }) => theme.offWhite};
   border-style: solid;
+  background-image: url('banner.png');
+  background-size: cover;
 `;
 
 const Title = styled.span`
