@@ -38,7 +38,10 @@ const SelectedHop = ({ selectedHop }) => {
           <button>Start Hop</button>
         </Link>
       </InfoDiv>
-      <StarMap />
+      <StarMap
+        mapRange={selectedHop.starMapQuery}
+        mapParams={{ limitingMag: 6 }}
+      />
     </MainDiv>
   );
 };

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
 import AdSense from 'react-adsense';
 import { MdArrowBack } from 'react-icons/md';
 

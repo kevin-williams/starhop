@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
@@ -8,13 +7,6 @@ import { MdBlurCircular } from 'react-icons/md';
 import Header from '../styles/Header';
 import NavBar from '../components/NavBar';
 import SelectedHop from '../components/starmap/SelectedHop';
-
-const DATA_QUERY = gql`
-  query dsos($rangeInput: Object!) {
-    dsos(input: $rangeInput) @client
-    stars(input: $rangeInput) @client
-  }
-`;
 
 const SELECTION_QUERY = gql`
   query {
@@ -77,9 +69,7 @@ const Difficulty = styled(MdBlurCircular)`
 `;
 
 const HopSelection = () => {
-  const { client, data, loading, refetch } = useQuery(SELECTION_QUERY, {
-    variables: { rangeInput: { raFrom: 1, raTo: 5, decFrom: 0, decTo: 50 } }
-  });
+  const { client, data, loading, refetch } = useQuery(SELECTION_QUERY);
 
   console.log('data', data);
 
