@@ -1,4 +1,7 @@
+import Link from 'next/link';
 import styled from 'styled-components';
+
+import StarMap from './StarMap';
 
 const MainDiv = styled.div`
   display: flex;
@@ -8,6 +11,12 @@ const MainDiv = styled.div`
   width: 100%;
   margin: 10px;
   justify-items: center;
+`;
+
+const InfoDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
 `;
 
 const SelectedHop = ({ selectedHop }) => {
@@ -20,13 +29,16 @@ const SelectedHop = ({ selectedHop }) => {
   }
   return (
     <MainDiv>
-      <div>
+      <InfoDiv>
         <div>{selectedHop.id}</div>
         <div>{selectedHop.difficulty}</div>
         <div>{selectedHop.description}</div>
         <div>{selectedHop.hint}</div>
-      </div>
-      <div style={{ width: 300, height: 300 }}>Starmap here</div>
+        <Link href="/StarHop">
+          <button>Start Hop</button>
+        </Link>
+      </InfoDiv>
+      <StarMap />
     </MainDiv>
   );
 };

@@ -33,7 +33,7 @@ const NavBar = () => {
     <NavigationBar>
       <Title>{pageTitle}</Title>
       <Link href="/About">
-        <a>About</a>
+        <button>About</button>
       </Link>
     </NavigationBar>
   );
