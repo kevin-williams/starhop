@@ -39,8 +39,12 @@ const SelectedHop = ({ selectedHop }) => {
         </Link>
       </InfoDiv>
       <StarMap
-        mapRange={selectedHop.starMapQuery}
-        mapParams={{ limitingMag: 6 }}
+        mapParams={{
+          limitingMag: 4,
+          ra: selectedHop.startingLocation[0].ra,
+          dec: selectedHop.startingLocation[0].dec
+        }}
+        size={500}
       />
     </MainDiv>
   );

@@ -10,27 +10,11 @@ const resolvers = {
     hops: () => {
       return hopData.hops;
     },
-    dsos: (obj, args, context, info) => {
-      console.log('getting Dsos', args.input);
-      const { raFrom, raTo, decFrom, decTo } = args.input;
-      return messier.dsos.filter(
-        dso =>
-          Number(dso.ra) >= raFrom &&
-          Number(dso.ra) <= raTo &&
-          Number(dso.dec) >= decFrom &&
-          Number(dso.dec) <= decTo
-      );
+    dsos: () => {
+      return messier.dsos;
     },
-    stars: (obj, args, context, info) => {
-      console.log('getting stars', args.input);
-      const { raFrom, raTo, decFrom, decTo } = args.input;
-      return starCatalog.stars.filter(
-        stars =>
-          Number(stars.ra) >= raFrom &&
-          Number(stars.ra) <= raTo &&
-          Number(stars.dec) >= decFrom &&
-          Number(stars.dec) <= decTo
-      );
+    stars: () => {
+      return starCatalog.stars;
     }
   }
 };
@@ -46,13 +30,6 @@ const defaults = {
     hint: '',
     description: '',
     difficulty: '',
-    starMapQuery: {
-      raFrom: 0,
-      raTo: 0,
-      decFrom: 0,
-      decTo: 0,
-      __typename: 'starMapQuery'
-    },
     startingLocation: [],
     targetLocation: {
       ra: 0,

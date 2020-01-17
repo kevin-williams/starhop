@@ -16,12 +16,6 @@ const SELECTION_QUERY = gql`
       hint
       description
       difficulty
-      starMapQuery {
-        raFrom
-        raTo
-        decFrom
-        decTo
-      }
       startingLocation {
         name
         ra
@@ -41,7 +35,6 @@ const hopToGQL = hop => {
     __typename: 'selectedHop'
   };
 
-  myHop.starMapQuery.__typename = 'starMapQuery';
   myHop.startingLocation = myHop.startingLocation.map(loc => {
     return { ...loc, __typename: 'startingLocation' };
   });

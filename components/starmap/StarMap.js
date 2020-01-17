@@ -14,26 +14,25 @@ const StarMapCanvas = styled.svg`
 `;
 
 const DATA_QUERY = gql`
-  query dsos($rangeInput: Object!) {
-    dsos(input: $rangeInput) @client
-    stars(input: $rangeInput) @client
+  query mapData {
+    dsos @client
+    stars @client
   }
 `;
 
-const StarMap = ({ size, mapRange, mapParams }) => {
-  const { raFrom, raTo, decFrom, decTo } = mapRange;
-
-  const { client, data, loading, refetch } = useQuery(DATA_QUERY, {
-    variables: { rangeInput: { raFrom, raTo, decFrom, decTo } }
-  });
+const StarMap = ({ size, mapParams }) => {
+  const { client, data, loading, refetch } = useQuery(DATA_QUERY);
 
   !loading && console.log('stars=', data.stars);
 
   const { x, y } = getXYCoordinates(mapParams.ra, mapParams.dec);
 
+  const offX = x - size / 2;
+  const offY = y - size / 2;
+
   return (
     <StarMapDiv width={size} height={size}>
-      <g transform={`translate(-${x}, -${y})`}>
+      <g transform={`translate(-${offX}, -${offY})`}>
         <StarMapCanvas fill="lightGrey" width={1080} height={1080}>
           <defs>
             <radialGradient id="StarGradient">
@@ -46,7 +45,7 @@ const StarMap = ({ size, mapRange, mapParams }) => {
                   cx={size / 2}
                   cy={size / 2}
                   r={size / 2}
-                  transform={`translate(${x}, ${y})`}
+                  transform={`translate(${offX}, ${offY})`}
                 />
               </clipPath>
             )}
@@ -56,12 +55,7 @@ const StarMap = ({ size, mapRange, mapParams }) => {
             data.stars.map((star, index) => {
               if (Number(star.mag) > mapParams.limitingMag) return null;
               return (
-                <Star
-                  key={`star-${index}`}
-                  star={star}
-                  mapRange={mapRange}
-                  clipPath="viewport"
-                />
+                <Star key={`star-${index}`} star={star} clipPath="viewport" />
               );
             })}
         </StarMapCanvas>
