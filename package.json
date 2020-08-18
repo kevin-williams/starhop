@@ -4,16 +4,15 @@
   "description": "Helps a new astronomer learn how to star hop to find objects in space.",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dist/*",
-    "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "clean": "rm -rf  dist/*",
+    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "demo-deploy": "npm version patch && rimraf docs/* && npm run build && npm run copydist && npm run copypublic && git add -f docs && git commit -m 'demo deploy' && git push",
+    "demo-deploy": "npm version patch && rm -rf  docs/* && npm run build && npm run copydist && npm run copypublic && git add -f docs && git commit -m 'demo deploy' && git push",
     "copydist": "cpx \"dist/**/*\" docs/dist",
     "copypublic": "cpx \"public/**/*\" docs",
     "start": "npm run clean && nodemon server.dev.js",
     "start:prod": "npm run build && node server.js",
-    "prettier": "prettier --write 'src/**/*.js*'",
-    "fortify": "zip -r /tmp/pdlFortify.zip config dist public package.json server server.js webpack.config.js"
+    "prettier": "prettier --write 'src/**/*.js*'"
   },
   "babel": {
     "presets": [
@@ -72,10 +71,11 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.5",
     "extract-text-webpack-plugin": "^3.0.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
     "postcss-loader": "^1.1.1",
     "prettier": "^1.7.4",
-    "rimraf": "^2.6.2",
+    "rm -rf ": "^2.6.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack-dev-middleware": "^1.12.0",
